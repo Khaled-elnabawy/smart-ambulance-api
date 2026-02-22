@@ -23,7 +23,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/test', function () {
         return response()->json([
             'status' => true,
-            'message' => 'Smart Ambulance API v1 is working'
+            'message' => 'Smart Ambulance API v1 Is Working'
         ]);
     });
 
