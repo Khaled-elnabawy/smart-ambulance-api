@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +15,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::prefix('v1')->group(function () {
 
+    // Authentication Routes (Public)
+    Route::post('/register', [AuthController::class, 'userRegister']);
+    Route::post('/login', [AuthController::class, 'userLogin']);
+    Route::post('/driver/login', [AuthController::class, 'driverLogin']);
+
+    // Protected Routes
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::get('/user', function (Request $request) {
+            return response()->json([
+                'status' => true,
+                'data' => $request->user(),
+            ]);
+        });
+    });
+
+    // Public Test Route
     Route::get('/test', function () {
         return response()->json([
             'status' => true,
