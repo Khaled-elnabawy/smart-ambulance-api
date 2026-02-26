@@ -32,7 +32,13 @@ Route::prefix('v1')->group(function () {
                 'data' => $request->user(),
             ]);
         });
+
+        // Request Management
         Route::post('/requests', [RequestController::class, 'store']);
+        Route::post('/requests/{id}/accept', [RequestController::class, 'accept']);
+        Route::post('/requests/{id}/reject', [RequestController::class, 'reject']);
+        Route::post('/requests/{id}/arrived', [RequestController::class, 'arrived']);
+        Route::post('/requests/{id}/completed', [RequestController::class, 'completed']);
     });
 
     // Public Test Route
