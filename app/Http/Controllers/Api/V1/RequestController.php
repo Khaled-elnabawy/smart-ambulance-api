@@ -1,4 +1,10 @@
-<?php namespace App\Http\Controllers\Api\V1; use App\Http\Controllers\Controller; use App\Http\Requests\Api\V1\StoreRequestRequest; use App\Models\Driver; use Illuminate\Support\Facades\DB; use Illuminate\Http\Response;
+<?php 
+namespace App\Http\Controllers\Api\V1;
+ use App\Http\Controllers\Controller; 
+ use App\Http\Requests\Api\V1\StoreRequestRequest; 
+ use App\Models\Driver; 
+ use Illuminate\Support\Facades\DB; 
+ use Illuminate\Http\Response;
 
 class RequestController extends Controller
 {
@@ -291,7 +297,7 @@ class RequestController extends Controller
 
                 // Verify transition: accepted → arrived
                 if ($request->status !== 'accepted') {
-                    return ['status' => false, 'message' => 'Request must be in_progress to mark as arrived', 'code' => Response::HTTP_BAD_REQUEST];
+                    return ['status' => false, 'message' => 'Request must be accepted to mark as arrived', 'code' => Response::HTTP_BAD_REQUEST];
                 }
 
                 // Update status
