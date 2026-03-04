@@ -34,6 +34,30 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  # State management.
+  flutter_bloc: ^9.1.1
+  #Code generator (mainly used with cubit & retrofit)
+  freezed: ^3.2.5
+  freezed_annotation: ^3.1.0
+  # For dependency injection flutter_simple_dependency_injection.
+  get_it: ^9.2.0
+  # Automatically generate code for converting to and from JSON by annotating Dart classes.
+  json_serializable: ^6.12.0
+  json_annotation: ^4.10.0
+  # Network
+  dio: ^5.9.1
+  retrofit: ^4.9.2
+  retrofit_generator: ^10.2.3
+  pretty_dio_logger: ^1.4.0
+  # localization
+  intl: ^0.20.2
+  easy_localization: ^3.0.8
+  # for splash screen
+  flutter_native_splash: ^2.4.7
+  # for svg pictures
+  flutter_svg: ^2.2.3
+  # adaptive and responsive ui
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:

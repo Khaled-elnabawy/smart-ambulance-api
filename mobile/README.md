@@ -1,16 +1,20 @@
-# mobile
+# Smart Ambulance App
 
-A new Flutter project.
+### The Smart Ambulance System 
+is a mobile-based application designed to improve emergency medical response 
+by reducing ambulance arrival time and enhancing communication between
+users and ambulance drivers. The system allows users to
+request an ambulance either in emergency (SOS) mode or scheduled mode through
+a simple and user-friendly mobile interface.
 
-## Getting Started
+### Using real-time GPS technology
+the system automatically identifies the nearest available ambulance and
+assigns the request to the most suitable driver. Users can
+track the ambulance live on the map and receive real-time status updates and
+notifications throughout the request process.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The application also provides secure user authentication, request history
+management, and centralized data storage for users, drivers, and requests.
+Developed using Flutter for the mobile application and Laravel for backend
+services, the Smart Ambulance System aims to improve the efficiency of
+ambulance services and support faster medical response in critical situations.
