@@ -414,18 +414,122 @@ class RequestController extends Controller
      * POST /api/v1/requests/{id}/completed
      */
     public function completed($id)
-    {
-        $driver = auth()->user();
+{
+    $driver = auth()->user();
 
-        if (!$driver instanceof Driver) {
+    if (!$driver instanceof Driver) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Only drivers can update request status',
+        ], Response::HTTP_FORBIDDEN);
+    }
+
+    try {
+        $result = DB::transaction(function () use ($id, $driver) {
+
+            $request = DB::table('requests')
+                ->where('id', $id)
+                ->lockForUpdate()
+                ->first();
+
+            if (!$request) {
+                return ['status' => false, 'message' => 'Request not found', 'code' => Response::HTTP_NOT_FOUND];
+            }
+
+            if ($request->driver_id != $driver->id) {
+                return ['status' => false, 'message' => 'You are not assigned to this request', 'code' => Response::HTTP_FORBIDDEN];
+            }
+
+            if ($request->status !== 'arrived') {
+                return ['status' => false, 'message' => 'Request must be arrived to mark as completed', 'code' => Response::HTTP_BAD_REQUEST];
+            }
+
+            // Update request status
+            DB::table('requests')
+                ->where('id', $id)
+                ->update([
+                    'status' => 'completed',
+                    'updated_at' => now(),
+                ]);
+
+            // Get driver record
+            $driverRecord = DB::table('drivers')
+                ->where('id', $driver->id)
+                ->first();
+
+            // fallback لو home location null
+            $latitude = $driverRecord->home_latitude ?? $driverRecord->last_latitude;
+            $longitude = $driverRecord->home_longitude ?? $driverRecord->last_longitude;
+
+            // Reset driver location
+            DB::table('drivers')
+                ->where('id', $driver->id)
+                ->update([
+                    'last_latitude' => $latitude,
+                    'last_longitude' => $longitude,
+                    'home_latitude' => null,
+                    'home_longitude' => null,
+                    'status' => 'available',
+                    'updated_at' => now(),
+                ]);
+
+            // Log action
+            DB::table('request_history')->insert([
+                'request_id' => $id,
+                'action' => 'Request Completed',
+                'actor_type' => 'driver',
+                'actor_id' => $driver->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return [
+                'status' => true,
+                'request' => DB::table('requests')->where('id', $id)->first()
+            ];
+        });
+
+        if (!$result['status']) {
             return response()->json([
                 'status' => false,
-                'message' => 'Only drivers can update request status',
+                'message' => $result['message'],
+            ], $result['code']);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Request completed',
+            'data' => $result['request'],
+        ], Response::HTTP_OK);
+
+    } catch (\Exception $e) {
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Failed to complete request',
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+}
+
+    /**
+     * User Cancel Request
+     * POST /api/v1/requests/{id}/cancel
+     */
+    public function cancel($id)
+    {
+        $user = auth()->user();
+
+        // Authorization: Only users can cancel requests
+        if ($user instanceof Driver) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Only users can cancel requests',
             ], Response::HTTP_FORBIDDEN);
         }
 
         try {
-            $result = DB::transaction(function () use ($id, $driver) {
+            $result = DB::transaction(function () use ($id, $user) {
+                // Get request with lock
                 $request = DB::table('requests')
                     ->where('id', $id)
                     ->lockForUpdate()
@@ -435,39 +539,42 @@ class RequestController extends Controller
                     return ['status' => false, 'message' => 'Request not found', 'code' => Response::HTTP_NOT_FOUND];
                 }
 
-                if ($request->driver_id != $driver->id) {
-                    return ['status' => false, 'message' => 'You are not assigned to this request', 'code' => Response::HTTP_FORBIDDEN];
+                // Verify the request belongs to the authenticated user
+                if ($request->user_id != $user->id) {
+                    return ['status' => false, 'message' => 'You are not authorized to cancel this request', 'code' => Response::HTTP_FORBIDDEN];
                 }
 
-                // Verify transition: arrived → completed
-                if ($request->status !== 'arrived') {
-                    return ['status' => false, 'message' => 'Request must be arrived to mark as completed', 'code' => Response::HTTP_BAD_REQUEST];
+                // Verify request status is pending (cancellation only allowed for pending requests)
+                if ($request->status !== 'pending') {
+                    return ['status' => false, 'message' => 'Request cannot be cancelled', 'code' => Response::HTTP_BAD_REQUEST];
                 }
 
-                // Update request status
+                // Update request status to cancelled
                 DB::table('requests')
                     ->where('id', $id)
                     ->update([
-                        'status' => 'completed',
+                        'status' => 'cancelled',
                         'updated_at' => now(),
                     ]);
 
-                // Set driver back to available
-                DB::table('drivers')
-                    ->where('id', $driver->id)
-                    ->update(['status' => 'available']);
+                // If driver is assigned, release them and set back to available
+                if ($request->driver_id) {
+                    DB::table('drivers')
+                        ->where('id', $request->driver_id)
+                        ->update(['status' => 'available']);
+                }
 
-                // Log action
+                // Log the cancellation action
                 DB::table('request_history')->insert([
                     'request_id' => $id,
-                    'action' => 'Request Completed',
-                    'actor_type' => 'driver',
-                    'actor_id' => $driver->id,
+                    'action' => 'Request Cancelled By User',
+                    'actor_type' => 'user',
+                    'actor_id' => $user->id,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
 
-                return ['status' => true, 'request' => DB::table('requests')->where('id', $id)->first()];
+                return ['status' => true];
             });
 
             if (!$result['status']) {
@@ -479,14 +586,13 @@ class RequestController extends Controller
 
             return response()->json([
                 'status' => true,
-                'message' => 'Request completed',
-                'data' => $result['request'],
+                'message' => 'Request cancelled successfully',
             ], Response::HTTP_OK);
 
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Failed to complete request',
+                'message' => 'Failed to cancel request',
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -540,6 +646,15 @@ class RequestController extends Controller
         if (!$availableDriver) {
             return;
         }
+
+        // Save driver's current location before assigning the request
+        // This allows the driver to return to their original location after completing the trip
+        DB::table('drivers')
+            ->where('id', $availableDriver->id)
+            ->update([
+                'home_latitude' => DB::raw('last_latitude'),
+                'home_longitude' => DB::raw('last_longitude'),
+            ]);
 
         // Assign the nearest driver to the request
         DB::table('requests')

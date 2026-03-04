@@ -21,6 +21,8 @@ class Driver extends Authenticatable
         'last_latitude',
         'last_longitude',
         'last_location_update',
+        'home_latitude',
+        'home_longitude',
     ];
 
     protected $hidden = [

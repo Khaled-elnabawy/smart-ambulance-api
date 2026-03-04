@@ -44,6 +44,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/requests/{id}/reject', [RequestController::class, 'reject']);
         Route::post('/requests/{id}/arrived', [RequestController::class, 'arrived']);
         Route::post('/requests/{id}/completed', [RequestController::class, 'completed']);
+        Route::post('/requests/{id}/cancel', [RequestController::class, 'cancel']);
     });
 
     // Public Test Route
