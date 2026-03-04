@@ -71,6 +71,73 @@ class RequestController extends Controller
     }
 
     /**
+     * Get request details
+     * GET /api/v1/requests/{id}
+     */
+    public function show($id)
+    {
+        $user = auth()->user();
+
+        try {
+            // Get request with driver details
+            $request = DB::table('requests as r')
+                ->select(
+                    'r.id as request_id',
+                    'r.status',
+                    'r.request_type',
+                    'r.pickup_latitude',
+                    'r.pickup_longitude',
+                    'd.id as driver_id',
+                    'd.name as driver_name',
+                    'd.phone as driver_phone',
+                    'd.last_latitude as driver_last_latitude',
+                    'd.last_longitude as driver_last_longitude'
+                )
+                ->leftJoin('drivers as d', 'r.driver_id', '=', 'd.id')
+                ->where('r.id', $id)
+                ->first();
+
+            if (!$request) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Request not found',
+                ], Response::HTTP_NOT_FOUND);
+            }
+
+            // Format response data
+            $data = [
+                'request_id' => $request->request_id,
+                'status' => $request->status,
+                'request_type' => $request->request_type,
+                'pickup_latitude' => $request->pickup_latitude,
+                'pickup_longitude' => $request->pickup_longitude,
+            ];
+
+            // Include driver details if driver is assigned
+            if ($request->driver_id) {
+                $data['driver'] = [
+                    'id' => $request->driver_id,
+                    'name' => $request->driver_name,
+                    'phone' => $request->driver_phone,
+                    'last_latitude' => $request->driver_last_latitude,
+                    'last_longitude' => $request->driver_last_longitude,
+                ];
+            }
+
+            return response()->json([
+                'status' => true,
+                'data' => $data,
+            ], Response::HTTP_OK);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to retrieve request',
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Driver Accept Request
      * POST /api/v1/requests/{id}/accept
      */
@@ -425,37 +492,71 @@ class RequestController extends Controller
     }
 
     /**
-     * HELPER: Assign first available driver to request
+     * HELPER: Assign nearest available driver to request using Haversine formula
      * Used automatically on request creation and after rejection
+     * 
+     * Uses the Haversine formula to calculate the great-circle distance
+     * between the driver's current location and the request pickup location.
+     * Distance calculated in kilometers.
      */
     private function assignAvailableDriver($requestId, $excludedDriverId = null)
-{
-    $availableDriver = DB::table('drivers')
-        ->where('status', 'available')
-        ->when($excludedDriverId, function ($query) use ($excludedDriverId) {
-            $query->where('id', '!=', $excludedDriverId);
-        })
-        ->lockForUpdate()
-        ->first();
+    {
+        // Get the pickup location from the request
+        $request = DB::table('requests')
+            ->where('id', $requestId)
+            ->first();
 
-    if (!$availableDriver) {
-        return;
-    }
+        if (!$request) {
+            return;
+        }
 
-    DB::table('requests')
-        ->where('id', $requestId)
-        ->update([
-            'driver_id' => $availableDriver->id,
+        $pickupLat = (float) $request->pickup_latitude;
+        $pickupLon = (float) $request->pickup_longitude;
+
+        // Haversine formula: calculates distance in kilometers
+        // Distance = 6371 * 2 * ASIN(SQRT(SIN²((lat2-lat1)/2) + COS(lat1)*COS(lat2)*SIN²((lon2-lon1)/2)))
+        // Using selectRaw for the distance calculation with values from request
+        $availableDriver = DB::table('drivers')
+            ->select('drivers.id')
+            ->selectRaw(
+                "6371 * 2 * ASIN(SQRT(
+                    POWER(SIN(RADIANS((drivers.last_latitude - ?) / 2)), 2) + 
+                    COS(RADIANS(?)) * 
+                    COS(RADIANS(drivers.last_latitude)) * 
+                    POWER(SIN(RADIANS((drivers.last_longitude - ?) / 2)), 2)
+                )) AS distance",
+                [$pickupLat, $pickupLat, $pickupLon]
+            )
+            ->where('status', 'available')
+            ->whereNotNull('last_latitude')
+            ->whereNotNull('last_longitude')
+            ->when($excludedDriverId, function ($query) use ($excludedDriverId) {
+                $query->where('id', '!=', $excludedDriverId);
+            })
+            ->orderBy('distance', 'ASC')
+            ->lockForUpdate()
+            ->first();
+
+        if (!$availableDriver) {
+            return;
+        }
+
+        // Assign the nearest driver to the request
+        DB::table('requests')
+            ->where('id', $requestId)
+            ->update([
+                'driver_id' => $availableDriver->id,
+                'updated_at' => now(),
+            ]);
+
+        // Log the assignment in request history
+        DB::table('request_history')->insert([
+            'request_id' => $requestId,
+            'action' => 'Driver Assigned',
+            'actor_type' => 'system',
+            'actor_id' => null,
+            'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-    DB::table('request_history')->insert([
-        'request_id' => $requestId,
-        'action' => 'Driver Assigned',
-        'actor_type' => 'system',
-        'actor_id' => null,
-        'created_at' => now(),
-        'updated_at' => now(),
-    ]);
-}
+    }
 }

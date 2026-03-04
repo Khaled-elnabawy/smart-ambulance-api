@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\RequestController;
+use App\Http\Controllers\Api\V1\DriverController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +34,12 @@ Route::prefix('v1')->group(function () {
             ]);
         });
 
+        // Driver Location
+        Route::post('/driver/location', [DriverController::class, 'updateLocation']);
+
         // Request Management
         Route::post('/requests', [RequestController::class, 'store']);
+        Route::get('/requests/{id}', [RequestController::class, 'show']);
         Route::post('/requests/{id}/accept', [RequestController::class, 'accept']);
         Route::post('/requests/{id}/reject', [RequestController::class, 'reject']);
         Route::post('/requests/{id}/arrived', [RequestController::class, 'arrived']);
