@@ -7,13 +7,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile/core/routing/app_router.dart';
 
 import 'package:mobile/smart_ambulance.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const SmartAmbulance());
+    await tester.pumpWidget(SmartAmbulance(appRouter: AppRouter()));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

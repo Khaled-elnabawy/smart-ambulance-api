@@ -18,7 +18,6 @@ class SmartAmbulance extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: "Smart Ambulance App",
         theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-        home: Scaffold(body: Center(child: Text("smart ambulance app"))),
         onGenerateRoute: appRouter.generateRoute,
         initialRoute: Routes.loginView,
       ),
