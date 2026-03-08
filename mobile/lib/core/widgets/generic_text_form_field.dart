@@ -15,6 +15,8 @@ class GenericTextFormField extends StatelessWidget {
   final bool? isObscureText;
   final Widget? suffixIcon;
   final Color? backgroundColor;
+  final TextEditingController? controller;
+  final Function(String?) validator;
 
   const GenericTextFormField({
     super.key,
@@ -27,11 +29,14 @@ class GenericTextFormField extends StatelessWidget {
     this.isObscureText,
     this.suffixIcon,
     this.backgroundColor,
+    this.controller,
+    required this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
         isDense: true,
         contentPadding:
@@ -52,6 +57,14 @@ class GenericTextFormField extends StatelessWidget {
               borderSide: BorderSide(color: ColorsManager.red, width: 1.1),
               borderRadius: BorderRadius.circular(20),
             ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red, width: 1.3),
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red, width: 1.3),
+          borderRadius: BorderRadius.circular(16.0),
+        ),
         hintStyle: hintStyle ?? TextStyles.font16LightGrayRegular,
         hintText: hintText,
         suffixIcon: suffixIcon,
@@ -60,6 +73,9 @@ class GenericTextFormField extends StatelessWidget {
       ),
       obscureText: isObscureText ?? false,
       style: inputTextStyle,
+      validator: (value) {
+        return validator(value);
+      },
     );
   }
 }
