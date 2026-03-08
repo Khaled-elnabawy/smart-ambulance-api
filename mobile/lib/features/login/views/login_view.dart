@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/helpers/spacing.dart';
 import 'package:mobile/core/widgets/generic_text_button.dart';
 import 'package:mobile/core/widgets/generic_text_form_field.dart';
 import 'package:mobile/features/login/views/widgets/do_not_have_account_text.dart';
-
+import 'package:mobile/features/login/views/widgets/email_and_password_text_field.dart';
+import 'package:mobile/features/login/views/widgets/login_bloc_listener.dart';
 import '../../../core/theming/styles.dart';
+import '../data/models/login_request_body.dart';
+import '../logic/login_cubit.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -56,33 +60,34 @@ class _LoginViewState extends State<LoginView> {
                       key: formKey,
                       child: Column(
                         children: [
-                          GenericTextFormField(hintText: 'Phone Number , Email'),
-                          verticalSpacing(16),
-                          GenericTextFormField(
-                            hintText: 'Password',
-                            isObscureText: isObscureText,
-                            suffixIcon: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isObscureText = !isObscureText;
-                                });
-                              },
-                              child: Icon(
-                                isObscureText
-                                    ? Icons.visibility_off_rounded
-                                    : Icons.visibility_rounded,
-                                color: Colors.black.withValues(alpha: 0.5),
-                              ),
-                            ),
-                          ),
-                          verticalSpacing(35),
+                          EmailAndPasswordTextField(),
                           GenericTextButton(
                             buttonText: 'Login',
                             textStyle: TextStyles.font24WhiteBold,
-                            onPressed: () {},
+                            onPressed: () {
+                              if (context
+                                  .read<LoginCubit>()
+                                  .formKey
+                                  .currentState!
+                                  .validate()) {
+                                context.read<LoginCubit>().emitLoginState(
+                                  LoginRequestBody(
+                                    email: context
+                                        .read<LoginCubit>()
+                                        .emailController
+                                        .text,
+                                    password: context
+                                        .read<LoginCubit>()
+                                        .passwordController
+                                        .text,
+                                  ),
+                                );
+                              }
+                            },
                           ),
                           verticalSpacing(60),
-                          DoNotHaveAccountText(),
+                          const DoNotHaveAccountText(),
+                          const LoginBlocListener(),
                         ],
                       ),
                     ),
