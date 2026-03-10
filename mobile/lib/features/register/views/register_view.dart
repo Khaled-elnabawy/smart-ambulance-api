@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/features/register/views/widgets/register_form.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../core/widgets/generic_text_button.dart';
+import '../logic/register_cubit.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
@@ -56,13 +58,13 @@ class RegisterView extends StatelessWidget {
                       buttonText: 'Sign Up',
                       textStyle: TextStyles.font24WhiteBold,
                       onPressed: () {
-                        // if (context
-                        //     .read<RegisterCubit>()
-                        //     .formKey
-                        //     .currentState!
-                        //     .validate()) {
-                        //   context.read<RegisterCubit>().emitRegisterState();
-                        // }
+                        if (context
+                            .read<RegisterCubit>()
+                            .formKey
+                            .currentState!
+                            .validate()) {
+                          context.read<RegisterCubit>().emitRegisterState();
+                        }
                       },
                     ),
                     verticalSpacing(16),

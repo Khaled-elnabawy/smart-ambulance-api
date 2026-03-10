@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/widgets/generic_text_form_field.dart';
+import '../../logic/register_cubit.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -31,7 +32,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           GenericTextFormField(
             hintText: 'Phone Number',
-            controller: context.read<RegisterCubit>().phoneNumberController,
+            controller: context.read<RegisterCubit>().phoneController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter a valid phone number';
@@ -96,7 +97,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             controller: context
                 .read<RegisterCubit>()
-                .confirmationPasswordController,
+                .passwordConfirmationController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter a valid confirmation password';
