@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
  use App\Models\Driver; 
  use Illuminate\Support\Facades\DB; 
  use Illuminate\Http\Response;
+ use Carbon\Carbon;
 
 class RequestController extends Controller
 {
@@ -51,7 +52,14 @@ class RequestController extends Controller
                 ]);
 
                 // PHASE 1: Automatic Driver Assignment
-                $this->assignAvailableDriver($newRequestId);
+                // Skip assignment for scheduled requests more than 10 minutes away
+                $shouldAssignNow = $validated['request_type'] === 'emergency'
+                    || empty($validated['scheduled_time'])
+                    || Carbon::parse($validated['scheduled_time'])->diffInMinutes(now(), false) >= -10;
+
+                if ($shouldAssignNow) {
+                    $this->assignAvailableDriver($newRequestId);
+                }
 
                 return DB::table('requests')->where('id', $newRequestId)->first();
             });

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\RequestController;
 use App\Http\Controllers\Api\V1\DriverController;
+use App\Http\Controllers\Api\V1\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +24,13 @@ Route::prefix('v1')->group(function () {
     Route::post('/register', [AuthController::class, 'userRegister']);
     Route::post('/login', [AuthController::class, 'userLogin']);
     Route::post('/driver/login', [AuthController::class, 'driverLogin']);
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
     // Protected Routes
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
+        Route::put('/profile/update', [ProfileController::class, 'updateProfile']);
         Route::get('/user', function (Request $request) {
             return response()->json([
                 'status' => true,
