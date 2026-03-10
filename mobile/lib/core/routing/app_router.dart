@@ -7,6 +7,8 @@ import 'package:mobile/features/login/logic/login_cubit.dart';
 import 'package:mobile/features/login/views/login_view.dart';
 import 'package:mobile/features/register/views/register_view.dart';
 
+import '../../features/register/logic/register_cubit.dart';
+
 class AppRouter {
   Route generateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
@@ -21,7 +23,9 @@ class AppRouter {
         );
       case Routes.registerView:
         return MaterialPageRoute(
-          builder: (_) => const RegisterView(),
+          builder: (_) => BlocProvider(
+              create: (context) => getIt<RegisterCubit>(),
+              child: const RegisterView()),
         );
       case Routes.homeView:
         return MaterialPageRoute(
