@@ -23,6 +23,10 @@ class TextStyles {
     fontSize: 24.sp,
     color: Colors.white,
     fontWeight: FontWeightHelper.bold,
+  );static TextStyle font24BlackMedium = TextStyle(
+    fontSize: 24.sp,
+    color: Colors.black,
+    fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font13GrayMedium = TextStyle(
     fontSize: 13.sp,

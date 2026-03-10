@@ -4,15 +4,15 @@ import '../../../../core/helpers/spacing.dart';
 import '../../../../core/widgets/generic_text_form_field.dart';
 import '../../logic/login_cubit.dart';
 
-class EmailAndPasswordTextField extends StatefulWidget {
-  const EmailAndPasswordTextField({super.key});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
 
   @override
-  State<EmailAndPasswordTextField> createState() =>
-      _EmailAndPasswordTextFieldState();
+  State<LoginForm> createState() =>
+      _LoginFormState();
 }
 
-class _EmailAndPasswordTextFieldState extends State<EmailAndPasswordTextField> {
+class _LoginFormState extends State<LoginForm> {
   bool isObscureText = true;
 
   @override

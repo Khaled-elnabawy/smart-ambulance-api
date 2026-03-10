@@ -5,7 +5,7 @@ import 'package:mobile/core/helpers/spacing.dart';
 import 'package:mobile/core/widgets/generic_text_button.dart';
 import 'package:mobile/core/widgets/generic_text_form_field.dart';
 import 'package:mobile/features/login/views/widgets/do_not_have_account_text.dart';
-import 'package:mobile/features/login/views/widgets/email_and_password_text_field.dart';
+import 'package:mobile/features/login/views/widgets/login_form.dart';
 import 'package:mobile/features/login/views/widgets/login_bloc_listener.dart';
 import '../../../core/theming/styles.dart';
 import '../data/models/login_request_body.dart';
@@ -56,29 +56,26 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                     verticalSpacing(237),
-                    Form(
-                      key: formKey,
-                      child: Column(
-                        children: [
-                          EmailAndPasswordTextField(),
-                          GenericTextButton(
-                            buttonText: 'Login',
-                            textStyle: TextStyles.font24WhiteBold,
-                            onPressed: () {
-                              if (context
-                                  .read<LoginCubit>()
-                                  .formKey
-                                  .currentState!
-                                  .validate()) {
-                                context.read<LoginCubit>().emitLoginState();
-                              }
-                            },
-                          ),
-                          verticalSpacing(60),
-                          const DoNotHaveAccountText(),
-                          const LoginBlocListener(),
-                        ],
-                      ),
+                    Column(
+                      children: [
+                        LoginForm(),
+                        GenericTextButton(
+                          buttonText: 'Login',
+                          textStyle: TextStyles.font24WhiteBold,
+                          onPressed: () {
+                            if (context
+                                .read<LoginCubit>()
+                                .formKey
+                                .currentState!
+                                .validate()) {
+                              context.read<LoginCubit>().emitLoginState();
+                            }
+                          },
+                        ),
+                        verticalSpacing(60),
+                        const DoNotHaveAccountText(),
+                        const LoginBlocListener(),
+                      ],
                     ),
                   ],
                 ),
