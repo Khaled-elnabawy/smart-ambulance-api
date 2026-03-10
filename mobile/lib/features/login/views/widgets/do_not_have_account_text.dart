@@ -19,7 +19,7 @@ class DoNotHaveAccountText extends StatelessWidget {
           ),
           TextSpan(
             text: ' Sign Up',
-            style: TextStyles.font13RedBold,
+            style: TextStyles.font14RedBold,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 context.pushReplacementNamed(Routes.registerView);

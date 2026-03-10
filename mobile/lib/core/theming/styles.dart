@@ -39,7 +39,7 @@ class TextStyles {
     color: ColorsManager.gray,
     fontWeight: FontWeightHelper.medium,
   );
-  static TextStyle font13RedBold = TextStyle(
+  static TextStyle font14RedBold = TextStyle(
     fontSize: 14.sp,
     color: ColorsManager.red,
     fontWeight: FontWeightHelper.bold,
