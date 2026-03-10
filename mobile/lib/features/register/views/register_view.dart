@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/theming/styles.dart';
+import 'package:mobile/features/register/views/widgets/already_have_account_text.dart';
 import 'package:mobile/features/register/views/widgets/register_form.dart';
 
 import '../../../core/helpers/spacing.dart';
@@ -19,8 +20,6 @@ class RegisterView extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-            // TODO: delete this SizeBox
-            SizedBox(width: double.infinity),
             Positioned(
               top: 0,
               right: 0,
@@ -49,6 +48,7 @@ class RegisterView extends StatelessWidget {
                       child: Text(
                         'Secure Your Profile. Ensure The Fastest Response',
                         style: TextStyles.font24BlackMedium,
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     verticalSpacing(54),
@@ -68,6 +68,7 @@ class RegisterView extends StatelessWidget {
                       },
                     ),
                     verticalSpacing(16),
+                    AlreadyHaveAccountText(),
                   ],
                 ),
               ),

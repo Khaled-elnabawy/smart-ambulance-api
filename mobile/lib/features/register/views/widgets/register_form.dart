@@ -30,6 +30,7 @@ class _RegisterFormState extends State<RegisterForm> {
               }
             },
           ),
+          verticalSpacing(16),
           GenericTextFormField(
             hintText: 'Phone Number',
             controller: context.read<RegisterCubit>().phoneController,
@@ -39,6 +40,7 @@ class _RegisterFormState extends State<RegisterForm> {
               }
             },
           ),
+          verticalSpacing(16),
           GenericTextFormField(
             hintText: 'National Id',
             controller: context.read<RegisterCubit>().nationalIdController,
@@ -48,6 +50,7 @@ class _RegisterFormState extends State<RegisterForm> {
               }
             },
           ),
+          verticalSpacing(16),
           GenericTextFormField(
             hintText: 'Email',
             controller: context.read<RegisterCubit>().emailController,
@@ -80,17 +83,19 @@ class _RegisterFormState extends State<RegisterForm> {
               }
             },
           ),
+          verticalSpacing(16),
           GenericTextFormField(
             hintText: 'Confirmation Password',
-            isObscureText: isPasswordObscureText,
+            isObscureText: isPasswordConfirmationObscureText,
             suffixIcon: GestureDetector(
               onTap: () {
                 setState(() {
-                  isPasswordObscureText = !isPasswordObscureText;
+                  isPasswordConfirmationObscureText =
+                      !isPasswordConfirmationObscureText;
                 });
               },
               child: Icon(
-                isPasswordObscureText
+                isPasswordConfirmationObscureText
                     ? Icons.visibility_off_rounded
                     : Icons.visibility_rounded,
               ),
