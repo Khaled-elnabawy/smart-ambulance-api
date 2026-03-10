@@ -70,18 +70,7 @@ class _LoginViewState extends State<LoginView> {
                                   .formKey
                                   .currentState!
                                   .validate()) {
-                                context.read<LoginCubit>().emitLoginState(
-                                  LoginRequestBody(
-                                    email: context
-                                        .read<LoginCubit>()
-                                        .emailController
-                                        .text,
-                                    password: context
-                                        .read<LoginCubit>()
-                                        .passwordController
-                                        .text,
-                                  ),
-                                );
+                                context.read<LoginCubit>().emitLoginState();
                               }
                             },
                           ),
