@@ -3,6 +3,8 @@ import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 import '../../features/login/data/models/login_request_body.dart';
 import '../../features/login/data/models/login_response.dart';
+import '../../features/register/data/models/register_request_body.dart';
+import '../../features/register/data/models/register_response.dart';
 import 'api_constants.dart';
 
 part 'api_service.g.dart';
@@ -13,9 +15,9 @@ abstract class ApiService {
 
   @POST(ApiConstants.login)
   Future<LoginResponse> login(@Body() LoginRequestBody loginRequestBody);
-  // TODO: uncomment this
-  // @POST(ApiConstants.register)
-  // Future<RegisterResponse> register(
-  //   @Body() RegisterRequestBody registerRequestBody,
-  // );
+
+  @POST(ApiConstants.register)
+  Future<RegisterResponse> register(
+    @Body() RegisterRequestBody registerRequestBody,
+  );
 }

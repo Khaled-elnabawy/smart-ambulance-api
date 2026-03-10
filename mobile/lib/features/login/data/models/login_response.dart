@@ -34,6 +34,8 @@ class UserInfo {
   String? name;
   String? phone;
   String? email;
+  @JsonKey(name: 'national_id')
+  String? nationalId;
   @JsonKey(name: 'created_at')
   String? createdAt;
   @JsonKey(name: 'updated_at')
