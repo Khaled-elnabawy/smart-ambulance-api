@@ -42,6 +42,7 @@ class AuthController extends Controller
                 'data' => [
                     'user' => $user,
                     'token' => $token,
+                    'user_type' => 'user',
                 ],
             ], Response::HTTP_CREATED);
         } catch (ValidationException $e) {
@@ -78,6 +79,7 @@ class AuthController extends Controller
                 'data' => [
                     'user' => $user,
                     'token' => $token,
+                    'user_type' => 'user',
                 ],
             ], Response::HTTP_OK);
         } catch (ValidationException $e) {
@@ -114,6 +116,7 @@ class AuthController extends Controller
                 'data' => [
                     'driver' => $driver,
                     'token' => $token,
+                    'user_type' => 'driver',
                 ],
             ], Response::HTTP_OK);
         } catch (ValidationException $e) {
