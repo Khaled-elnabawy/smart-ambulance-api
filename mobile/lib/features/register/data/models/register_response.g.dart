@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_response.dart';
+part of 'register_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
-    LoginResponse(
+RegisterResponse _$RegisterResponseFromJson(Map<String, dynamic> json) =>
+    RegisterResponse(
       message: json['message'] as String?,
       userData: json['data'] == null
           ? null
@@ -16,7 +16,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       code: (json['code'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
+Map<String, dynamic> _$RegisterResponseToJson(RegisterResponse instance) =>
     <String, dynamic>{
       'message': instance.message,
       'data': instance.userData,
@@ -26,14 +26,14 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
   token: json['token'] as String?,
-  userInfo: json['user'] == null
+  userInfo: json['username'] == null
       ? null
-      : UserInfo.fromJson(json['user'] as Map<String, dynamic>),
+      : UserInfo.fromJson(json['username'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
   'token': instance.token,
-  'user': instance.userInfo,
+  'username': instance.userInfo,
 };
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
@@ -43,7 +43,6 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
   email: json['email'] as String?,
   createdAt: json['created_at'] as String?,
   updatedAt: json['updated_at'] as String?,
-  deletedAt: json['deleted_at'] as String?,
 )..nationalId = json['national_id'] as String?;
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
@@ -54,5 +53,4 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
   'national_id': instance.nationalId,
   'created_at': instance.createdAt,
   'updated_at': instance.updatedAt,
-  'deleted_at': instance.deletedAt,
 };
