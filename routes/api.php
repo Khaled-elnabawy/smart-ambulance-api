@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\RequestController;
@@ -35,7 +36,7 @@ Route::prefix('v1')->group(function () {
             return response()->json([
                 'status' => true,
                 'data' => $request->user(),
-            ]);
+            ], Response::HTTP_OK);
         });
 
         // Driver Location
@@ -56,7 +57,7 @@ Route::prefix('v1')->group(function () {
         return response()->json([
             'status' => true,
             'message' => 'Smart Ambulance API v1 Is Working'
-        ]);
+        ], Response::HTTP_OK);
     });
 
 });
