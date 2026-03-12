@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:mobile/features/forgot_password/data/models/send_code_models/send_code_response.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
+import '../../features/forgot_password/data/models/reset_password_models/reset_password_request_body.dart';
+import '../../features/forgot_password/data/models/reset_password_models/reset_password_response.dart';
 import '../../features/forgot_password/data/models/send_code_models/send_code_request_body.dart';
 import '../../features/forgot_password/data/models/verify_code_models/verify_code_request_body.dart';
 import '../../features/forgot_password/data/models/verify_code_models/verify_code_response.dart';
@@ -32,5 +34,10 @@ abstract class ApiService {
   @POST(ApiConstants.verifyCode)
   Future<VerifyCodeResponse> verifyCode(
     @Body() VerifyCodeRequestBody verifyCodeRequestBody,
+  );
+
+  @POST(ApiConstants.resetPassword)
+  Future<ResetPasswordResponse> resetPassword(
+    @Body() ResetPasswordRequestBody resetPasswordRequestBody,
   );
 }
