@@ -80,15 +80,15 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<SendResetCodeResponse> sendCode(
-    SendResetCodeRequestBody sendResetCodeRequestBody,
+  Future<SendCodeResponse> sendCode(
+    SendCodeRequestBody sendCodeRequestBody,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(sendResetCodeRequestBody.toJson());
-    final _options = _setStreamType<SendResetCodeResponse>(
+    _data.addAll(sendCodeRequestBody.toJson());
+    final _options = _setStreamType<SendCodeResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -99,9 +99,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SendResetCodeResponse _value;
+    late SendCodeResponse _value;
     try {
-      _value = SendResetCodeResponse.fromJson(_result.data!);
+      _value = SendCodeResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

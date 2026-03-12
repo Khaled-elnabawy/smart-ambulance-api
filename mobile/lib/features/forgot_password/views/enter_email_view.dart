@@ -7,7 +7,7 @@ import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/core/widgets/generic_text_button.dart';
 import 'package:mobile/core/widgets/generic_text_form_field.dart';
-import 'package:mobile/features/forget_password/views/widgets/back_icon_widget.dart';
+import 'package:mobile/features/forgot_password/views/widgets/back_icon_widget.dart';
 
 class EnterEmailView extends StatelessWidget {
   const EnterEmailView({super.key});

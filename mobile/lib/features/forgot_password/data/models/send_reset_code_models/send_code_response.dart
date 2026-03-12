@@ -1,18 +1,18 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'send_reset_code_response.g.dart';
+part 'send_code_response.g.dart';
 
 @JsonSerializable()
-class SendResetCodeResponse {
+class SendCodeResponse {
   String? message;
   Data? data;
   bool? status;
   int? code;
 
-  SendResetCodeResponse({this.message, this.data, this.status, this.code});
+  SendCodeResponse({this.message, this.data, this.status, this.code});
 
-  factory SendResetCodeResponse.fromJson(Map<String, dynamic> json) =>
-      _$SendResetCodeResponseFromJson(json);
+  factory SendCodeResponse.fromJson(Map<String, dynamic> json) =>
+      _$SendCodeResponseFromJson(json);
 }
 
 @JsonSerializable()
