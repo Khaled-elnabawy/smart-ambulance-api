@@ -7,19 +7,19 @@ import '../../../../core/theming/styles.dart';
 import '../../logic/forgot_password_cubit.dart';
 import '../../logic/forgot_password_state.dart';
 
-class VerifyCodeBlocListener extends StatelessWidget {
-  const VerifyCodeBlocListener({super.key});
+class ResetPasswordBlocListener extends StatelessWidget {
+  const ResetPasswordBlocListener({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
       listenWhen: (previous, current) =>
-          current is VerifyCodeLoading ||
-          current is VerifyCodeSuccess ||
-          current is VerifyCodeFailure,
+      current is ResetPasswordLoading ||
+          current is ResetPasswordSuccess ||
+          current is ResetPasswordFailure,
       listener: (context, state) {
         state.whenOrNull(
-          verifyCodeLoading: () {
+          resetPasswordLoading: () {
             // show loading
             showDialog(
               context: context,
@@ -28,13 +28,11 @@ class VerifyCodeBlocListener extends StatelessWidget {
               ),
             );
           },
-          verifyCodeSuccess: (verifyCodeResponse) {
+          resetPasswordSuccess: (verifyCodeResponse) {
             context.pop();
-            context.read<ForgotPasswordCubit>().resetToken =
-                verifyCodeResponse.data!.resetToken!;
-            context.pushNamed(Routes.resetPasswordView);
+            context.pushNamed(Routes.loginView);
           },
-          verifyCodeFailure: (errMessage) {
+          resetPasswordFailure: (errMessage) {
             // show error message
             setupErrorState(context, errMessage);
           },

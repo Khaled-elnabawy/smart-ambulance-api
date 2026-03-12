@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/features/forgot_password/views/widgets/back_icon_widget.dart';
 import 'package:mobile/features/forgot_password/views/widgets/icon_with_background.dart';
+import 'package:mobile/features/forgot_password/views/widgets/reset_password_bloc_listener.dart';
 import '../../../core/helpers/extensions.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/routing/routes.dart';
@@ -140,6 +141,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                 onPressed: () {},
               ),
               verticalSpacing(48),
+              const ResetPasswordBlocListener(),
             ],
           ),
         ),
