@@ -3,6 +3,8 @@ import 'package:mobile/features/forgot_password/data/models/send_code_models/sen
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 import '../../features/forgot_password/data/models/send_code_models/send_code_request_body.dart';
+import '../../features/forgot_password/data/models/verify_code_models/verify_code_request_body.dart';
+import '../../features/forgot_password/data/models/verify_code_models/verify_code_response.dart';
 import '../../features/login/data/models/login_request_body.dart';
 import '../../features/login/data/models/login_response.dart';
 import '../../features/register/data/models/register_request_body.dart';
@@ -26,5 +28,9 @@ abstract class ApiService {
   @POST(ApiConstants.sendCode)
   Future<SendCodeResponse> sendCode(
     @Body() SendCodeRequestBody sendCodeRequestBody,
+  );
+  @POST(ApiConstants.verifyCode)
+  Future<VerifyCodeResponse> verifyCode(
+    @Body() VerifyCodeRequestBody verifyCodeRequestBody,
   );
 }
