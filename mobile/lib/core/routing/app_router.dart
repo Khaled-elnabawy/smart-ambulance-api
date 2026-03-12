@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/core/di/dependency_injection.dart';
 import 'package:mobile/core/routing/routes.dart';
+import 'package:mobile/features/forget_password/views/enter_email_view.dart';
 import 'package:mobile/features/home/views/home_view.dart';
 import 'package:mobile/features/login/logic/login_cubit.dart';
 import 'package:mobile/features/login/views/login_view.dart';
@@ -26,6 +27,10 @@ class AppRouter {
           builder: (_) => BlocProvider(
               create: (context) => getIt<RegisterCubit>(),
               child: const RegisterView()),
+        );
+      case Routes.enterEmailView:
+        return MaterialPageRoute(
+          builder: (_) => const EnterEmailView(),
         );
       case Routes.homeView:
         return MaterialPageRoute(

@@ -14,6 +14,7 @@ class GenericTextFormField extends StatelessWidget {
   final String hintText;
   final bool? isObscureText;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final Color? backgroundColor;
   final TextEditingController? controller;
   final Function(String?) validator;
@@ -28,6 +29,7 @@ class GenericTextFormField extends StatelessWidget {
     required this.hintText,
     this.isObscureText,
     this.suffixIcon,
+    this.prefixIcon,
     this.backgroundColor,
     this.controller,
     required this.validator,
@@ -46,29 +48,30 @@ class GenericTextFormField extends StatelessWidget {
             enableBorder ??
             OutlineInputBorder(
               borderSide: BorderSide(
-                color: ColorsManager.lighterGray,
-                width: 1.1,
+                color: ColorsManager.lighterGrey,
+                width: 1.2,
               ),
               borderRadius: BorderRadius.circular(20),
             ),
         focusedBorder:
             focusBorder ??
             OutlineInputBorder(
-              borderSide: BorderSide(color: ColorsManager.red, width: 1.1),
+              borderSide: BorderSide(color: ColorsManager.red, width: 1.2),
               borderRadius: BorderRadius.circular(20),
             ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red, width: 1.3),
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(20.0),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red, width: 1.3),
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(20.0),
         ),
-        hintStyle: hintStyle ?? TextStyles.font16LightGrayRegular,
+        hintStyle: hintStyle ?? TextStyles.font16LightGrayWithOpacityRegular,
         hintText: hintText,
         suffixIcon: suffixIcon,
-        fillColor: backgroundColor ?? ColorsManager.lighterGray,
+        prefixIcon: prefixIcon,
+        fillColor: backgroundColor ?? ColorsManager.lighterGrey,
         filled: true,
       ),
       obscureText: isObscureText ?? false,

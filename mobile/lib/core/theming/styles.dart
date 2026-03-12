@@ -9,15 +9,30 @@ class TextStyles {
     color: Colors.white,
     fontWeight: FontWeightHelper.bold,
   );
+  static TextStyle font30BlackSemiBold = TextStyle(
+    fontSize: 30.sp,
+    color: Colors.black,
+    fontWeight: FontWeightHelper.semiBold,
+  );
+  static TextStyle font16LightGrayWithOpacityRegular = TextStyle(
+    fontSize: 16.sp,
+    color: ColorsManager.lightGrey.withValues(alpha: 0.6),
+    fontWeight: FontWeightHelper.regular,
+  );
   static TextStyle font16LightGrayRegular = TextStyle(
     fontSize: 16.sp,
-    color: ColorsManager.lightGray.withValues(alpha: 0.6),
+    color: ColorsManager.lightGrey,
     fontWeight: FontWeightHelper.regular,
   );
   static TextStyle font22BlackRegular = TextStyle(
     fontSize: 22.sp,
     color: Colors.black,
     fontWeight: FontWeightHelper.regular,
+  );
+  static TextStyle font16BlackMedium = TextStyle(
+    fontSize: 16.sp,
+    color: Colors.black,
+    fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font16BlackRegular = TextStyle(
     fontSize: 16.sp,
@@ -36,7 +51,12 @@ class TextStyles {
   );
   static TextStyle font13GrayMedium = TextStyle(
     fontSize: 13.sp,
-    color: ColorsManager.gray,
+    color: ColorsManager.grey,
+    fontWeight: FontWeightHelper.medium,
+  );
+  static TextStyle font18GreyMedium = TextStyle(
+    fontSize: 18.sp,
+    color: ColorsManager.grey,
     fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font14RedBold = TextStyle(
