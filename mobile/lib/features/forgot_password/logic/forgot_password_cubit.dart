@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/networking/api_result.dart';
+import '../data/models/reset_password_models/reset_password_request_body.dart';
 import '../data/models/send_code_models/send_code_request_body.dart';
 import '../data/models/verify_code_models/verify_code_request_body.dart';
 import '../data/repos/forgot_password_repo.dart';
@@ -12,11 +13,11 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   final TextEditingController codeController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmNewPasswordController =
-      TextEditingController();
+  TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   ForgotPasswordCubit(this._forgotPasswordRepo)
-    : super(ForgotPasswordState.initial());
+      : super(ForgotPasswordState.initial());
 
   void sendCode() async {
     emit(ForgotPasswordState.sendCodeLoading());
@@ -52,6 +53,30 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       failure: (error) {
         emit(
           ForgotPasswordState.verifyCodeFailure(
+            error.apiErrorModel.message ?? '',
+          ),
+        );
+      },
+    );
+  }
+
+  void resetPassword() async {
+    emit(ForgotPasswordState.resetPasswordLoading());
+    final response = await _forgotPasswordRepo.resetPassword(
+      ResetPasswordRequestBody(
+        email: emailController.text,
+        resetToken:,
+        password: newPasswordController.text,
+        confirmPassword: confirmNewPasswordController.text,
+      ),
+    );
+    response.when(
+      success: (resetPasswordResponse) {
+        emit(ForgotPasswordState.resetPasswordSuccess(resetPasswordResponse));
+      },
+      failure: (error) {
+        emit(
+          ForgotPasswordState.resetPasswordFailure(
             error.apiErrorModel.message ?? '',
           ),
         );
