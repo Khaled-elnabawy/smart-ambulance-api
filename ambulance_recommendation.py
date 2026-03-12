@@ -42,7 +42,9 @@ for label in labels:
 
 
 cursor.execute("""
-    SELECT last_latitude, last_longitude
+    SELECT 
+        COALESCE(home_latitude, last_latitude) as latitude,
+        COALESCE(home_longitude, last_longitude) as longitude
     FROM drivers
     WHERE last_latitude IS NOT NULL
     AND last_longitude IS NOT NULL
