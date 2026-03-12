@@ -30,7 +30,6 @@ class SendCodeBlocListener extends StatelessWidget {
           sendCodeSuccess: (sendCodeResponse) {
             context.pop();
             context.pushNamed(Routes.enterCodeView);
-            // navigate to home
           },
           sendCodeFailure: (errMessage) {
             // show error message

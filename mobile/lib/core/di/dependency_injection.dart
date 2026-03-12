@@ -15,12 +15,15 @@ Future<void> setupGetIt() async {
   // Dio & ApiService instance
   Dio dio = DioFactory.getDio();
   getIt.registerLazySingleton<ApiService>(() => ApiService(dio));
+
   // Login
   getIt.registerLazySingleton<LoginRepo>(() => LoginRepo(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
+
   // register
   getIt.registerLazySingleton<RegisterRepo>(() => RegisterRepo(getIt()));
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
+
   // forgot password
   getIt.registerLazySingleton<ForgotPasswordRepo>(
     () => ForgotPasswordRepo(getIt()),

@@ -39,9 +39,19 @@ class AppRouter {
           ),
         );
       case Routes.enterCodeView:
-        return MaterialPageRoute(builder: (_) => const EnterCodeView());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ForgotPasswordCubit>(),
+            child: const EnterCodeView(),
+          ),
+        );
       case Routes.resetPasswordView:
-        return MaterialPageRoute(builder: (_) => const ResetPasswordView());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ForgotPasswordCubit>(),
+            child: const ResetPasswordView(),
+          ),
+        );
       case Routes.homeView:
         return MaterialPageRoute(builder: (_) => const HomeView());
       default:

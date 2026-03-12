@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/networking/api_result.dart';
-import '../data/models/send_reset_code_models/send_code_request_body.dart';
+import '../data/models/send_code_models/send_code_request_body.dart';
 import '../data/repos/forgot_password_repo.dart';
 import 'forgot_password_state.dart';
 

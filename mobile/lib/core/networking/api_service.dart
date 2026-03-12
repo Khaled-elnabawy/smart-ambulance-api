@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:mobile/features/forgot_password/data/models/send_reset_code_models/send_code_response.dart';
+import 'package:mobile/features/forgot_password/data/models/send_code_models/send_code_response.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
-import '../../features/forgot_password/data/models/send_reset_code_models/send_code_request_body.dart';
+import '../../features/forgot_password/data/models/send_code_models/send_code_request_body.dart';
 import '../../features/login/data/models/login_request_body.dart';
 import '../../features/login/data/models/login_response.dart';
 import '../../features/register/data/models/register_request_body.dart';
