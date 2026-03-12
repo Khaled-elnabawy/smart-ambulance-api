@@ -9,6 +9,7 @@ import 'package:mobile/features/login/logic/login_cubit.dart';
 import 'package:mobile/features/login/views/login_view.dart';
 import 'package:mobile/features/register/views/register_view.dart';
 
+import '../../features/forget_password/views/reset_password_view.dart';
 import '../../features/register/logic/register_cubit.dart';
 
 class AppRouter {
@@ -26,21 +27,18 @@ class AppRouter {
       case Routes.registerView:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-              create: (context) => getIt<RegisterCubit>(),
-              child: const RegisterView()),
+            create: (context) => getIt<RegisterCubit>(),
+            child: const RegisterView(),
+          ),
         );
       case Routes.enterEmailView:
-        return MaterialPageRoute(
-          builder: (_) => const EnterEmailView(),
-        );
+        return MaterialPageRoute(builder: (_) => const EnterEmailView());
       case Routes.enterCodeView:
-        return MaterialPageRoute(
-          builder: (_) => const EnterCodeView(),
-        );
+        return MaterialPageRoute(builder: (_) => const EnterCodeView());
+      case Routes.resetPasswordView:
+        return MaterialPageRoute(builder: (_) => const ResetPasswordView());
       case Routes.homeView:
-        return MaterialPageRoute(
-          builder: (_) => const HomeView(),
-        );
+        return MaterialPageRoute(builder: (_) => const HomeView());
       default:
         return MaterialPageRoute(
           builder: (_) => MaterialApp(

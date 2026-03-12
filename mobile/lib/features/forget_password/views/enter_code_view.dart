@@ -4,7 +4,9 @@ import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/core/widgets/generic_text_form_field.dart';
 import 'package:mobile/features/forget_password/views/widgets/back_icon_widget.dart';
 import 'package:mobile/features/forget_password/views/widgets/icon_with_background.dart';
+import '../../../core/helpers/extensions.dart';
 import '../../../core/helpers/spacing.dart';
+import '../../../core/routing/routes.dart';
 import '../../../core/theming/styles.dart';
 import '../../../core/widgets/generic_text_button.dart';
 
@@ -68,7 +70,9 @@ class EnterCodeView extends StatelessWidget {
               GenericTextButton(
                 buttonText: 'Verify Code',
                 textStyle: TextStyles.font24WhiteBold,
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(Routes.resetPasswordView);
+                },
               ),
               verticalSpacing(48),
             ],

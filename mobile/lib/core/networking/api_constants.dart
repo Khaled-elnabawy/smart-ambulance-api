@@ -3,6 +3,7 @@ class ApiConstants {
       "https://shanell-unejaculated-rebecca.ngrok-free.dev/api/";
   static const String login = "v1/login";
   static const String register = "v1/register";
+  static const String sendCode = "v1/forgot-password";
   static const String logout = "v1/logout";
 }
 
