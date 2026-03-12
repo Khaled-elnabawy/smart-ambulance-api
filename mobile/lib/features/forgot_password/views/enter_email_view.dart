@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile/core/helpers/extensions.dart';
 import 'package:mobile/core/helpers/spacing.dart';
-import 'package:mobile/core/routing/routes.dart';
 import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/core/widgets/generic_text_button.dart';
@@ -54,7 +52,6 @@ class EnterEmailView extends StatelessWidget {
                     Icons.email_rounded,
                     color: ColorsManager.red,
                   ),
-                  // TODO: add controller
                   controller: context
                       .read<ForgotPasswordCubit>()
                       .emailController,

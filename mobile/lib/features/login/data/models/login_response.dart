@@ -8,6 +8,7 @@ class LoginResponse {
   @JsonKey(name: 'data')
   UserData? userData;
   bool? status;
+  @JsonKey(name: 'status_code')
   int? code;
 
   LoginResponse({this.message, this.userData, this.status, this.code});

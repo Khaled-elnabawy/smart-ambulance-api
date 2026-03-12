@@ -7,6 +7,7 @@ class SendCodeResponse {
   String? message;
   Data? data;
   bool? status;
+  @JsonKey(name: 'status_code')
   int? code;
 
   SendCodeResponse({this.message, this.data, this.status, this.code});

@@ -13,7 +13,7 @@ SendCodeResponse _$SendCodeResponseFromJson(Map<String, dynamic> json) =>
           ? null
           : Data.fromJson(json['data'] as Map<String, dynamic>),
       status: json['status'] as bool?,
-      code: (json['code'] as num?)?.toInt(),
+      code: (json['status_code'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$SendCodeResponseToJson(SendCodeResponse instance) =>
@@ -21,7 +21,7 @@ Map<String, dynamic> _$SendCodeResponseToJson(SendCodeResponse instance) =>
       'message': instance.message,
       'data': instance.data,
       'status': instance.status,
-      'code': instance.code,
+      'status_code': instance.code,
     };
 
 Data _$DataFromJson(Map<String, dynamic> json) =>

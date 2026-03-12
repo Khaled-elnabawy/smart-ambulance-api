@@ -13,7 +13,7 @@ RegisterResponse _$RegisterResponseFromJson(Map<String, dynamic> json) =>
           ? null
           : UserData.fromJson(json['data'] as Map<String, dynamic>),
       status: json['status'] as bool?,
-      code: (json['code'] as num?)?.toInt(),
+      code: (json['status_code'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$RegisterResponseToJson(RegisterResponse instance) =>
@@ -21,7 +21,7 @@ Map<String, dynamic> _$RegisterResponseToJson(RegisterResponse instance) =>
       'message': instance.message,
       'data': instance.userData,
       'status': instance.status,
-      'code': instance.code,
+      'status_code': instance.code,
     };
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
