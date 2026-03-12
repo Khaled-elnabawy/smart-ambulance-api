@@ -23,8 +23,8 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       SendCodeRequestBody(email: emailController.text),
     );
     response.when(
-      success: (loginResponse) {
-        emit(ForgotPasswordState.sendCodeSuccess());
+      success: (sendCodeResponse) {
+        emit(ForgotPasswordState.sendCodeSuccess(sendCodeResponse));
       },
       failure: (error) {
         emit(

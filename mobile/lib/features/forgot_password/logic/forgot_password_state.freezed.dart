@@ -12,7 +12,7 @@ part of 'forgot_password_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$ForgotPasswordState {
+mixin _$ForgotPasswordState<T> {
 
 
 
@@ -20,7 +20,7 @@ mixin _$ForgotPasswordState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ForgotPasswordState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ForgotPasswordState<T>);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ForgotPasswordState()';
+  return 'ForgotPasswordState<$T>()';
 }
 
 
 }
 
 /// @nodoc
-class $ForgotPasswordStateCopyWith<$Res>  {
-$ForgotPasswordStateCopyWith(ForgotPasswordState _, $Res Function(ForgotPasswordState) __);
+class $ForgotPasswordStateCopyWith<T,$Res>  {
+$ForgotPasswordStateCopyWith(ForgotPasswordState<T> _, $Res Function(ForgotPasswordState<T>) __);
 }
 
 
 /// Adds pattern-matching-related methods to [ForgotPasswordState].
-extension ForgotPasswordStatePatterns on ForgotPasswordState {
+extension ForgotPasswordStatePatterns<T> on ForgotPasswordState<T> {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -55,7 +55,7 @@ extension ForgotPasswordStatePatterns on ForgotPasswordState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( SendCodeLoading value)?  sendCodeLoading,TResult Function( SendCodeSuccess value)?  sendCodeSuccess,TResult Function( SendCodeFailure value)?  sendCodeFailure,TResult Function( VerifyCodeLoading value)?  verifyCodeLoading,TResult Function( VerifyCodeSuccess value)?  verifyCodeSuccess,TResult Function( VerifyCodeFailure value)?  verifyCodeFailure,TResult Function( ResetPasswordLoading value)?  resetPasswordLoading,TResult Function( ResetPasswordSuccess value)?  resetPasswordSuccess,TResult Function( ResetPasswordFailure value)?  resetPasswordFailure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial<T> value)?  initial,TResult Function( SendCodeLoading<T> value)?  sendCodeLoading,TResult Function( SendCodeSuccess<T> value)?  sendCodeSuccess,TResult Function( SendCodeFailure<T> value)?  sendCodeFailure,TResult Function( VerifyCodeLoading<T> value)?  verifyCodeLoading,TResult Function( VerifyCodeSuccess<T> value)?  verifyCodeSuccess,TResult Function( VerifyCodeFailure<T> value)?  verifyCodeFailure,TResult Function( ResetPasswordLoading<T> value)?  resetPasswordLoading,TResult Function( ResetPasswordSuccess<T> value)?  resetPasswordSuccess,TResult Function( ResetPasswordFailure<T> value)?  resetPasswordFailure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
@@ -86,7 +86,7 @@ return resetPasswordFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( SendCodeLoading value)  sendCodeLoading,required TResult Function( SendCodeSuccess value)  sendCodeSuccess,required TResult Function( SendCodeFailure value)  sendCodeFailure,required TResult Function( VerifyCodeLoading value)  verifyCodeLoading,required TResult Function( VerifyCodeSuccess value)  verifyCodeSuccess,required TResult Function( VerifyCodeFailure value)  verifyCodeFailure,required TResult Function( ResetPasswordLoading value)  resetPasswordLoading,required TResult Function( ResetPasswordSuccess value)  resetPasswordSuccess,required TResult Function( ResetPasswordFailure value)  resetPasswordFailure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial<T> value)  initial,required TResult Function( SendCodeLoading<T> value)  sendCodeLoading,required TResult Function( SendCodeSuccess<T> value)  sendCodeSuccess,required TResult Function( SendCodeFailure<T> value)  sendCodeFailure,required TResult Function( VerifyCodeLoading<T> value)  verifyCodeLoading,required TResult Function( VerifyCodeSuccess<T> value)  verifyCodeSuccess,required TResult Function( VerifyCodeFailure<T> value)  verifyCodeFailure,required TResult Function( ResetPasswordLoading<T> value)  resetPasswordLoading,required TResult Function( ResetPasswordSuccess<T> value)  resetPasswordSuccess,required TResult Function( ResetPasswordFailure<T> value)  resetPasswordFailure,}){
 final _that = this;
 switch (_that) {
 case _Initial():
@@ -116,7 +116,7 @@ return resetPasswordFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( SendCodeLoading value)?  sendCodeLoading,TResult? Function( SendCodeSuccess value)?  sendCodeSuccess,TResult? Function( SendCodeFailure value)?  sendCodeFailure,TResult? Function( VerifyCodeLoading value)?  verifyCodeLoading,TResult? Function( VerifyCodeSuccess value)?  verifyCodeSuccess,TResult? Function( VerifyCodeFailure value)?  verifyCodeFailure,TResult? Function( ResetPasswordLoading value)?  resetPasswordLoading,TResult? Function( ResetPasswordSuccess value)?  resetPasswordSuccess,TResult? Function( ResetPasswordFailure value)?  resetPasswordFailure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial<T> value)?  initial,TResult? Function( SendCodeLoading<T> value)?  sendCodeLoading,TResult? Function( SendCodeSuccess<T> value)?  sendCodeSuccess,TResult? Function( SendCodeFailure<T> value)?  sendCodeFailure,TResult? Function( VerifyCodeLoading<T> value)?  verifyCodeLoading,TResult? Function( VerifyCodeSuccess<T> value)?  verifyCodeSuccess,TResult? Function( VerifyCodeFailure<T> value)?  verifyCodeFailure,TResult? Function( ResetPasswordLoading<T> value)?  resetPasswordLoading,TResult? Function( ResetPasswordSuccess<T> value)?  resetPasswordSuccess,TResult? Function( ResetPasswordFailure<T> value)?  resetPasswordFailure,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
@@ -146,18 +146,18 @@ return resetPasswordFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  sendCodeLoading,TResult Function()?  sendCodeSuccess,TResult Function( String errMessage)?  sendCodeFailure,TResult Function()?  verifyCodeLoading,TResult Function()?  verifyCodeSuccess,TResult Function( String errMessage)?  verifyCodeFailure,TResult Function()?  resetPasswordLoading,TResult Function()?  resetPasswordSuccess,TResult Function( String errMessage)?  resetPasswordFailure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  sendCodeLoading,TResult Function( T data)?  sendCodeSuccess,TResult Function( String errMessage)?  sendCodeFailure,TResult Function()?  verifyCodeLoading,TResult Function( T data)?  verifyCodeSuccess,TResult Function( String errMessage)?  verifyCodeFailure,TResult Function()?  resetPasswordLoading,TResult Function( T data)?  resetPasswordSuccess,TResult Function( String errMessage)?  resetPasswordFailure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case SendCodeLoading() when sendCodeLoading != null:
 return sendCodeLoading();case SendCodeSuccess() when sendCodeSuccess != null:
-return sendCodeSuccess();case SendCodeFailure() when sendCodeFailure != null:
+return sendCodeSuccess(_that.data);case SendCodeFailure() when sendCodeFailure != null:
 return sendCodeFailure(_that.errMessage);case VerifyCodeLoading() when verifyCodeLoading != null:
 return verifyCodeLoading();case VerifyCodeSuccess() when verifyCodeSuccess != null:
-return verifyCodeSuccess();case VerifyCodeFailure() when verifyCodeFailure != null:
+return verifyCodeSuccess(_that.data);case VerifyCodeFailure() when verifyCodeFailure != null:
 return verifyCodeFailure(_that.errMessage);case ResetPasswordLoading() when resetPasswordLoading != null:
 return resetPasswordLoading();case ResetPasswordSuccess() when resetPasswordSuccess != null:
-return resetPasswordSuccess();case ResetPasswordFailure() when resetPasswordFailure != null:
+return resetPasswordSuccess(_that.data);case ResetPasswordFailure() when resetPasswordFailure != null:
 return resetPasswordFailure(_that.errMessage);case _:
   return orElse();
 
@@ -176,18 +176,18 @@ return resetPasswordFailure(_that.errMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  sendCodeLoading,required TResult Function()  sendCodeSuccess,required TResult Function( String errMessage)  sendCodeFailure,required TResult Function()  verifyCodeLoading,required TResult Function()  verifyCodeSuccess,required TResult Function( String errMessage)  verifyCodeFailure,required TResult Function()  resetPasswordLoading,required TResult Function()  resetPasswordSuccess,required TResult Function( String errMessage)  resetPasswordFailure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  sendCodeLoading,required TResult Function( T data)  sendCodeSuccess,required TResult Function( String errMessage)  sendCodeFailure,required TResult Function()  verifyCodeLoading,required TResult Function( T data)  verifyCodeSuccess,required TResult Function( String errMessage)  verifyCodeFailure,required TResult Function()  resetPasswordLoading,required TResult Function( T data)  resetPasswordSuccess,required TResult Function( String errMessage)  resetPasswordFailure,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case SendCodeLoading():
 return sendCodeLoading();case SendCodeSuccess():
-return sendCodeSuccess();case SendCodeFailure():
+return sendCodeSuccess(_that.data);case SendCodeFailure():
 return sendCodeFailure(_that.errMessage);case VerifyCodeLoading():
 return verifyCodeLoading();case VerifyCodeSuccess():
-return verifyCodeSuccess();case VerifyCodeFailure():
+return verifyCodeSuccess(_that.data);case VerifyCodeFailure():
 return verifyCodeFailure(_that.errMessage);case ResetPasswordLoading():
 return resetPasswordLoading();case ResetPasswordSuccess():
-return resetPasswordSuccess();case ResetPasswordFailure():
+return resetPasswordSuccess(_that.data);case ResetPasswordFailure():
 return resetPasswordFailure(_that.errMessage);case _:
   throw StateError('Unexpected subclass');
 
@@ -205,18 +205,18 @@ return resetPasswordFailure(_that.errMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  sendCodeLoading,TResult? Function()?  sendCodeSuccess,TResult? Function( String errMessage)?  sendCodeFailure,TResult? Function()?  verifyCodeLoading,TResult? Function()?  verifyCodeSuccess,TResult? Function( String errMessage)?  verifyCodeFailure,TResult? Function()?  resetPasswordLoading,TResult? Function()?  resetPasswordSuccess,TResult? Function( String errMessage)?  resetPasswordFailure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  sendCodeLoading,TResult? Function( T data)?  sendCodeSuccess,TResult? Function( String errMessage)?  sendCodeFailure,TResult? Function()?  verifyCodeLoading,TResult? Function( T data)?  verifyCodeSuccess,TResult? Function( String errMessage)?  verifyCodeFailure,TResult? Function()?  resetPasswordLoading,TResult? Function( T data)?  resetPasswordSuccess,TResult? Function( String errMessage)?  resetPasswordFailure,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case SendCodeLoading() when sendCodeLoading != null:
 return sendCodeLoading();case SendCodeSuccess() when sendCodeSuccess != null:
-return sendCodeSuccess();case SendCodeFailure() when sendCodeFailure != null:
+return sendCodeSuccess(_that.data);case SendCodeFailure() when sendCodeFailure != null:
 return sendCodeFailure(_that.errMessage);case VerifyCodeLoading() when verifyCodeLoading != null:
 return verifyCodeLoading();case VerifyCodeSuccess() when verifyCodeSuccess != null:
-return verifyCodeSuccess();case VerifyCodeFailure() when verifyCodeFailure != null:
+return verifyCodeSuccess(_that.data);case VerifyCodeFailure() when verifyCodeFailure != null:
 return verifyCodeFailure(_that.errMessage);case ResetPasswordLoading() when resetPasswordLoading != null:
 return resetPasswordLoading();case ResetPasswordSuccess() when resetPasswordSuccess != null:
-return resetPasswordSuccess();case ResetPasswordFailure() when resetPasswordFailure != null:
+return resetPasswordSuccess(_that.data);case ResetPasswordFailure() when resetPasswordFailure != null:
 return resetPasswordFailure(_that.errMessage);case _:
   return null;
 
@@ -228,7 +228,7 @@ return resetPasswordFailure(_that.errMessage);case _:
 /// @nodoc
 
 
-class _Initial implements ForgotPasswordState {
+class _Initial<T> implements ForgotPasswordState<T> {
   const _Initial();
   
 
@@ -239,7 +239,7 @@ class _Initial implements ForgotPasswordState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial<T>);
 }
 
 
@@ -248,7 +248,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ForgotPasswordState.initial()';
+  return 'ForgotPasswordState<$T>.initial()';
 }
 
 
@@ -260,7 +260,7 @@ String toString() {
 /// @nodoc
 
 
-class SendCodeLoading implements ForgotPasswordState {
+class SendCodeLoading<T> implements ForgotPasswordState<T> {
   const SendCodeLoading();
   
 
@@ -271,7 +271,7 @@ class SendCodeLoading implements ForgotPasswordState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SendCodeLoading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SendCodeLoading<T>);
 }
 
 
@@ -280,7 +280,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ForgotPasswordState.sendCodeLoading()';
+  return 'ForgotPasswordState<$T>.sendCodeLoading()';
 }
 
 
@@ -292,39 +292,73 @@ String toString() {
 /// @nodoc
 
 
-class SendCodeSuccess implements ForgotPasswordState {
-  const SendCodeSuccess();
+class SendCodeSuccess<T> implements ForgotPasswordState<T> {
+  const SendCodeSuccess(this.data);
   
 
+ final  T data;
 
-
+/// Create a copy of ForgotPasswordState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SendCodeSuccessCopyWith<T, SendCodeSuccess<T>> get copyWith => _$SendCodeSuccessCopyWithImpl<T, SendCodeSuccess<T>>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SendCodeSuccess);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SendCodeSuccess<T>&&const DeepCollectionEquality().equals(other.data, data));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
 
 @override
 String toString() {
-  return 'ForgotPasswordState.sendCodeSuccess()';
+  return 'ForgotPasswordState<$T>.sendCodeSuccess(data: $data)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $SendCodeSuccessCopyWith<T,$Res> implements $ForgotPasswordStateCopyWith<T, $Res> {
+  factory $SendCodeSuccessCopyWith(SendCodeSuccess<T> value, $Res Function(SendCodeSuccess<T>) _then) = _$SendCodeSuccessCopyWithImpl;
+@useResult
+$Res call({
+ T data
+});
 
 
+
+
+}
+/// @nodoc
+class _$SendCodeSuccessCopyWithImpl<T,$Res>
+    implements $SendCodeSuccessCopyWith<T, $Res> {
+  _$SendCodeSuccessCopyWithImpl(this._self, this._then);
+
+  final SendCodeSuccess<T> _self;
+  final $Res Function(SendCodeSuccess<T>) _then;
+
+/// Create a copy of ForgotPasswordState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
+  return _then(SendCodeSuccess<T>(
+freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as T,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
 
-class SendCodeFailure implements ForgotPasswordState {
+class SendCodeFailure<T> implements ForgotPasswordState<T> {
   const SendCodeFailure(this.errMessage);
   
 
@@ -334,13 +368,13 @@ class SendCodeFailure implements ForgotPasswordState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$SendCodeFailureCopyWith<SendCodeFailure> get copyWith => _$SendCodeFailureCopyWithImpl<SendCodeFailure>(this, _$identity);
+$SendCodeFailureCopyWith<T, SendCodeFailure<T>> get copyWith => _$SendCodeFailureCopyWithImpl<T, SendCodeFailure<T>>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SendCodeFailure&&(identical(other.errMessage, errMessage) || other.errMessage == errMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SendCodeFailure<T>&&(identical(other.errMessage, errMessage) || other.errMessage == errMessage));
 }
 
 
@@ -349,15 +383,15 @@ int get hashCode => Object.hash(runtimeType,errMessage);
 
 @override
 String toString() {
-  return 'ForgotPasswordState.sendCodeFailure(errMessage: $errMessage)';
+  return 'ForgotPasswordState<$T>.sendCodeFailure(errMessage: $errMessage)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SendCodeFailureCopyWith<$Res> implements $ForgotPasswordStateCopyWith<$Res> {
-  factory $SendCodeFailureCopyWith(SendCodeFailure value, $Res Function(SendCodeFailure) _then) = _$SendCodeFailureCopyWithImpl;
+abstract mixin class $SendCodeFailureCopyWith<T,$Res> implements $ForgotPasswordStateCopyWith<T, $Res> {
+  factory $SendCodeFailureCopyWith(SendCodeFailure<T> value, $Res Function(SendCodeFailure<T>) _then) = _$SendCodeFailureCopyWithImpl;
 @useResult
 $Res call({
  String errMessage
@@ -368,17 +402,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$SendCodeFailureCopyWithImpl<$Res>
-    implements $SendCodeFailureCopyWith<$Res> {
+class _$SendCodeFailureCopyWithImpl<T,$Res>
+    implements $SendCodeFailureCopyWith<T, $Res> {
   _$SendCodeFailureCopyWithImpl(this._self, this._then);
 
-  final SendCodeFailure _self;
-  final $Res Function(SendCodeFailure) _then;
+  final SendCodeFailure<T> _self;
+  final $Res Function(SendCodeFailure<T>) _then;
 
 /// Create a copy of ForgotPasswordState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? errMessage = null,}) {
-  return _then(SendCodeFailure(
+  return _then(SendCodeFailure<T>(
 null == errMessage ? _self.errMessage : errMessage // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -390,7 +424,7 @@ as String,
 /// @nodoc
 
 
-class VerifyCodeLoading implements ForgotPasswordState {
+class VerifyCodeLoading<T> implements ForgotPasswordState<T> {
   const VerifyCodeLoading();
   
 
@@ -401,7 +435,7 @@ class VerifyCodeLoading implements ForgotPasswordState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyCodeLoading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyCodeLoading<T>);
 }
 
 
@@ -410,7 +444,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ForgotPasswordState.verifyCodeLoading()';
+  return 'ForgotPasswordState<$T>.verifyCodeLoading()';
 }
 
 
@@ -422,39 +456,73 @@ String toString() {
 /// @nodoc
 
 
-class VerifyCodeSuccess implements ForgotPasswordState {
-  const VerifyCodeSuccess();
+class VerifyCodeSuccess<T> implements ForgotPasswordState<T> {
+  const VerifyCodeSuccess(this.data);
   
 
+ final  T data;
 
-
+/// Create a copy of ForgotPasswordState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$VerifyCodeSuccessCopyWith<T, VerifyCodeSuccess<T>> get copyWith => _$VerifyCodeSuccessCopyWithImpl<T, VerifyCodeSuccess<T>>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyCodeSuccess);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyCodeSuccess<T>&&const DeepCollectionEquality().equals(other.data, data));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
 
 @override
 String toString() {
-  return 'ForgotPasswordState.verifyCodeSuccess()';
+  return 'ForgotPasswordState<$T>.verifyCodeSuccess(data: $data)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $VerifyCodeSuccessCopyWith<T,$Res> implements $ForgotPasswordStateCopyWith<T, $Res> {
+  factory $VerifyCodeSuccessCopyWith(VerifyCodeSuccess<T> value, $Res Function(VerifyCodeSuccess<T>) _then) = _$VerifyCodeSuccessCopyWithImpl;
+@useResult
+$Res call({
+ T data
+});
 
 
+
+
+}
+/// @nodoc
+class _$VerifyCodeSuccessCopyWithImpl<T,$Res>
+    implements $VerifyCodeSuccessCopyWith<T, $Res> {
+  _$VerifyCodeSuccessCopyWithImpl(this._self, this._then);
+
+  final VerifyCodeSuccess<T> _self;
+  final $Res Function(VerifyCodeSuccess<T>) _then;
+
+/// Create a copy of ForgotPasswordState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
+  return _then(VerifyCodeSuccess<T>(
+freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as T,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
 
-class VerifyCodeFailure implements ForgotPasswordState {
+class VerifyCodeFailure<T> implements ForgotPasswordState<T> {
   const VerifyCodeFailure(this.errMessage);
   
 
@@ -464,13 +532,13 @@ class VerifyCodeFailure implements ForgotPasswordState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$VerifyCodeFailureCopyWith<VerifyCodeFailure> get copyWith => _$VerifyCodeFailureCopyWithImpl<VerifyCodeFailure>(this, _$identity);
+$VerifyCodeFailureCopyWith<T, VerifyCodeFailure<T>> get copyWith => _$VerifyCodeFailureCopyWithImpl<T, VerifyCodeFailure<T>>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyCodeFailure&&(identical(other.errMessage, errMessage) || other.errMessage == errMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyCodeFailure<T>&&(identical(other.errMessage, errMessage) || other.errMessage == errMessage));
 }
 
 
@@ -479,15 +547,15 @@ int get hashCode => Object.hash(runtimeType,errMessage);
 
 @override
 String toString() {
-  return 'ForgotPasswordState.verifyCodeFailure(errMessage: $errMessage)';
+  return 'ForgotPasswordState<$T>.verifyCodeFailure(errMessage: $errMessage)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $VerifyCodeFailureCopyWith<$Res> implements $ForgotPasswordStateCopyWith<$Res> {
-  factory $VerifyCodeFailureCopyWith(VerifyCodeFailure value, $Res Function(VerifyCodeFailure) _then) = _$VerifyCodeFailureCopyWithImpl;
+abstract mixin class $VerifyCodeFailureCopyWith<T,$Res> implements $ForgotPasswordStateCopyWith<T, $Res> {
+  factory $VerifyCodeFailureCopyWith(VerifyCodeFailure<T> value, $Res Function(VerifyCodeFailure<T>) _then) = _$VerifyCodeFailureCopyWithImpl;
 @useResult
 $Res call({
  String errMessage
@@ -498,17 +566,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$VerifyCodeFailureCopyWithImpl<$Res>
-    implements $VerifyCodeFailureCopyWith<$Res> {
+class _$VerifyCodeFailureCopyWithImpl<T,$Res>
+    implements $VerifyCodeFailureCopyWith<T, $Res> {
   _$VerifyCodeFailureCopyWithImpl(this._self, this._then);
 
-  final VerifyCodeFailure _self;
-  final $Res Function(VerifyCodeFailure) _then;
+  final VerifyCodeFailure<T> _self;
+  final $Res Function(VerifyCodeFailure<T>) _then;
 
 /// Create a copy of ForgotPasswordState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? errMessage = null,}) {
-  return _then(VerifyCodeFailure(
+  return _then(VerifyCodeFailure<T>(
 null == errMessage ? _self.errMessage : errMessage // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -520,7 +588,7 @@ as String,
 /// @nodoc
 
 
-class ResetPasswordLoading implements ForgotPasswordState {
+class ResetPasswordLoading<T> implements ForgotPasswordState<T> {
   const ResetPasswordLoading();
   
 
@@ -531,7 +599,7 @@ class ResetPasswordLoading implements ForgotPasswordState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResetPasswordLoading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResetPasswordLoading<T>);
 }
 
 
@@ -540,7 +608,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ForgotPasswordState.resetPasswordLoading()';
+  return 'ForgotPasswordState<$T>.resetPasswordLoading()';
 }
 
 
@@ -552,39 +620,73 @@ String toString() {
 /// @nodoc
 
 
-class ResetPasswordSuccess implements ForgotPasswordState {
-  const ResetPasswordSuccess();
+class ResetPasswordSuccess<T> implements ForgotPasswordState<T> {
+  const ResetPasswordSuccess(this.data);
   
 
+ final  T data;
 
-
+/// Create a copy of ForgotPasswordState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ResetPasswordSuccessCopyWith<T, ResetPasswordSuccess<T>> get copyWith => _$ResetPasswordSuccessCopyWithImpl<T, ResetPasswordSuccess<T>>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResetPasswordSuccess);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResetPasswordSuccess<T>&&const DeepCollectionEquality().equals(other.data, data));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
 
 @override
 String toString() {
-  return 'ForgotPasswordState.resetPasswordSuccess()';
+  return 'ForgotPasswordState<$T>.resetPasswordSuccess(data: $data)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $ResetPasswordSuccessCopyWith<T,$Res> implements $ForgotPasswordStateCopyWith<T, $Res> {
+  factory $ResetPasswordSuccessCopyWith(ResetPasswordSuccess<T> value, $Res Function(ResetPasswordSuccess<T>) _then) = _$ResetPasswordSuccessCopyWithImpl;
+@useResult
+$Res call({
+ T data
+});
 
 
+
+
+}
+/// @nodoc
+class _$ResetPasswordSuccessCopyWithImpl<T,$Res>
+    implements $ResetPasswordSuccessCopyWith<T, $Res> {
+  _$ResetPasswordSuccessCopyWithImpl(this._self, this._then);
+
+  final ResetPasswordSuccess<T> _self;
+  final $Res Function(ResetPasswordSuccess<T>) _then;
+
+/// Create a copy of ForgotPasswordState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
+  return _then(ResetPasswordSuccess<T>(
+freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as T,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
 
-class ResetPasswordFailure implements ForgotPasswordState {
+class ResetPasswordFailure<T> implements ForgotPasswordState<T> {
   const ResetPasswordFailure(this.errMessage);
   
 
@@ -594,13 +696,13 @@ class ResetPasswordFailure implements ForgotPasswordState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$ResetPasswordFailureCopyWith<ResetPasswordFailure> get copyWith => _$ResetPasswordFailureCopyWithImpl<ResetPasswordFailure>(this, _$identity);
+$ResetPasswordFailureCopyWith<T, ResetPasswordFailure<T>> get copyWith => _$ResetPasswordFailureCopyWithImpl<T, ResetPasswordFailure<T>>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResetPasswordFailure&&(identical(other.errMessage, errMessage) || other.errMessage == errMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResetPasswordFailure<T>&&(identical(other.errMessage, errMessage) || other.errMessage == errMessage));
 }
 
 
@@ -609,15 +711,15 @@ int get hashCode => Object.hash(runtimeType,errMessage);
 
 @override
 String toString() {
-  return 'ForgotPasswordState.resetPasswordFailure(errMessage: $errMessage)';
+  return 'ForgotPasswordState<$T>.resetPasswordFailure(errMessage: $errMessage)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ResetPasswordFailureCopyWith<$Res> implements $ForgotPasswordStateCopyWith<$Res> {
-  factory $ResetPasswordFailureCopyWith(ResetPasswordFailure value, $Res Function(ResetPasswordFailure) _then) = _$ResetPasswordFailureCopyWithImpl;
+abstract mixin class $ResetPasswordFailureCopyWith<T,$Res> implements $ForgotPasswordStateCopyWith<T, $Res> {
+  factory $ResetPasswordFailureCopyWith(ResetPasswordFailure<T> value, $Res Function(ResetPasswordFailure<T>) _then) = _$ResetPasswordFailureCopyWithImpl;
 @useResult
 $Res call({
  String errMessage
@@ -628,17 +730,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$ResetPasswordFailureCopyWithImpl<$Res>
-    implements $ResetPasswordFailureCopyWith<$Res> {
+class _$ResetPasswordFailureCopyWithImpl<T,$Res>
+    implements $ResetPasswordFailureCopyWith<T, $Res> {
   _$ResetPasswordFailureCopyWithImpl(this._self, this._then);
 
-  final ResetPasswordFailure _self;
-  final $Res Function(ResetPasswordFailure) _then;
+  final ResetPasswordFailure<T> _self;
+  final $Res Function(ResetPasswordFailure<T>) _then;
 
 /// Create a copy of ForgotPasswordState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? errMessage = null,}) {
-  return _then(ResetPasswordFailure(
+  return _then(ResetPasswordFailure<T>(
 null == errMessage ? _self.errMessage : errMessage // ignore: cast_nullable_to_non_nullable
 as String,
   ));

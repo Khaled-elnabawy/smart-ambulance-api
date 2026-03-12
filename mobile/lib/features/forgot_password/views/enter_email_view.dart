@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/helpers/extensions.dart';
 import 'package:mobile/core/helpers/spacing.dart';
@@ -7,7 +8,9 @@ import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/core/widgets/generic_text_button.dart';
 import 'package:mobile/core/widgets/generic_text_form_field.dart';
+import 'package:mobile/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:mobile/features/forgot_password/views/widgets/back_icon_widget.dart';
+import 'package:mobile/features/forgot_password/views/widgets/send_code_bloc_listener.dart';
 
 class EnterEmailView extends StatelessWidget {
   const EnterEmailView({super.key});
@@ -47,7 +50,7 @@ class EnterEmailView extends StatelessWidget {
                 backgroundColor: Colors.white,
                 prefixIcon: Icon(Icons.email_rounded, color: ColorsManager.red),
                 // TODO: add controller
-                //controller: ,
+                controller: context.read<ForgotPasswordCubit>().emailController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a valid email';
@@ -63,6 +66,7 @@ class EnterEmailView extends StatelessWidget {
                 },
               ),
               verticalSpacing(48),
+              const SendCodeBlocListener(),
             ],
           ),
         ),
