@@ -1041,7 +1041,7 @@
           },
           "response": [
             {
-              "name": "New Request",
+              "name": "forgot-password",
               "originalRequest": {
                 "method": "POST",
                 "header": [],
@@ -1093,7 +1093,7 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Mon, 09 Mar 2026 14:27:32 GMT"
+                  "value": "Thu, 12 Mar 2026 15:26:30 GMT"
                 },
                 {
                   "key": "Content-Type",
@@ -1113,7 +1113,7 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"status\": true,\n    \"message\": \"Password reset link sent to your email\",\n    \"data\": {\n        \"reset_token\": \"A0xYsDstKKFd9HQwdxjTkB2z40zZj0aHGmABBdqKToceaXo6YMwdDUs71Y1Z\"\n    }\n}"
+              "body": "{\n    \"status\": true,\n    \"message\": \"Reset code sent to your email\",\n    \"status_code\": 200\n}"
             }
           ]
         },
@@ -1148,7 +1148,192 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "reset-password",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"khaled@gmail.com\",\r\n  \"token\": \"KDJTNGccJAGHtKWN6GuwG6c86GRtXPcZnwjIcfWlCGOd3sVJwl9XDSlHc7Y6\",\r\n  \"password\": \"newpassword1\",\r\n  \"confirm_password\": \"newpassword1\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/reset-password",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "reset-password"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 12 Mar 2026 15:31:37 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": true,\n    \"message\": \"Password reset successfully\",\n    \"status_code\": 200\n}"
+            }
+          ]
+        },
+        {
+          "name": "verify-reset-code",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"email\":\"khaled@gmail.com\",\r\n \"code\":\"699033\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/v1/verify-reset-code",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "verify-reset-code"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "verify-reset-code",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n \"email\":\"khaled@gmail.com\",\r\n \"code\":\"699033\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/v1/verify-reset-code",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "v1",
+                    "verify-reset-code"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.2.12"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 12 Mar 2026 15:29:20 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-RateLimit-Limit",
+                  "value": "60"
+                },
+                {
+                  "key": "X-RateLimit-Remaining",
+                  "value": "59"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": true,\n    \"message\": \"Code verified successfully\",\n    \"data\": {\n        \"reset_token\": \"KDJTNGccJAGHtKWN6GuwG6c86GRtXPcZnwjIcfWlCGOd3sVJwl9XDSlHc7Y6\"\n    },\n    \"status_code\": 200\n}"
+            }
+          ]
         }
       ]
     },
