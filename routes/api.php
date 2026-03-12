@@ -26,6 +26,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/login', [AuthController::class, 'userLogin']);
     Route::post('/driver/login', [AuthController::class, 'driverLogin']);
     Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+    Route::post('/verify-reset-code', [AuthController::class, 'verifyResetCode']);
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
     // Protected Routes
