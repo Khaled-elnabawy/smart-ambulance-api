@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/helpers/extensions.dart';
 import 'package:mobile/core/helpers/spacing.dart';
+import 'package:mobile/core/routing/routes.dart';
 import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/core/widgets/generic_text_button.dart';
@@ -57,7 +58,9 @@ class EnterEmailView extends StatelessWidget {
               GenericTextButton(
                 buttonText: 'Send Reset Code',
                 textStyle: TextStyles.font24WhiteBold,
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(Routes.enterCodeView);
+                },
               ),
               verticalSpacing(48),
             ],

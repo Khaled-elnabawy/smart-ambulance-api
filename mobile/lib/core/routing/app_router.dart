@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/core/di/dependency_injection.dart';
 import 'package:mobile/core/routing/routes.dart';
+import 'package:mobile/features/forget_password/views/enter_code_view.dart';
 import 'package:mobile/features/forget_password/views/enter_email_view.dart';
 import 'package:mobile/features/home/views/home_view.dart';
 import 'package:mobile/features/login/logic/login_cubit.dart';
@@ -31,6 +32,10 @@ class AppRouter {
       case Routes.enterEmailView:
         return MaterialPageRoute(
           builder: (_) => const EnterEmailView(),
+        );
+      case Routes.enterCodeView:
+        return MaterialPageRoute(
+          builder: (_) => const EnterCodeView(),
         );
       case Routes.homeView:
         return MaterialPageRoute(
