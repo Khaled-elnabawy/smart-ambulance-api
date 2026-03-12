@@ -37,32 +37,46 @@ class EnterEmailView extends StatelessWidget {
               verticalSpacing(32),
               Text('Email Address', style: TextStyles.font16BlackMedium),
               verticalSpacing(8),
-              GenericTextFormField(
-                hintText: 'Enter your email',
-                hintStyle: TextStyles.font16LightGrayRegular,
-                enableBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: ColorsManager.lightGrey,
-                    width: 1.2,
+              Form(
+                key: context.read<ForgotPasswordCubit>().formKey,
+                child: GenericTextFormField(
+                  hintText: 'Enter your email',
+                  hintStyle: TextStyles.font16LightGrayRegular,
+                  enableBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: ColorsManager.lightGrey,
+                      width: 1.2,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  borderRadius: BorderRadius.circular(20),
+                  backgroundColor: Colors.white,
+                  prefixIcon: Icon(
+                    Icons.email_rounded,
+                    color: ColorsManager.red,
+                  ),
+                  // TODO: add controller
+                  controller: context
+                      .read<ForgotPasswordCubit>()
+                      .emailController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a valid email';
+                    }
+                  },
                 ),
-                backgroundColor: Colors.white,
-                prefixIcon: Icon(Icons.email_rounded, color: ColorsManager.red),
-                // TODO: add controller
-                controller: context.read<ForgotPasswordCubit>().emailController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a valid email';
-                  }
-                },
               ),
               Spacer(),
               GenericTextButton(
                 buttonText: 'Send Reset Code',
                 textStyle: TextStyles.font24WhiteBold,
                 onPressed: () {
-                  context.pushNamed(Routes.enterCodeView);
+                  if (context
+                      .read<ForgotPasswordCubit>()
+                      .formKey
+                      .currentState!
+                      .validate()) {
+                    context.read<ForgotPasswordCubit>().sendCode();
+                  }
                 },
               ),
               verticalSpacing(48),
