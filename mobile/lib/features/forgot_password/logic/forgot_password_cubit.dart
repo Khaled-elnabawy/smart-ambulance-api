@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/networking/api_result.dart';
 import '../data/models/send_code_models/send_code_request_body.dart';
+import '../data/models/verify_code_models/verify_code_request_body.dart';
 import '../data/repos/forgot_password_repo.dart';
 import 'forgot_password_state.dart';
 
@@ -29,6 +30,28 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       failure: (error) {
         emit(
           ForgotPasswordState.sendCodeFailure(
+            error.apiErrorModel.message ?? '',
+          ),
+        );
+      },
+    );
+  }
+
+  void verifyCode() async {
+    emit(ForgotPasswordState.verifyCodeLoading());
+    final response = await _forgotPasswordRepo.verifyCode(
+      VerifyCodeRequestBody(
+        email: emailController.text,
+        code: codeController.text,
+      ),
+    );
+    response.when(
+      success: (verifyCodeResponse) {
+        emit(ForgotPasswordState.verifyCodeSuccess(verifyCodeResponse));
+      },
+      failure: (error) {
+        emit(
+          ForgotPasswordState.verifyCodeFailure(
             error.apiErrorModel.message ?? '',
           ),
         );

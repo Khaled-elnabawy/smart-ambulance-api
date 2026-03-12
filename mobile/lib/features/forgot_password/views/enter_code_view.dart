@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/core/widgets/generic_text_form_field.dart';
 import 'package:mobile/features/forgot_password/views/widgets/back_icon_widget.dart';
 import 'package:mobile/features/forgot_password/views/widgets/icon_with_background.dart';
+import 'package:mobile/features/forgot_password/views/widgets/verify_code_bloc_listener.dart';
 import '../../../core/helpers/extensions.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/routing/routes.dart';
 import '../../../core/theming/styles.dart';
 import '../../../core/widgets/generic_text_button.dart';
+import '../logic/forgot_password_cubit.dart';
 
 class EnterCodeView extends StatelessWidget {
   const EnterCodeView({super.key});
@@ -58,8 +61,7 @@ class EnterCodeView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 backgroundColor: Colors.white,
-                // TODO: add controller
-                //controller: ,
+                controller: context.read<ForgotPasswordCubit>().codeController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a valid code';
@@ -71,10 +73,17 @@ class EnterCodeView extends StatelessWidget {
                 buttonText: 'Verify Code',
                 textStyle: TextStyles.font24WhiteBold,
                 onPressed: () {
-                  context.pushNamed(Routes.resetPasswordView);
+                  if (context
+                      .read<ForgotPasswordCubit>()
+                      .formKey
+                      .currentState!
+                      .validate()) {
+                    context.read<ForgotPasswordCubit>().verifyCode();
+                  }
                 },
               ),
               verticalSpacing(48),
+              const VerifyCodeBlocListener(),
             ],
           ),
         ),
