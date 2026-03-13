@@ -7,7 +7,6 @@ import '../../../../core/theming/styles.dart';
 import '../../logic/forgot_password_cubit.dart';
 import '../../logic/forgot_password_state.dart';
 
-
 class SendCodeBlocListener extends StatelessWidget {
   const SendCodeBlocListener({super.key});
 
@@ -15,7 +14,9 @@ class SendCodeBlocListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
       listenWhen: (previous, current) =>
-      current is SendCodeLoading || current is SendCodeSuccess || current is SendCodeFailure,
+          current is SendCodeLoading ||
+          current is SendCodeSuccess ||
+          current is SendCodeFailure,
       listener: (context, state) {
         state.whenOrNull(
           sendCodeLoading: () {
@@ -29,6 +30,10 @@ class SendCodeBlocListener extends StatelessWidget {
           },
           sendCodeSuccess: (sendCodeResponse) {
             context.pop();
+            context.read<ForgotPasswordCubit>().email = context
+                .read<ForgotPasswordCubit>()
+                .emailController
+                .text;
             context.pushNamed(Routes.enterCodeView);
           },
           sendCodeFailure: (errMessage) {

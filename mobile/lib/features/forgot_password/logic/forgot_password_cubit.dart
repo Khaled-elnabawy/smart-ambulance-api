@@ -16,6 +16,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       TextEditingController();
   final formKey = GlobalKey<FormState>();
   late final String resetToken;
+  late final String email;
 
   ForgotPasswordCubit(this._forgotPasswordRepo)
     : super(ForgotPasswordState.initial());
@@ -43,7 +44,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     emit(ForgotPasswordState.verifyCodeLoading());
     final response = await _forgotPasswordRepo.verifyCode(
       VerifyCodeRequestBody(
-        email: emailController.text,
+        email: email,
         code: codeController.text,
       ),
     );
@@ -65,7 +66,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     emit(ForgotPasswordState.resetPasswordLoading());
     final response = await _forgotPasswordRepo.resetPassword(
       ResetPasswordRequestBody(
-        email: emailController.text,
+        email: email,
         resetToken: resetToken,
         password: newPasswordController.text,
         confirmPassword: confirmNewPasswordController.text,
