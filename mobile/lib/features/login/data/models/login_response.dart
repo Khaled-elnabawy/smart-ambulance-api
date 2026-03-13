@@ -20,6 +20,8 @@ class LoginResponse {
 @JsonSerializable()
 class UserData {
   String? token;
+  @JsonKey(name: 'user_type')
+  String? userType;
   @JsonKey(name: 'user')
   UserInfo? userInfo;
 
