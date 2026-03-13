@@ -43,10 +43,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   void verifyCode() async {
     emit(ForgotPasswordState.verifyCodeLoading());
     final response = await _forgotPasswordRepo.verifyCode(
-      VerifyCodeRequestBody(
-        email: email,
-        code: codeController.text,
-      ),
+      VerifyCodeRequestBody(email: email, code: codeController.text),
     );
     response.when(
       success: (verifyCodeResponse) {

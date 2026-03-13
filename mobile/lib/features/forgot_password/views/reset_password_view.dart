@@ -5,9 +5,7 @@ import 'package:mobile/features/forgot_password/logic/forgot_password_cubit.dart
 import 'package:mobile/features/forgot_password/views/widgets/back_icon_widget.dart';
 import 'package:mobile/features/forgot_password/views/widgets/icon_with_background.dart';
 import 'package:mobile/features/forgot_password/views/widgets/reset_password_bloc_listener.dart';
-import '../../../core/helpers/extensions.dart';
 import '../../../core/helpers/spacing.dart';
-import '../../../core/routing/routes.dart';
 import '../../../core/theming/colors.dart';
 import '../../../core/theming/styles.dart';
 import '../../../core/widgets/generic_text_button.dart';
@@ -91,8 +89,9 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         backgroundColor: Colors.white,
-                        // TODO: add controller
-                        //controller: ,
+                        controller: context
+                            .read<ForgotPasswordCubit>()
+                            .newPasswordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a valid password';
@@ -133,8 +132,9 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         backgroundColor: Colors.white,
-                        // TODO: add controller
-                        //controller: ,
+                        controller: context
+                            .read<ForgotPasswordCubit>()
+                            .confirmNewPasswordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a valid password';
