@@ -12,7 +12,9 @@ import '../../../core/widgets/generic_text_button.dart';
 import '../logic/forgot_password_cubit.dart';
 
 class EnterCodeView extends StatelessWidget {
-  const EnterCodeView({super.key});
+  final String email;
+
+  const EnterCodeView({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +87,12 @@ class EnterCodeView extends StatelessWidget {
                         .formKey
                         .currentState!
                         .validate()) {
-                      context.read<ForgotPasswordCubit>().verifyCode();
+                      context.read<ForgotPasswordCubit>().verifyCode(email);
                     }
                   },
                 ),
                 verticalSpacing(48),
-                const VerifyCodeBlocListener(),
+                VerifyCodeBlocListener(email: email),
               ],
             ),
           ),

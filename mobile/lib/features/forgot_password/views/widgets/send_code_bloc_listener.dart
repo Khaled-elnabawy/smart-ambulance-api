@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helpers/extensions.dart';
@@ -30,11 +32,13 @@ class SendCodeBlocListener extends StatelessWidget {
           },
           sendCodeSuccess: (sendCodeResponse) {
             context.pop();
-            context.read<ForgotPasswordCubit>().email = context
-                .read<ForgotPasswordCubit>()
-                .emailController
-                .text;
-            context.pushNamed(Routes.enterCodeView);
+            context.pushNamed(
+              Routes.enterCodeView,
+              arguments: context
+                  .read<ForgotPasswordCubit>()
+                  .emailController
+                  .text,
+            );
           },
           sendCodeFailure: (errMessage) {
             // show error message

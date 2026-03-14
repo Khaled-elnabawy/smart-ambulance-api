@@ -8,7 +8,8 @@ import '../../logic/forgot_password_cubit.dart';
 import '../../logic/forgot_password_state.dart';
 
 class VerifyCodeBlocListener extends StatelessWidget {
-  const VerifyCodeBlocListener({super.key});
+  final String email;
+  const VerifyCodeBlocListener({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +31,10 @@ class VerifyCodeBlocListener extends StatelessWidget {
           },
           verifyCodeSuccess: (verifyCodeResponse) {
             context.pop();
-            context.read<ForgotPasswordCubit>().resetToken =
-                verifyCodeResponse.data!.resetToken!;
-            context.pushNamed(Routes.resetPasswordView);
+            context.pushNamed(Routes.resetPasswordView,arguments: {
+              "email": email,
+              "resetToken": verifyCodeResponse.data.resetToken,
+            });
           },
           verifyCodeFailure: (errMessage) {
             // show error message

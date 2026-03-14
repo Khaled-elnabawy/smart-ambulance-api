@@ -12,14 +12,22 @@ import '../../../core/widgets/generic_text_button.dart';
 import '../../../core/widgets/generic_text_form_field.dart';
 
 class ResetPasswordView extends StatefulWidget {
-  const ResetPasswordView({super.key});
+  final String email;
+  final String resetToken;
+
+  const ResetPasswordView({
+    super.key,
+    required this.email,
+    required this.resetToken,
+  });
 
   @override
   State<ResetPasswordView> createState() => _ResetPasswordViewState();
 }
 
 class _ResetPasswordViewState extends State<ResetPasswordView> {
-  bool isObscureText = true;
+  bool isNewPasswordObscureText = true;
+  bool isConfirmNewPasswordObscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -68,15 +76,16 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         hintText: 'Enter new password',
                         hintStyle: TextStyles.font16LightGrayRegular,
                         prefixIcon: Icon(Icons.lock_outline_rounded),
-                        isObscureText: isObscureText,
+                        isObscureText: isNewPasswordObscureText,
                         suffixIcon: GestureDetector(
                           onTap: () {
                             setState(() {
-                              isObscureText = !isObscureText;
+                              isNewPasswordObscureText =
+                                  !isNewPasswordObscureText;
                             });
                           },
                           child: Icon(
-                            isObscureText
+                            isNewPasswordObscureText
                                 ? Icons.visibility_off_rounded
                                 : Icons.visibility_rounded,
                           ),
@@ -111,15 +120,16 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         hintText: 'Enter confirm new password',
                         hintStyle: TextStyles.font16LightGrayRegular,
                         prefixIcon: Icon(Icons.lock_outline_rounded),
-                        isObscureText: isObscureText,
+                        isObscureText: isConfirmNewPasswordObscureText,
                         suffixIcon: GestureDetector(
                           onTap: () {
                             setState(() {
-                              isObscureText = !isObscureText;
+                              isConfirmNewPasswordObscureText =
+                                  !isConfirmNewPasswordObscureText;
                             });
                           },
                           child: Icon(
-                            isObscureText
+                            isConfirmNewPasswordObscureText
                                 ? Icons.visibility_off_rounded
                                 : Icons.visibility_rounded,
                           ),
@@ -154,7 +164,10 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         .formKey
                         .currentState!
                         .validate()) {
-                      context.read<ForgotPasswordCubit>().resetPassword();
+                      context.read<ForgotPasswordCubit>().resetPassword(
+                        email: widget.email,
+                        resetToken: widget.resetToken,
+                      );
                     }
                   },
                 ),

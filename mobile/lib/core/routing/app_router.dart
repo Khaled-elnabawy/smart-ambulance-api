@@ -14,8 +14,6 @@ import '../../features/register/logic/register_cubit.dart';
 
 class AppRouter {
   Route generateRoute(RouteSettings settings) {
-    final arguments = settings.arguments;
-
     switch (settings.name) {
       case Routes.loginView:
         return MaterialPageRoute(
@@ -42,14 +40,19 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => getIt<ForgotPasswordCubit>(),
-            child: const EnterCodeView(),
+            child: EnterCodeView(email: settings.arguments as String),
           ),
         );
       case Routes.resetPasswordView:
+        final args = settings.arguments as Map<String, dynamic>;
+
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => getIt<ForgotPasswordCubit>(),
-            child: const ResetPasswordView(),
+            child: ResetPasswordView(
+              email: args['email'] as String,
+              resetToken: args['resetToken'] as String,
+            ),
           ),
         );
       case Routes.homeView:

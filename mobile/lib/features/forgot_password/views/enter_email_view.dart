@@ -73,7 +73,9 @@ class EnterEmailView extends StatelessWidget {
                         .formKey
                         .currentState!
                         .validate()) {
-                      context.read<ForgotPasswordCubit>().sendCode();
+                      context.read<ForgotPasswordCubit>().sendCode(
+
+                      );
                     }
                   },
                 ),
