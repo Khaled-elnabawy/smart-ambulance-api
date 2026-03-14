@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/features/register/views/widgets/already_have_account_text.dart';
+import 'package:mobile/features/register/views/widgets/register_bloc_listener.dart';
 import 'package:mobile/features/register/views/widgets/register_form.dart';
 
 import '../../../core/helpers/spacing.dart';
@@ -69,6 +70,7 @@ class RegisterView extends StatelessWidget {
                     ),
                     verticalSpacing(16),
                     AlreadyHaveAccountText(),
+                    const RegisterBlocListener(),
                   ],
                 ),
               ),

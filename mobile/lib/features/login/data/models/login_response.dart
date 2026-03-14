@@ -8,6 +8,7 @@ class LoginResponse {
   @JsonKey(name: 'data')
   UserData? userData;
   bool? status;
+  @JsonKey(name: 'status_code')
   int? code;
 
   LoginResponse({this.message, this.userData, this.status, this.code});
@@ -19,6 +20,8 @@ class LoginResponse {
 @JsonSerializable()
 class UserData {
   String? token;
+  @JsonKey(name: 'user_type')
+  String? role;
   @JsonKey(name: 'user')
   UserInfo? userInfo;
 

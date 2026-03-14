@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/helpers/spacing.dart';
+import 'package:mobile/core/routing/routes.dart';
 import 'package:mobile/core/widgets/generic_text_button.dart';
-import 'package:mobile/core/widgets/generic_text_form_field.dart';
 import 'package:mobile/features/login/views/widgets/do_not_have_account_text.dart';
 import 'package:mobile/features/login/views/widgets/login_form.dart';
 import 'package:mobile/features/login/views/widgets/login_bloc_listener.dart';
+import '../../../core/helpers/extensions.dart';
 import '../../../core/theming/styles.dart';
-import '../data/models/login_request_body.dart';
 import '../logic/login_cubit.dart';
 
 class LoginView extends StatefulWidget {
@@ -59,6 +59,20 @@ class _LoginViewState extends State<LoginView> {
                     Column(
                       children: [
                         LoginForm(),
+                        verticalSpacing(10),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: GestureDetector(
+                            onTap: () {
+                              context.pushNamed(Routes.enterEmailView);
+                            },
+                            child: Text(
+                              'Forgot Password?',
+                              style: TextStyles.font14RedBold,
+                            ),
+                          ),
+                        ),
+                        verticalSpacing(28),
                         GenericTextButton(
                           buttonText: 'Login',
                           textStyle: TextStyles.font24WhiteBold,

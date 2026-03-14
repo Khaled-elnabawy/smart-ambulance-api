@@ -53,7 +53,6 @@ class _LoginFormState extends State<LoginForm> {
               }
             },
           ),
-          verticalSpacing(35),
         ],
       ),
     );

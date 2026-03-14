@@ -6,13 +6,14 @@ import 'package:mobile/features/home/views/home_view.dart';
 import 'package:mobile/features/login/logic/login_cubit.dart';
 import 'package:mobile/features/login/views/login_view.dart';
 import 'package:mobile/features/register/views/register_view.dart';
-
+import '../../features/forgot_password/logic/forgot_password_cubit.dart';
+import '../../features/forgot_password/views/enter_code_view.dart';
+import '../../features/forgot_password/views/enter_email_view.dart';
+import '../../features/forgot_password/views/reset_password_view.dart';
 import '../../features/register/logic/register_cubit.dart';
 
 class AppRouter {
   Route generateRoute(RouteSettings settings) {
-    final arguments = settings.arguments;
-
     switch (settings.name) {
       case Routes.loginView:
         return MaterialPageRoute(
@@ -24,13 +25,38 @@ class AppRouter {
       case Routes.registerView:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-              create: (context) => getIt<RegisterCubit>(),
-              child: const RegisterView()),
+            create: (context) => getIt<RegisterCubit>(),
+            child: const RegisterView(),
+          ),
+        );
+      case Routes.enterEmailView:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ForgotPasswordCubit>(),
+            child: const EnterEmailView(),
+          ),
+        );
+      case Routes.enterCodeView:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ForgotPasswordCubit>(),
+            child: EnterCodeView(email: settings.arguments as String),
+          ),
+        );
+      case Routes.resetPasswordView:
+        final args = settings.arguments as Map<String, dynamic>;
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ForgotPasswordCubit>(),
+            child: ResetPasswordView(
+              email: args['email'] as String,
+              resetToken: args['resetToken'] as String,
+            ),
+          ),
         );
       case Routes.homeView:
-        return MaterialPageRoute(
-          builder: (_) => const HomeView(),
-        );
+        return MaterialPageRoute(builder: (_) => const HomeView());
       default:
         return MaterialPageRoute(
           builder: (_) => MaterialApp(

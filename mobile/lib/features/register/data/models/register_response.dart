@@ -8,6 +8,7 @@ class RegisterResponse {
   @JsonKey(name: 'data')
   UserData? userData;
   bool? status;
+  @JsonKey(name: 'status_code')
   int? code;
 
   RegisterResponse({this.message, this.userData, this.status, this.code});
