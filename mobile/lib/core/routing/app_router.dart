@@ -4,7 +4,7 @@ import 'package:mobile/core/di/dependency_injection.dart';
 import 'package:mobile/core/routing/routes.dart';
 import 'package:mobile/features/login/logic/login_cubit.dart';
 import 'package:mobile/features/login/views/login_view.dart';
-import 'package:mobile/features/main_view.dart';
+import 'package:mobile/layouts/main/main_view.dart';
 import 'package:mobile/features/register/views/register_view.dart';
 import '../../features/forgot_password/logic/forgot_password_cubit.dart';
 import '../../features/forgot_password/views/enter_code_view.dart';
