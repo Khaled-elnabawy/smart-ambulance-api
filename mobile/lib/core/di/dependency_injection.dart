@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile/features/forgot_password/data/repos/forgot_password_repo.dart';
 import 'package:mobile/features/forgot_password/logic/forgot_password_cubit.dart';
+import 'package:mobile/layouts/main/cubit/bottom_nav_cubit.dart';
 import '../../features/login/data/repos/login_repo.dart';
 import '../../features/login/logic/login_cubit.dart';
 import '../../features/register/data/repos/register_repo.dart';
@@ -30,5 +31,10 @@ Future<void> setupGetIt() async {
   );
   getIt.registerFactory<ForgotPasswordCubit>(
     () => ForgotPasswordCubit(getIt()),
+  );
+
+  // bottom navigation cubit
+  getIt.registerFactory<BottomNavCubit>(
+        () => BottomNavCubit(),
   );
 }

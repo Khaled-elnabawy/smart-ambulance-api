@@ -11,6 +11,7 @@ import '../../features/forgot_password/views/enter_code_view.dart';
 import '../../features/forgot_password/views/enter_email_view.dart';
 import '../../features/forgot_password/views/reset_password_view.dart';
 import '../../features/register/logic/register_cubit.dart';
+import '../../layouts/main/cubit/bottom_nav_cubit.dart';
 
 class AppRouter {
   Route generateRoute(RouteSettings settings) {
@@ -56,7 +57,12 @@ class AppRouter {
           ),
         );
       case Routes.mainView:
-        return MaterialPageRoute(builder: (_) => const MainView());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<BottomNavCubit>(),
+            child: const MainView(),
+          ),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => MaterialApp(
