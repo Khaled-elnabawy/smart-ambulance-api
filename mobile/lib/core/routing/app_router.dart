@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/core/di/dependency_injection.dart';
 import 'package:mobile/core/routing/routes.dart';
-import 'package:mobile/features/home/views/home_view.dart';
 import 'package:mobile/features/login/logic/login_cubit.dart';
 import 'package:mobile/features/login/views/login_view.dart';
+import 'package:mobile/features/main_view.dart';
 import 'package:mobile/features/register/views/register_view.dart';
 import '../../features/forgot_password/logic/forgot_password_cubit.dart';
 import '../../features/forgot_password/views/enter_code_view.dart';
@@ -55,8 +55,8 @@ class AppRouter {
             ),
           ),
         );
-      case Routes.homeView:
-        return MaterialPageRoute(builder: (_) => const HomeView());
+      case Routes.mainView:
+        return MaterialPageRoute(builder: (_) => const MainView());
       default:
         return MaterialPageRoute(
           builder: (_) => MaterialApp(
