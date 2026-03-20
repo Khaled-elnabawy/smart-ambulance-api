@@ -69,4 +69,9 @@ class TextStyles {
     color: ColorsManager.red,
     fontWeight: FontWeightHelper.bold,
   );
+  static TextStyle font13WhiteMedium = TextStyle(
+    fontSize: 13.sp,
+    color: Colors.white,
+    fontWeight: FontWeightHelper.medium,
+  );
 }

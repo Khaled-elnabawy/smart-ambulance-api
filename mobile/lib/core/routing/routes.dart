@@ -4,5 +4,6 @@ class Routes {
   static const String enterEmailView = '/enterEmailView';
   static const String enterCodeView = '/enterCodeView';
   static const String resetPasswordView = '/resetPasswordView';
+  static const String mainView = '/mainView';
   static const String homeView = '/homeView';
 }
