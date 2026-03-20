@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/layouts/main/cubit/bottom_nav_cubit.dart';
+import 'package:mobile/layouts/main/widgets/custom_bottom_nav_bar.dart';
 import '../../features/home/views/home_view.dart';
 import '../../features/notifications/views/notifications_view.dart';
 import '../../features/profile/views/profile_view.dart';
@@ -21,12 +22,8 @@ class MainView extends StatelessWidget {
               (index) => _buildNavigator(index, currentIndex),
             ),
           ),
-          bottomNavigationBar: BottomNavigationBar(
+          bottomNavigationBar: CustomBottomNavBar(
             currentIndex: currentIndex,
-            backgroundColor: ColorsManager.red,
-            selectedItemColor: Colors.white,
-            unselectedItemColor: ColorsManager.grey,
-
             onTap: (index) {
               if (index == currentIndex) {
                 NavigationKeys.navigatorKeys[index].currentState!.popUntil(
@@ -36,17 +33,6 @@ class MainView extends StatelessWidget {
                 context.read<BottomNavCubit>().changeIndex(index);
               }
             },
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.notifications_active_rounded),
-                label: 'notifications',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'profile',
-              ),
-            ],
           ),
         );
       },
