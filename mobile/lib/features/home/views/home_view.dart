@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -6,8 +7,8 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('THIS IS HOME VIEW !!!!!!!!!!'),
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(target: LatLng(37.42796133580664, -122.085749655962)),
       ),
     );
   }
