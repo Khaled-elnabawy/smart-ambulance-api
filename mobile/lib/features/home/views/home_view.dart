@@ -25,6 +25,7 @@ class _HomeViewState extends State<HomeView> {
     initMarkers();
     location = Location();
     checkAndRequestLocationService();
+    checkAndRequestLocationPermission();
   }
 
   /*Future<Uint8List> getImageFromRawData(String image, double width) async {
@@ -67,6 +68,16 @@ class _HomeViewState extends State<HomeView> {
       isServiceEnabled = await location.requestService();
       if (!isServiceEnabled) {
         // TODO : Handle location service not enabled state.
+        return ;
+      }
+    }
+  }
+  void checkAndRequestLocationPermission() async{
+    PermissionStatus permission = await location.hasPermission();
+    if (permission == PermissionStatus.denied) {
+      permission = await location.requestPermission();
+      if (permission != PermissionStatus.granted) {
+        // TODO : Handle location permission not granted state.
         return ;
       }
     }
