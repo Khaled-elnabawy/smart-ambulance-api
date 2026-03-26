@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -10,7 +11,8 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late final CameraPosition initialCameraPosition;
-  late GoogleMapController _mapController;
+  late GoogleMapController _mapController;late
+   Location location;
   Set<Marker> markers = {};
 
   @override
@@ -21,6 +23,8 @@ class _HomeViewState extends State<HomeView> {
       zoom: 15.5,
     );
     initMarkers();
+    location = Location();
+    checkAndRequestLocationService();
   }
 
   /*Future<Uint8List> getImageFromRawData(String image, double width) async {
@@ -56,6 +60,16 @@ class _HomeViewState extends State<HomeView> {
     );
     markers.add(help);
     markers.add(ambulancer);
+  }
+  void checkAndRequestLocationService() async{
+    bool isServiceEnabled = await location.serviceEnabled();
+    if (!isServiceEnabled) {
+      isServiceEnabled = await location.requestService();
+      if (!isServiceEnabled) {
+        // TODO : Handle location service not enabled state.
+        return ;
+      }
+    }
   }
 
   @override
