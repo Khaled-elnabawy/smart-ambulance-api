@@ -11,8 +11,8 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late final CameraPosition initialCameraPosition;
-  late GoogleMapController _mapController;late
-   Location location;
+  late GoogleMapController _mapController;
+  late Location location;
   Set<Marker> markers = {};
 
   @override
@@ -24,8 +24,7 @@ class _HomeViewState extends State<HomeView> {
     );
     initMarkers();
     location = Location();
-    checkAndRequestLocationService();
-    checkAndRequestLocationPermission();
+    checkAndRequestLocationServiceAndPermission();
   }
 
   /*Future<Uint8List> getImageFromRawData(String image, double width) async {
@@ -62,25 +61,32 @@ class _HomeViewState extends State<HomeView> {
     markers.add(help);
     markers.add(ambulancer);
   }
-  void checkAndRequestLocationService() async{
+
+  void checkAndRequestLocationService() async {
     bool isServiceEnabled = await location.serviceEnabled();
     if (!isServiceEnabled) {
       isServiceEnabled = await location.requestService();
       if (!isServiceEnabled) {
         // TODO : Handle location service not enabled state.
-        return ;
+        return;
       }
     }
   }
-  void checkAndRequestLocationPermission() async{
+
+  void checkAndRequestLocationPermission() async {
     PermissionStatus permission = await location.hasPermission();
     if (permission == PermissionStatus.denied) {
       permission = await location.requestPermission();
-      if (permission != PermissionStatus.granted) {
+      if (permission != PermissionStatus.granted ||
+          permission != PermissionStatus.grantedLimited) {
         // TODO : Handle location permission not granted state.
-        return ;
+        return;
       }
     }
+  }
+  void checkAndRequestLocationServiceAndPermission(){
+    checkAndRequestLocationService();
+    checkAndRequestLocationPermission();
   }
 
   @override
