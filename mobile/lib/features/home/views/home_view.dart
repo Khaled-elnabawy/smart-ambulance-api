@@ -68,7 +68,6 @@ class _HomeViewState extends State<HomeView> {
           _mapController = controller;
         },
         zoomControlsEnabled: false,
-
       ),
     );
   }
