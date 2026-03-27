@@ -24,7 +24,6 @@ class _HomeViewState extends State<HomeView> {
     );
     initMarkers();
     location = Location();
-    checkAndRequestLocationServiceAndPermission();
   }
 
   /*Future<Uint8List> getImageFromRawData(String image, double width) async {
@@ -40,6 +39,45 @@ class _HomeViewState extends State<HomeView> {
 
     return imageBytData!.buffer.asUint8List();
   }*/
+
+  Future<void> checkAndRequestLocationService() async {
+    bool isServiceEnabled = await location.serviceEnabled();
+    if (!isServiceEnabled) {
+      isServiceEnabled = await location.requestService();
+      if (!isServiceEnabled) {
+        // TODO : Handle location service not enabled state.
+        return;
+      }
+    }
+  }
+
+  Future<bool> checkAndRequestLocationPermission() async {
+    PermissionStatus permission = await location.hasPermission();
+    if (permission == PermissionStatus.denied) {
+      return false;
+    }
+    if (permission == PermissionStatus.denied) {
+      permission = await location.requestPermission();
+      if (permission != PermissionStatus.granted ||
+          permission != PermissionStatus.grantedLimited) {
+        // TODO : Handle location permission not granted state.
+        return false;
+      }
+    }
+    return true;
+  }
+
+  void getLocationData() {
+    location.onLocationChanged.listen((locationData) {});
+  }
+
+  void getCurrentLocation() async {
+    await checkAndRequestLocationService();
+    bool hasPermission = await checkAndRequestLocationPermission();
+    if (hasPermission) {
+      getLocationData();
+    }
+  }
 
   void initMarkers() async {
     Marker help = Marker(
@@ -60,33 +98,6 @@ class _HomeViewState extends State<HomeView> {
     );
     markers.add(help);
     markers.add(ambulancer);
-  }
-
-  void checkAndRequestLocationService() async {
-    bool isServiceEnabled = await location.serviceEnabled();
-    if (!isServiceEnabled) {
-      isServiceEnabled = await location.requestService();
-      if (!isServiceEnabled) {
-        // TODO : Handle location service not enabled state.
-        return;
-      }
-    }
-  }
-
-  void checkAndRequestLocationPermission() async {
-    PermissionStatus permission = await location.hasPermission();
-    if (permission == PermissionStatus.denied) {
-      permission = await location.requestPermission();
-      if (permission != PermissionStatus.granted ||
-          permission != PermissionStatus.grantedLimited) {
-        // TODO : Handle location permission not granted state.
-        return;
-      }
-    }
-  }
-  void checkAndRequestLocationServiceAndPermission(){
-    checkAndRequestLocationService();
-    checkAndRequestLocationPermission();
   }
 
   @override
