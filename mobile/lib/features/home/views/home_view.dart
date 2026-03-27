@@ -11,7 +11,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late final CameraPosition initialCameraPosition;
-  late GoogleMapController _mapController;
+  GoogleMapController? _mapController;
   late Location location;
   Set<Marker> markers = {};
 
@@ -24,6 +24,7 @@ class _HomeViewState extends State<HomeView> {
     );
     initMarkers();
     location = Location();
+    getLocationData();
   }
 
   /*Future<Uint8List> getImageFromRawData(String image, double width) async {
@@ -68,7 +69,13 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void getLocationData() {
-    location.onLocationChanged.listen((locationData) {});
+    location.onLocationChanged.listen((locationData) {
+      _mapController?.animateCamera(
+        CameraUpdate.newLatLng(
+          LatLng(locationData.latitude!, locationData.longitude!),
+        ),
+      );
+    });
   }
 
   void getCurrentLocation() async {
