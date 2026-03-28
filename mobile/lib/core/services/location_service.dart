@@ -16,7 +16,7 @@ class LocationService {
 
   Future<bool> checkAndRequestLocationPermission() async {
     PermissionStatus permission = await location.hasPermission();
-    if (permission == PermissionStatus.denied) {
+    if (permission == PermissionStatus.deniedForever) {
       return false;
     }
     if (permission == PermissionStatus.denied) {
@@ -27,26 +27,12 @@ class LocationService {
     return true;
   }
 
-  void getLocationData(void Function(LocationData)? onData) {
-    location.onLocationChanged.listen(onData);
+  Future<LocationData> getCurrentLocationOnce() async {
+    return await location.getLocation();
+  }
+
+  Stream<LocationData> getLocationStream() {
+    location.changeSettings(distanceFilter: 5);
+    return location.onLocationChanged;
   }
 }
-
-/*location.changeSettings(
-          distanceFilter: 5
-      );
-      LatLng myLocation = LatLng(
-        locationData.latitude!,
-        locationData.longitude!,
-      );
-      Marker myLocationMarker = Marker(
-        markerId: MarkerId('myLocation'),
-        icon: await BitmapDescriptor.asset(
-          ImageConfiguration.empty,
-          'assets/images/truck_kun.png',
-        ),
-        position: myLocation,
-      );
-      markers.add(myLocationMarker);
-      setState(() {});
-      _mapController?.animateCamera(CameraUpdate.newLatLng(myLocation));*/

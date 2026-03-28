@@ -12,7 +12,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   late final CameraPosition initialCameraPosition;
   GoogleMapController? _mapController;
-  late Location location;
   Set<Marker> markers = {};
 
   @override
@@ -23,68 +22,20 @@ class _HomeViewState extends State<HomeView> {
       zoom: 15.5,
     );
     initMarkers();
-    location = Location();
-    getLocationData();
+    //getLocationData();
   }
 
-  /*Future<Uint8List> getImageFromRawData(String image, double width) async {
-    var imageData = await rootBundle.load(image);
-    var imageCodec = await ui.instantiateImageCodec(
-        imageData.buffer.asUint8List(),
-        targetWidth: width.round());
-
-    var imageFrameInfo = await imageCodec.getNextFrame();
-
-    var imageBytData =
-        await imageFrameInfo.image.toByteData(format: ui.ImageByteFormat.png);
-
-    return imageBytData!.buffer.asUint8List();
-  }*/
-
-  Future<void> checkAndRequestLocationService() async {
-    bool isServiceEnabled = await location.serviceEnabled();
-    if (!isServiceEnabled) {
-      isServiceEnabled = await location.requestService();
-      if (!isServiceEnabled) {
-        // TODO : Handle location service not enabled state.
-        return;
-      }
-    }
-  }
-
-  Future<bool> checkAndRequestLocationPermission() async {
-    PermissionStatus permission = await location.hasPermission();
-    if (permission == PermissionStatus.denied) {
-      return false;
-    }
-    if (permission == PermissionStatus.denied) {
-      permission = await location.requestPermission();
-      if (permission != PermissionStatus.granted ||
-          permission != PermissionStatus.grantedLimited) {
-        // TODO : Handle location permission not granted state.
-        return false;
-      }
-    }
-    return true;
-  }
-
-  void getLocationData() {
-    location.onLocationChanged.listen((locationData) {
-      _mapController?.animateCamera(
-        CameraUpdate.newLatLng(
-          LatLng(locationData.latitude!, locationData.longitude!),
-        ),
-      );
-    });
-  }
-
-  void getCurrentLocation() async {
-    await checkAndRequestLocationService();
-    bool hasPermission = await checkAndRequestLocationPermission();
-    if (hasPermission) {
-      getLocationData();
-    }
-  }
+  /*Marker myLocationMarker = Marker(
+          markerId: MarkerId('myLocation'),
+          icon: await BitmapDescriptor.asset(
+             ImageConfiguration.empty,
+            'assets/images/truck_kun.png',
+          ),
+          position: myLocation,
+        );
+        markers.add(myLocationMarker);
+        setState(() {});
+        _mapController?.animateCamera(CameraUpdate.newLatLng(myLocation));*/
 
   void initMarkers() async {
     Marker help = Marker(
@@ -121,3 +72,17 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
+
+/*Future<Uint8List> getImageFromRawData(String image, double width) async {
+    var imageData = await rootBundle.load(image);
+    var imageCodec = await ui.instantiateImageCodec(
+        imageData.buffer.asUint8List(),
+        targetWidth: width.round());
+
+    var imageFrameInfo = await imageCodec.getNextFrame();
+
+    var imageBytData =
+        await imageFrameInfo.image.toByteData(format: ui.ImageByteFormat.png);
+
+    return imageBytData!.buffer.asUint8List();
+  }*/
