@@ -1,12 +1,22 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile/core/networking/api_service.dart';
-import 'package:mobile/core/services/location_service.dart';
+import 'package:mobile/core/services/location/location_service.dart';
+import '../../../../core/networking/api_error_handling.dart';
+import '../../../../core/networking/api_result.dart';
+import '../../../../core/services/directions/directions_request_model.dart';
+import '../../../../core/services/directions/directions_response_model.dart';
+import '../../../../core/services/directions/directions_service.dart';
 
 class HomeRepo {
   final LocationService locationService;
+  final DirectionsService directionsService;
   final ApiService apiService;
 
-  HomeRepo({required this.locationService, required this.apiService});
+  HomeRepo({
+    required this.locationService,
+    required this.directionsService,
+    required this.apiService,
+  });
 
   Future<LatLng?> getCurrentLocation() async {
     await locationService.checkAndRequestLocationService();
@@ -31,6 +41,32 @@ class HomeRepo {
       yield LatLng(locationData.latitude!, locationData.longitude!);
     }
   }
+
+  Future<ApiResult<DirectionsResponseModel>> getRoute(
+    DirectionsRequestModel directionsRequestModel,
+  ) async {
+    try {
+      final response = await directionsService.getRoute(directionsRequestModel);
+      return ApiResult.success(response);
+    } catch (e) {
+      return ApiResult.failure(ErrorHandler.handle(e));
+    }
+  }
 }
 
-
+// example on direction request model
+/*final request = DirectionsRequestModel(
+  origin: LocationWrapper(
+    location: Location(
+      latLng: LatLngModel(latitude: 30.0444, longitude: 31.2357),
+    ),
+  ),
+  destination: LocationWrapper(
+    location: Location(
+      latLng: LatLngModel(latitude: 30.0131, longitude: 31.2089),
+    ),
+  ),
+  routingPreference: "TRAFFIC_AWARE",
+  units: "METRIC",
+  languageCode: "en-US",
+);*/
