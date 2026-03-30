@@ -1,3 +1,5 @@
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'directions_response_model.g.dart';
@@ -33,6 +35,12 @@ class RouteModel {
 @JsonSerializable()
 class PolylineModel {
   final String encodedPolyline;
+
+  List<LatLng> get encodedPolylineDecoded {
+    return PolylinePoints.decodePolyline(
+      encodedPolyline,
+    ).map((e) => LatLng(e.latitude, e.longitude)).toList();
+  }
 
   PolylineModel({required this.encodedPolyline});
 
