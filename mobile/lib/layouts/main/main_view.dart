@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/layouts/main/cubit/bottom_nav_cubit.dart';
 import 'package:mobile/layouts/main/widgets/custom_bottom_nav_bar.dart';
 import '../../features/home/views/home_view.dart';

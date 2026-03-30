@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'login_state.dart';
 
 part 'login_state.freezed.dart';
 

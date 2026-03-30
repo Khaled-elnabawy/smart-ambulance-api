@@ -1,4 +1,3 @@
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'directions_response_model.g.dart';
