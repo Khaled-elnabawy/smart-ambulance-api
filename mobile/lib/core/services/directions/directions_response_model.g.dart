@@ -9,30 +9,53 @@ part of 'directions_response_model.dart';
 DirectionsResponseModel _$DirectionsResponseModelFromJson(
   Map<String, dynamic> json,
 ) => DirectionsResponseModel(
-  routes: (json['routes'] as List<dynamic>)
-      .map((e) => RouteModel.fromJson(e as Map<String, dynamic>))
+  features: (json['features'] as List<dynamic>)
+      .map((e) => Feature.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
 Map<String, dynamic> _$DirectionsResponseModelToJson(
   DirectionsResponseModel instance,
-) => <String, dynamic>{'routes': instance.routes};
+) => <String, dynamic>{'features': instance.features};
 
-RouteModel _$RouteModelFromJson(Map<String, dynamic> json) => RouteModel(
-  distanceMeters: (json['distanceMeters'] as num).toInt(),
-  duration: json['duration'] as String,
-  polyline: PolylineModel.fromJson(json['polyline'] as Map<String, dynamic>),
+Feature _$FeatureFromJson(Map<String, dynamic> json) => Feature(
+  properties: FeatureProperties.fromJson(
+    json['properties'] as Map<String, dynamic>,
+  ),
+  geometry: Geometry.fromJson(json['geometry'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$RouteModelToJson(RouteModel instance) =>
-    <String, dynamic>{
-      'distanceMeters': instance.distanceMeters,
-      'duration': instance.duration,
-      'polyline': instance.polyline,
-    };
+Map<String, dynamic> _$FeatureToJson(Feature instance) => <String, dynamic>{
+  'properties': instance.properties.toJson(),
+  'geometry': instance.geometry.toJson(),
+};
 
-PolylineModel _$PolylineModelFromJson(Map<String, dynamic> json) =>
-    PolylineModel(encodedPolyline: json['encodedPolyline'] as String);
+FeatureProperties _$FeaturePropertiesFromJson(Map<String, dynamic> json) =>
+    FeatureProperties(
+      summary: Summary.fromJson(json['summary'] as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> _$PolylineModelToJson(PolylineModel instance) =>
-    <String, dynamic>{'encodedPolyline': instance.encodedPolyline};
+Map<String, dynamic> _$FeaturePropertiesToJson(FeatureProperties instance) =>
+    <String, dynamic>{'summary': instance.summary.toJson()};
+
+Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
+  distance: (json['distance'] as num).toDouble(),
+  duration: (json['duration'] as num).toDouble(),
+);
+
+Map<String, dynamic> _$SummaryToJson(Summary instance) => <String, dynamic>{
+  'distance': instance.distance,
+  'duration': instance.duration,
+};
+
+Geometry _$GeometryFromJson(Map<String, dynamic> json) => Geometry(
+  coordinates: (json['coordinates'] as List<dynamic>)
+      .map(
+        (e) => (e as List<dynamic>).map((e) => (e as num).toDouble()).toList(),
+      )
+      .toList(),
+);
+
+Map<String, dynamic> _$GeometryToJson(Geometry instance) => <String, dynamic>{
+  'coordinates': instance.coordinates,
+};

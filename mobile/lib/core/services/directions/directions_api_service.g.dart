@@ -12,7 +12,7 @@ part of 'directions_api_service.dart';
 
 class _DirectionsApiService implements DirectionsApiService {
   _DirectionsApiService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://routes.googleapis.com/';
+    baseUrl ??= 'https://api.openrouteservice.org/';
   }
 
   final Dio _dio;
@@ -23,31 +23,28 @@ class _DirectionsApiService implements DirectionsApiService {
 
   @override
   Future<DirectionsResponseModel> getRoute(
-    DirectionsRequestModel body,
+    String profile,
     String apiKey,
-    String fieldMask,
-    String contentType,
+    String start,
+    String end,
   ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'api_key': apiKey,
+      r'start': start,
+      r'end': end,
+    };
     final _headers = <String, dynamic>{
-      r'X-Goog-Api-Key': apiKey,
-      r'X-Goog-FieldMask': fieldMask,
-      r'Content-Type': contentType,
+      r'Accept':
+          'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
     };
     _headers.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    _data.addAll(body.toJson());
+    const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<DirectionsResponseModel>(
-      Options(
-            method: 'POST',
-            headers: _headers,
-            extra: _extra,
-            contentType: contentType,
-          )
+      Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'directions/v2:computeRoutes',
+            'v2/directions/${profile}',
             queryParameters: queryParameters,
             data: _data,
           )

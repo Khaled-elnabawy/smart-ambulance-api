@@ -53,12 +53,6 @@ class HomeRepo {
       return ApiResult.failure(ErrorHandler.handle(e));
     }
   }
-
-  List<LatLng> encodedPolylineDecoded(String encodedPolyline) {
-    return PolylinePoints.decodePolyline(
-      encodedPolyline,
-    ).map((e) => LatLng(e.latitude, e.longitude)).toList();
-  }
 }
 
 // example on direction request model

@@ -4,38 +4,62 @@ part 'directions_response_model.g.dart';
 
 @JsonSerializable()
 class DirectionsResponseModel {
-  final List<RouteModel> routes;
+  final List<Feature> features;
 
-  DirectionsResponseModel({required this.routes});
+  DirectionsResponseModel({required this.features});
 
   factory DirectionsResponseModel.fromJson(Map<String, dynamic> json) =>
       _$DirectionsResponseModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DirectionsResponseModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class Feature {
+  final FeatureProperties properties;
+  final Geometry geometry;
+
+  Feature({required this.properties, required this.geometry});
+
+  factory Feature.fromJson(Map<String, dynamic> json) =>
+      _$FeatureFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FeatureToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class FeatureProperties {
+  final Summary summary;
+
+  FeatureProperties({required this.summary});
+
+  factory FeatureProperties.fromJson(Map<String, dynamic> json) =>
+      _$FeaturePropertiesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FeaturePropertiesToJson(this);
 }
 
 @JsonSerializable()
-class RouteModel {
-  final int distanceMeters;
-  final String duration;
-  final PolylineModel polyline;
+class Summary {
+  final double distance;
+  final double duration;
 
-  int get durationInSeconds => int.parse(duration.replaceAll('s', ''));
+  Summary({required this.distance, required this.duration});
 
-  RouteModel({
-    required this.distanceMeters,
-    required this.duration,
-    required this.polyline,
-  });
+  factory Summary.fromJson(Map<String, dynamic> json) =>
+      _$SummaryFromJson(json);
 
-  factory RouteModel.fromJson(Map<String, dynamic> json) =>
-      _$RouteModelFromJson(json);
+  Map<String, dynamic> toJson() => _$SummaryToJson(this);
 }
 
 @JsonSerializable()
-class PolylineModel {
-  final String encodedPolyline;
+class Geometry {
+  final List<List<double>> coordinates;
 
-  PolylineModel({required this.encodedPolyline});
+  Geometry({required this.coordinates});
 
-  factory PolylineModel.fromJson(Map<String, dynamic> json) =>
-      _$PolylineModelFromJson(json);
+  factory Geometry.fromJson(Map<String, dynamic> json) =>
+      _$GeometryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GeometryToJson(this);
 }
