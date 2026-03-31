@@ -1,8 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile/core/services/directions/directions_request_model.dart';
+import 'package:mobile/core/theming/colors.dart';
+import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/features/home/data/repos/home_repo.dart';
 import '../../../core/di/dependency_injection.dart';
 import '../../../core/networking/api_result.dart';
@@ -31,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     initialCameraPosition = CameraPosition(
       target: LatLng(31.04425054350228, 31.363826542206063),
-      zoom: 10.5,
+      zoom: 15.5,
     );
     //initMarkers();
     //createRoute();
@@ -118,19 +120,143 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        markers: markers,
-        polylines: polylines,
-        initialCameraPosition: initialCameraPosition,
-        onMapCreated: (GoogleMapController controller) {
-          _mapController = controller;
-        },
-        zoomControlsEnabled: false,
+      body: Stack(
+        children: [
+          GoogleMap(
+            markers: markers,
+            polylines: polylines,
+            initialCameraPosition: initialCameraPosition,
+            onMapCreated: (GoogleMapController controller) {
+              _mapController = controller;
+            },
+            zoomControlsEnabled: false,
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 148.h,
+              decoration: BoxDecoration(
+                color: ColorsManager.red,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(16.r),
+                  bottomRight: Radius.circular(16.r),
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 60.h),
+                    Text('Hello Amr', style: TextStyles.font24WhiteBold),
+                    SizedBox(height: 4.h),
+                    Text('Are you okay?', style: TextStyles.font20WhiteBold),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 302.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16.r),
+                  topRight: Radius.circular(16.r),
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 20.h),
+                    Text(
+                      'What do you want to do?',
+                      style: TextStyles.font24BlackBold,
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 192.w,
+                            height: 192.h,
+                            decoration: BoxDecoration(
+                              color: ColorsManager.red,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(16.r),
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/images/sos_ emergency.png',
+                                  width: 120.w,
+                                  height: 120.h,
+                                  fit: BoxFit.cover,
+                                ),
+                                SizedBox(height: 4.h),
+                                Text('SOS', style: TextStyles.font32WhiteBold),
+                              ],
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 192.w,
+                            height: 192.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(16.r),
+                              ),
+                              border: Border.all(
+                                color: ColorsManager.red,
+                                width: 1,
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/images/scheduled.png',
+                                  width: 120.w,
+                                  height: 120.h,
+                                  fit: BoxFit.cover,
+                                ),
+                                SizedBox(height: 4.h),
+                                Text(
+                                  'Scheduled',
+                                  style: TextStyles.font32RedBold,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
+// for resize icon image
 /*Future<Uint8List> getImageFromRawData(String image, double width) async {
     var imageData = await rootBundle.load(image);
     var imageCodec = await ui.instantiateImageCodec(
