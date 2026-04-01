@@ -51,7 +51,7 @@ class GenericTextFormField extends StatelessWidget {
                 color: ColorsManager.lighterGrey,
                 width: 1.2,
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r),
             ),
         focusedBorder:
             focusBorder ??

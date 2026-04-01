@@ -5,6 +5,7 @@ import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/core/widgets/back_button_widget.dart';
 import 'package:mobile/core/widgets/generic_text_button.dart';
 import 'package:mobile/core/widgets/generic_text_form_field.dart';
+import 'package:mobile/features/home/views/widgets/date_time_widget.dart';
 
 class ScheduledFormView extends StatelessWidget {
   const ScheduledFormView({super.key});
@@ -30,7 +31,7 @@ class ScheduledFormView extends StatelessWidget {
               height: 178.h,
             ),
             Container(
-              height: 648.h,
+              height: 628.h,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -90,42 +91,8 @@ class ScheduledFormView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 16.h),
-                    Text('Date', style: TextStyles.font16BlackRegular),
-                    SizedBox(height: 4.h),
-                    GenericTextFormField(
-                      hintText: '22,mar,2026',
-                      backgroundColor: Colors.white,
-                      enableBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ColorsManager.red,
-                          width: 1.2,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      suffixIcon: Icon(
-                        Icons.calendar_month_outlined,
-                        color: ColorsManager.red,
-                      ),
-                    ),
-                    SizedBox(height: 16.h),
-                    Text('Time', style: TextStyles.font16BlackRegular),
-                    SizedBox(height: 4.h),
-                    GenericTextFormField(
-                      hintText: '6 : 10 PM',
-                      backgroundColor: Colors.white,
-                      enableBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ColorsManager.red,
-                          width: 1.2,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      suffixIcon: Icon(
-                        Icons.access_time_rounded,
-                        color: ColorsManager.red,
-                      ),
-                    ),
-                    SizedBox(height: 24.h),
+                    DateTimeWidget(),
+                    SizedBox(height: 38.h),
                     Align(
                       alignment: Alignment.centerRight,
                       child: Column(
@@ -150,9 +117,9 @@ class ScheduledFormView extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                               ),
-                              SizedBox(width: 20.w),
+                              SizedBox(width: 24.w),
                               Text('0', style: TextStyles.font24BlackBold),
-                              SizedBox(width: 20.w),
+                              SizedBox(width: 24.w),
                               Container(
                                 width: 40.w,
                                 height: 40.h,
@@ -170,7 +137,7 @@ class ScheduledFormView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 28.h),
+                    Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
