@@ -5,7 +5,6 @@ import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/features/register/views/widgets/already_have_account_text.dart';
 import 'package:mobile/features/register/views/widgets/register_bloc_listener.dart';
 import 'package:mobile/features/register/views/widgets/register_form.dart';
-
 import '../../../core/helpers/spacing.dart';
 import '../../../core/widgets/generic_text_button.dart';
 import '../logic/register_cubit.dart';

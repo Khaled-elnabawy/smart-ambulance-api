@@ -2,12 +2,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mobile/core/helpers/extensions.dart';
 import 'package:mobile/core/services/directions/directions_request_model.dart';
 import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/features/home/data/repos/home_repo.dart';
 import '../../../core/di/dependency_injection.dart';
 import '../../../core/networking/api_result.dart';
+import '../../../core/routing/routes.dart';
 import '../../../core/services/location/location_service.dart';
 
 class HomeView extends StatefulWidget {
@@ -212,7 +214,9 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            context.pushNamed(Routes.scheduledFormView);
+                          },
                           child: Container(
                             width: 192.w,
                             height: 192.h,
@@ -229,7 +233,7 @@ class _HomeViewState extends State<HomeView> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  'assets/images/scheduled.png',
+                                  'assets/images/calendar.png',
                                   width: 120.w,
                                   height: 120.h,
                                   fit: BoxFit.cover,

@@ -7,7 +7,7 @@ import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/core/widgets/generic_text_button.dart';
 import 'package:mobile/core/widgets/generic_text_form_field.dart';
 import 'package:mobile/features/forgot_password/logic/forgot_password_cubit.dart';
-import 'package:mobile/features/forgot_password/views/widgets/back_icon_widget.dart';
+import 'package:mobile/core/widgets/back_button_widget.dart';
 import 'package:mobile/features/forgot_password/views/widgets/send_code_bloc_listener.dart';
 
 class EnterEmailView extends StatelessWidget {
@@ -25,7 +25,7 @@ class EnterEmailView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 verticalSpacing(12),
-                BackIconWidget(),
+                BackButtonWidget(),
                 verticalSpacing(60),
                 Text('Forget Password', style: TextStyles.font30BlackSemiBold),
                 verticalSpacing(16),

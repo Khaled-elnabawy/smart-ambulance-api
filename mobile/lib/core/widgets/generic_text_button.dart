@@ -13,6 +13,7 @@ class GenericTextButton extends StatelessWidget {
   final String buttonText;
   final TextStyle textStyle;
   final VoidCallback onPressed;
+  final bool isHaveBorder;
 
   const GenericTextButton({
     super.key,
@@ -25,6 +26,7 @@ class GenericTextButton extends StatelessWidget {
     required this.buttonText,
     required this.textStyle,
     required this.onPressed,
+    this.isHaveBorder = false,
   });
 
   @override
@@ -34,6 +36,9 @@ class GenericTextButton extends StatelessWidget {
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 20),
+            side: isHaveBorder == true
+                ? BorderSide(color: ColorsManager.red, width: 1.2)
+                : BorderSide.none,
           ),
         ),
         backgroundColor: WidgetStatePropertyAll<Color>(

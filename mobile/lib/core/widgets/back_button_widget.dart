@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/helpers/extensions.dart';
-import '../../../../core/theming/colors.dart';
+import '../helpers/extensions.dart';
+import '../theming/colors.dart';
 
-class BackIconWidget extends StatelessWidget {
-  const BackIconWidget({super.key});
+class BackButtonWidget extends StatelessWidget {
+  const BackButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

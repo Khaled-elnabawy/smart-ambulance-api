@@ -10,6 +10,7 @@ import '../../features/forgot_password/logic/forgot_password_cubit.dart';
 import '../../features/forgot_password/views/enter_code_view.dart';
 import '../../features/forgot_password/views/enter_email_view.dart';
 import '../../features/forgot_password/views/reset_password_view.dart';
+import '../../features/home/views/scheduled_form_view.dart';
 import '../../features/register/logic/register_cubit.dart';
 import '../../layouts/main/cubit/bottom_nav_cubit.dart';
 
@@ -63,14 +64,13 @@ class AppRouter {
             child: const MainView(),
           ),
         );
+      case Routes.scheduledFormView:
+        return MaterialPageRoute(builder: (_) => const ScheduledFormView());
       default:
         return MaterialPageRoute(
-          builder: (_) => MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: Scaffold(
-              body: Center(
-                child: Text("no route defined for ${settings.name}"),
-              ),
+          builder: (_) => Scaffold(
+            body: Center(
+              child: Text("no route defined for ${settings.name}"),
             ),
           ),
         );

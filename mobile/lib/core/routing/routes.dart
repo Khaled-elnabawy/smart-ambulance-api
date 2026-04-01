@@ -5,5 +5,5 @@ class Routes {
   static const String enterCodeView = '/enterCodeView';
   static const String resetPasswordView = '/resetPasswordView';
   static const String mainView = '/mainView';
-  static const String homeView = '/homeView';
+  static const String scheduledFormView = '/scheduledFormView';
 }

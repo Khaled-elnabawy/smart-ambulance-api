@@ -17,7 +17,7 @@ class GenericTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
   final Color? backgroundColor;
   final TextEditingController? controller;
-  final Function(String?) validator;
+  final String? Function(String?)? validator;
 
   const GenericTextFormField({
     super.key,
@@ -32,7 +32,7 @@ class GenericTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.backgroundColor,
     this.controller,
-    required this.validator,
+    this.validator,
   });
 
   @override
@@ -76,9 +76,7 @@ class GenericTextFormField extends StatelessWidget {
       ),
       obscureText: isObscureText ?? false,
       style: inputTextStyle,
-      validator: (value) {
-        return validator(value);
-      },
+      validator: validator,
     );
   }
 }
