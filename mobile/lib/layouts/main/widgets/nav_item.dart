@@ -27,7 +27,7 @@ class NavItem extends StatelessWidget {
       'assets/svgs/notifications_selected.svg',
       'assets/svgs/profile_selected.svg',
     ];
-    final List<String> titles = ['Home', 'Notifications', 'Profile'];
+    final List<String> titles = ['Home', 'Requests', 'Profile'];
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
