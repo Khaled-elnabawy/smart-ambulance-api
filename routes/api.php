@@ -44,6 +44,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/driver/location', [DriverController::class, 'updateLocation']);
 
         // Request Management
+        Route::get('/my-requests', [RequestController::class, 'myRequests']);
         Route::post('/requests', [RequestController::class, 'store']);
         Route::get('/requests/{id}', [RequestController::class, 'show']);
         Route::post('/requests/{id}/accept', [RequestController::class, 'accept']);

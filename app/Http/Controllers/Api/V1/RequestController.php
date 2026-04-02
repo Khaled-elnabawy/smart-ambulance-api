@@ -10,6 +10,48 @@ namespace App\Http\Controllers\Api\V1;
 class RequestController extends Controller
 {
     /**
+     * Get authenticated user's or driver's requests
+     * GET /api/v1/my-requests
+     * Query params: ?type=emergency|scheduled  &status=pending|accepted|arrived|completed|cancelled
+     */
+    public function myRequests()
+    {
+        $user = auth()->user();
+        $isDriver = $user instanceof Driver;
+
+        $query = DB::table('requests')
+            ->select(
+                'id',
+                'request_type',
+                'status',
+                'pickup_latitude',
+                'pickup_longitude',
+                'scheduled_time',
+                'driver_id',
+                'user_id',
+                'created_at'
+            )
+            ->where($isDriver ? 'driver_id' : 'user_id', $user->id);
+
+        // Filter by request type (emergency / scheduled)
+        if (request()->has('type')) {
+            $query->where('request_type', request('type'));
+        }
+
+        // Filter by status
+        if (request()->has('status')) {
+            $query->where('status', request('status'));
+        }
+
+        $requests = $query->orderBy('created_at', 'desc')->get();
+
+        return response()->json([
+            'status' => true,
+            'data' => $requests,
+        ], Response::HTTP_OK);
+    }
+
+    /**
      * Create a new request
      * POST /api/v1/requests
      */
