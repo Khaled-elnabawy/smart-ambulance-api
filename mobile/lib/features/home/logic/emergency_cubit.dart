@@ -6,10 +6,10 @@ import '../data/models/scheduled_models/scheduled_request_model.dart';
 import '../data/repos/home_repo.dart';
 import 'home_state.dart';
 
-class HomeCubit extends Cubit<HomeState> {
+class EmergencyCubit extends Cubit<HomeState> {
   final HomeRepo _homeRepo;
 
-  HomeCubit(this._homeRepo) : super(HomeState.initial());
+  EmergencyCubit(this._homeRepo) : super(HomeState.initial());
 
   void emitEmergencyState(EmergencyRequestModel emergencyRequestModel) async {
     emit(HomeState.loading());

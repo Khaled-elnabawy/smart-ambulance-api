@@ -4,6 +4,7 @@ import 'package:mobile/features/forgot_password/data/repos/forgot_password_repo.
 import 'package:mobile/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:mobile/layouts/main/cubit/bottom_nav_cubit.dart';
 import '../../features/home/data/repos/home_repo.dart';
+import '../../features/home/logic/emergency_cubit.dart';
 import '../../features/login/data/repos/login_repo.dart';
 import '../../features/login/logic/login_cubit.dart';
 import '../../features/register/data/repos/register_repo.dart';
@@ -59,5 +60,5 @@ Future<void> setupGetIt() async {
       apiService: getIt(),
     ),
   );
-  //getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
+  getIt.registerFactory<EmergencyCubit>(() => EmergencyCubit(getIt()));
 }
