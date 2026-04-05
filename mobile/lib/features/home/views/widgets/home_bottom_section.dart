@@ -8,6 +8,7 @@ import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
 import '../../data/models/emergency_models/emergency_request_model.dart';
 import '../../logic/emergency_cubit.dart';
+import 'emergency_bloc_listener.dart';
 
 class HomeBottomSection extends StatelessWidget {
   final String token;
@@ -142,6 +143,7 @@ class HomeBottomSection extends StatelessWidget {
                 ),
               ],
             ),
+            EmergencyBlocListener(),
           ],
         ),
       ),

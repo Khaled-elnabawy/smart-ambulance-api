@@ -29,23 +29,4 @@ class EmergencyCubit extends Cubit<HomeState> {
       },
     );
   }
-
-  void emitScheduledState(
-    String token,
-    ScheduledRequestModel scheduledRequestModel,
-  ) async {
-    emit(HomeState.loading());
-    final response = await _homeRepo.createScheduled(
-      token,
-      scheduledRequestModel,
-    );
-    response.when(
-      success: (scheduledResponseModel) {
-        emit(HomeState.success(scheduledResponseModel));
-      },
-      failure: (error) {
-        emit(HomeState.failure(errMessage: error.apiErrorModel.message ?? ''));
-      },
-    );
-  }
 }

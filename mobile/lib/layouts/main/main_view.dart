@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile/features/login/data/models/login_response.dart';
 import 'package:mobile/layouts/main/cubit/bottom_nav_cubit.dart';
 import 'package:mobile/layouts/main/widgets/custom_bottom_nav_bar.dart';
 import '../../core/di/dependency_injection.dart';
@@ -10,7 +11,9 @@ import '../../features/profile/views/profile_view.dart';
 import 'navigation/navigation_keys.dart';
 
 class MainView extends StatelessWidget {
-  const MainView({super.key});
+  final LoginResponse loginResponse;
+
+  const MainView({super.key, required this.loginResponse});
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +60,14 @@ class MainView extends StatelessWidget {
       case 0:
         return BlocProvider(
           create: (context) => getIt<EmergencyCubit>(),
-          child: const HomeView(),
+          child: HomeView(token: loginResponse.userData?.token ?? ''),
         );
       case 1:
         return const NotificationsView();
       case 2:
         return const ProfileView();
       default:
-        return const HomeView();
+        return HomeView(token: loginResponse.userData?.token ?? '');
     }
   }
 }

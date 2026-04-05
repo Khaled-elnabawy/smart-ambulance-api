@@ -2,35 +2,68 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile/features/home/views/widgets/home_bottom_section.dart';
 import 'package:mobile/features/home/views/widgets/home_top_section.dart';
-
+import '../../../core/di/dependency_injection.dart';
+import '../data/repos/home_repo.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  final String token;
+  const HomeView({super.key, required this.token});
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
+  final HomeRepo homeRepo = getIt<HomeRepo>();
+
   bool isMapExpanded = false;
+
+  late LatLng initialLocation;
   late final CameraPosition initialCameraPosition;
-  GoogleMapController? _mapController;
+  late Marker me;
+
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
+  GoogleMapController? _mapController;
+
+  late double currentLatitude;
+  late double currentLongitude;
 
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
-    initialCameraPosition = CameraPosition(
-      target: LatLng(31.04425054350228, 31.363826542206063),
-      zoom: 15.5,
+    initialLocation = LatLng(31.04425054350228, 31.363826542206063);
+    initialCameraPosition = CameraPosition(target: initialLocation, zoom: 15.5);
+    me = Marker(
+      markerId: MarkerId('me'),
+      position: initialLocation,
+      icon: await BitmapDescriptor.asset(
+        ImageConfiguration.empty,
+        'assets/images/help_point.png',
+      ),
     );
+    _getCurrentLocation();
   }
 
-
+  void _getCurrentLocation() async {
+    LatLng? currentLocation = await homeRepo.getCurrentLocation();
+    if (currentLocation != null) {
+      currentLatitude = currentLocation.latitude;
+      currentLongitude = currentLocation.longitude;
+      me = Marker(
+        markerId: MarkerId('me'),
+        position: currentLocation,
+        icon: await BitmapDescriptor.asset(
+          ImageConfiguration.empty,
+          'assets/images/help_point.png',
+        ),
+      );
+      _mapController?.animateCamera(CameraUpdate.newLatLng(currentLocation));
+    }
+  }
 
   void initMarkers() async {
-    Marker help = Marker(
+    Marker me = Marker(
       markerId: MarkerId('1'),
       icon: await BitmapDescriptor.asset(
         ImageConfiguration.empty,
@@ -46,7 +79,7 @@ class _HomeViewState extends State<HomeView> {
       ),
       position: LatLng(31.04421054551063, 31.36439857355452),
     );
-    markers.add(help);
+    markers.add(me);
     markers.add(ambulancer);
   }
 
@@ -82,7 +115,11 @@ class _HomeViewState extends State<HomeView> {
             bottom: isMapExpanded ? -400 : 0,
             right: 0,
             left: 0,
-            child: HomeBottomSection(),
+            child: HomeBottomSection(
+              token: widget.token,
+              latitude: currentLatitude,
+              longitude: currentLongitude,
+            ),
           ),
         ],
       ),
@@ -116,4 +153,3 @@ class _HomeViewState extends State<HomeView> {
 
     return imageBytData!.buffer.asUint8List();
   }*/
-

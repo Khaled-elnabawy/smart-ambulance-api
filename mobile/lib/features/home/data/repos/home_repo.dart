@@ -23,12 +23,13 @@ class HomeRepo {
   });
 
   Future<LatLng?> getCurrentLocation() async {
-    await locationService.checkAndRequestLocationService();
+    var locationEnabled = await locationService
+        .checkAndRequestLocationService();
 
     var hasPermission = await locationService
         .checkAndRequestLocationPermission();
 
-    if (!hasPermission) return null;
+    if (!hasPermission && !locationEnabled) return null;
 
     final locationData = await locationService.getCurrentLocationOnce();
 
@@ -36,11 +37,12 @@ class HomeRepo {
   }
 
   Stream<LatLng> getLiveLocation() async* {
-    await locationService.checkAndRequestLocationService();
+    var locationEnabled = await locationService
+        .checkAndRequestLocationService();
     var hasPermission = await locationService
         .checkAndRequestLocationPermission();
 
-    if (!hasPermission) return;
+    if (!hasPermission && !locationEnabled) return;
     await for (final locationData in locationService.getLocationStream()) {
       yield LatLng(locationData.latitude!, locationData.longitude!);
     }
