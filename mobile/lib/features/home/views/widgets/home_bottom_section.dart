@@ -117,7 +117,7 @@ class HomeBottomSection extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    context.pushNamed(Routes.scheduledFormView);
+                    context.pushNamed(Routes.scheduledFormView,arguments: token);
                   },
                   child: Container(
                     width: 192.w,

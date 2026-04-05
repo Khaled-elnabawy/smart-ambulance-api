@@ -70,7 +70,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => getIt<ScheduledCubit>(),
-            child: ScheduledFormView(),
+            child: ScheduledFormView(token: settings.arguments as String,),
           ),
         );
       default:
