@@ -6,6 +6,8 @@ import '../../../../core/networking/api_result.dart';
 import '../../../../core/services/directions/directions_request_model.dart';
 import '../../../../core/services/directions/directions_response_model.dart';
 import '../../../../core/services/directions/directions_service.dart';
+import '../models/emergency_models/emergency_request_model.dart';
+import '../models/emergency_models/emergency_response_model.dart';
 
 class HomeRepo {
   final LocationService locationService;
@@ -50,6 +52,17 @@ class HomeRepo {
       return ApiResult.success(response);
     } catch (e) {
       return ApiResult.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  Future<ApiResult<EmergencyResponseModel>> createEmergency(
+    EmergencyRequestModel emergencyRequestModel,
+  ) async {
+    try {
+      final response = await apiService.createEmergency(emergencyRequestModel);
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
     }
   }
 }
