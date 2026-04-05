@@ -1,6 +1,7 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile/core/networking/api_service.dart';
 import 'package:mobile/core/services/location/location_service.dart';
+import 'package:mobile/features/home/data/models/scheduled_models/scheduled_response_model.dart';
 import '../../../../core/networking/api_error_handling.dart';
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/services/directions/directions_request_model.dart';
@@ -8,6 +9,7 @@ import '../../../../core/services/directions/directions_response_model.dart';
 import '../../../../core/services/directions/directions_service.dart';
 import '../models/emergency_models/emergency_request_model.dart';
 import '../models/emergency_models/emergency_response_model.dart';
+import '../models/scheduled_models/scheduled_request_model.dart';
 
 class HomeRepo {
   final LocationService locationService;
@@ -60,6 +62,17 @@ class HomeRepo {
   ) async {
     try {
       final response = await apiService.createEmergency(emergencyRequestModel);
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  Future<ApiResult<ScheduledResponseModel>> createScheduled(
+    ScheduledRequestModel scheduledRequestModel,
+  ) async {
+    try {
+      final response = await apiService.createScheduled(scheduledRequestModel);
       return ApiResult.success(response);
     } catch (error) {
       return ApiResult.failure(ErrorHandler.handle(error));

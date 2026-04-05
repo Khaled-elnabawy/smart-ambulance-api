@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:mobile/features/forgot_password/data/models/send_code_models/send_code_response.dart';
 import 'package:mobile/features/home/data/models/emergency_models/emergency_request_model.dart';
 import 'package:mobile/features/home/data/models/emergency_models/emergency_response_model.dart';
+import 'package:mobile/features/home/data/models/scheduled_models/scheduled_request_model.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 import '../../features/forgot_password/data/models/reset_password_models/reset_password_request_body.dart';
@@ -9,6 +10,7 @@ import '../../features/forgot_password/data/models/reset_password_models/reset_p
 import '../../features/forgot_password/data/models/send_code_models/send_code_request_body.dart';
 import '../../features/forgot_password/data/models/verify_code_models/verify_code_request_body.dart';
 import '../../features/forgot_password/data/models/verify_code_models/verify_code_response.dart';
+import '../../features/home/data/models/scheduled_models/scheduled_response_model.dart';
 import '../../features/login/data/models/login_request_body.dart';
 import '../../features/login/data/models/login_response.dart';
 import '../../features/register/data/models/register_request_body.dart';
@@ -44,8 +46,13 @@ abstract class ApiService {
     @Body() ResetPasswordRequestBody resetPasswordRequestBody,
   );
 
-  @POST(ApiConstants.emergency)
+  @POST(ApiConstants.createEmergency)
   Future<EmergencyResponseModel> createEmergency(
     @Body() EmergencyRequestModel emergencyRequestModel,
+  );
+
+  @POST(ApiConstants.createScheduled)
+  Future<ScheduledResponseModel> createScheduled(
+    @Body() ScheduledRequestModel scheduledRequestModel,
   );
 }
