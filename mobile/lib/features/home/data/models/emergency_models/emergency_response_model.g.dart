@@ -37,6 +37,7 @@ EmergencyData _$EmergencyDataFromJson(Map<String, dynamic> json) =>
       json['pickup_latitude'] as String?,
       json['pickup_longitude'] as String?,
       json['created_at'] as String?,
+      json['updated_at'] as String?,
       json['deleted_at'] as String?,
     );
 
@@ -51,5 +52,6 @@ Map<String, dynamic> _$EmergencyDataToJson(EmergencyData instance) =>
       'pickup_latitude': instance.pickup_Latitude,
       'pickup_longitude': instance.pickupLongitude,
       'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
       'deleted_at': instance.deletedAt,
     };

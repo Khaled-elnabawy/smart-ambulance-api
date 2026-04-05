@@ -34,6 +34,8 @@ class EmergencyData {
   final String? pickupLongitude;
   @JsonKey(name: 'created_at')
   final String? createdAt;
+  @JsonKey(name: 'updated_at')
+  final String? updatedAt;
   @JsonKey(name: 'deleted_at')
   final String? deletedAt;
 
@@ -47,6 +49,7 @@ class EmergencyData {
     this.pickup_Latitude,
     this.pickupLongitude,
     this.createdAt,
+    this.updatedAt,
     this.deletedAt,
   );
 
