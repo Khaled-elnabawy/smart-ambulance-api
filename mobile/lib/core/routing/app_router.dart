@@ -10,6 +10,7 @@ import '../../features/forgot_password/logic/forgot_password_cubit.dart';
 import '../../features/forgot_password/views/enter_code_view.dart';
 import '../../features/forgot_password/views/enter_email_view.dart';
 import '../../features/forgot_password/views/reset_password_view.dart';
+import '../../features/home/logic/scheduled_cubit.dart';
 import '../../features/home/views/scheduled_form_view.dart';
 import '../../features/login/data/models/login_response.dart';
 import '../../features/register/logic/register_cubit.dart';
@@ -62,17 +63,20 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => getIt<BottomNavCubit>(),
-            child:  MainView(loginResponse: settings.arguments as LoginResponse,),
+            child: MainView(loginResponse: settings.arguments as LoginResponse),
           ),
         );
       case Routes.scheduledFormView:
-        return MaterialPageRoute(builder: (_) => const ScheduledFormView());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ScheduledCubit>(),
+            child: ScheduledFormView(),
+          ),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
-            body: Center(
-              child: Text("no route defined for ${settings.name}"),
-            ),
+            body: Center(child: Text("no route defined for ${settings.name}")),
           ),
         );
     }

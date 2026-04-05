@@ -9,10 +9,10 @@ part of 'scheduled_request_model.dart';
 ScheduledRequestModel _$ScheduledRequestModelFromJson(
   Map<String, dynamic> json,
 ) => ScheduledRequestModel(
-  json['request_type'] as String,
-  (json['pickup_latitude'] as num).toDouble(),
-  (json['pickup_longitude'] as num).toDouble(),
-  json['scheduled_time'] as String,
+  requestType: json['request_type'] as String,
+  pickupLatitude: (json['pickup_latitude'] as num).toDouble(),
+  pickupLongitude: (json['pickup_longitude'] as num).toDouble(),
+  scheduledTime: json['scheduled_time'] as String,
 );
 
 Map<String, dynamic> _$ScheduledRequestModelToJson(

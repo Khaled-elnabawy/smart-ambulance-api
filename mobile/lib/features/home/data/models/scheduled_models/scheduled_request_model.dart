@@ -13,12 +13,12 @@ class ScheduledRequestModel {
   @JsonKey(name: 'scheduled_time')
   final String scheduledTime;
 
-  ScheduledRequestModel(
-    this.requestType,
-    this.pickupLatitude,
-    this.pickupLongitude,
-    this.scheduledTime,
-  );
+  ScheduledRequestModel({
+    required this.requestType,
+    required this.pickupLatitude,
+    required this.pickupLongitude,
+    required this.scheduledTime,
+  });
 
   Map<String, dynamic> toJson() => _$ScheduledRequestModelToJson(this);
 }
