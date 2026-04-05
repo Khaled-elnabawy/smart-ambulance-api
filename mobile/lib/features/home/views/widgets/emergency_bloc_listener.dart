@@ -36,6 +36,7 @@ class EmergencyBlocListener extends StatelessWidget {
           },
         );
       },
+      child: const SizedBox.shrink(),
     );
   }
   void setupErrorState(BuildContext context, String errMessage) {

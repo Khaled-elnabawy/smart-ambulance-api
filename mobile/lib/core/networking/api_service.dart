@@ -48,11 +48,13 @@ abstract class ApiService {
 
   @POST(ApiConstants.createEmergency)
   Future<EmergencyResponseModel> createEmergency(
+    @Header('Authorization') String token,
     @Body() EmergencyRequestModel emergencyRequestModel,
   );
 
   @POST(ApiConstants.createScheduled)
   Future<ScheduledResponseModel> createScheduled(
+    @Header('Authorization') String token,
     @Body() ScheduledRequestModel scheduledRequestModel,
   );
 }

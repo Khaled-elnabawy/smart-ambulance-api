@@ -171,11 +171,13 @@ class _ApiService implements ApiService {
 
   @override
   Future<EmergencyResponseModel> createEmergency(
+    String token,
     EmergencyRequestModel emergencyRequestModel,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(emergencyRequestModel.toJson());
     final _options = _setStreamType<EmergencyResponseModel>(
@@ -201,11 +203,13 @@ class _ApiService implements ApiService {
 
   @override
   Future<ScheduledResponseModel> createScheduled(
+    String token,
     ScheduledRequestModel scheduledRequestModel,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(scheduledRequestModel.toJson());
     final _options = _setStreamType<ScheduledResponseModel>(

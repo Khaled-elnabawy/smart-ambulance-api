@@ -58,10 +58,14 @@ class HomeRepo {
   }
 
   Future<ApiResult<EmergencyResponseModel>> createEmergency(
+    String token,
     EmergencyRequestModel emergencyRequestModel,
   ) async {
     try {
-      final response = await apiService.createEmergency(emergencyRequestModel);
+      final response = await apiService.createEmergency(
+        'Bearer $token',
+        emergencyRequestModel,
+      );
       return ApiResult.success(response);
     } catch (error) {
       return ApiResult.failure(ErrorHandler.handle(error));
@@ -69,10 +73,14 @@ class HomeRepo {
   }
 
   Future<ApiResult<ScheduledResponseModel>> createScheduled(
+    String token,
     ScheduledRequestModel scheduledRequestModel,
   ) async {
     try {
-      final response = await apiService.createScheduled(scheduledRequestModel);
+      final response = await apiService.createScheduled(
+        'Bearer $token',
+        scheduledRequestModel,
+      );
       return ApiResult.success(response);
     } catch (error) {
       return ApiResult.failure(ErrorHandler.handle(error));

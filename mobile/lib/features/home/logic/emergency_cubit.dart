@@ -11,9 +11,15 @@ class EmergencyCubit extends Cubit<HomeState> {
 
   EmergencyCubit(this._homeRepo) : super(HomeState.initial());
 
-  void emitEmergencyState(EmergencyRequestModel emergencyRequestModel) async {
+  void emitEmergencyState(
+    String token,
+    EmergencyRequestModel emergencyRequestModel,
+  ) async {
     emit(HomeState.loading());
-    final response = await _homeRepo.createEmergency(emergencyRequestModel);
+    final response = await _homeRepo.createEmergency(
+      token,
+      emergencyRequestModel,
+    );
     response.when(
       success: (emergencyResponseModel) {
         emit(HomeState.success(emergencyResponseModel));
@@ -24,9 +30,15 @@ class EmergencyCubit extends Cubit<HomeState> {
     );
   }
 
-  void emitScheduledState(ScheduledRequestModel scheduledRequestModel) async {
+  void emitScheduledState(
+    String token,
+    ScheduledRequestModel scheduledRequestModel,
+  ) async {
     emit(HomeState.loading());
-    final response = await _homeRepo.createScheduled(scheduledRequestModel);
+    final response = await _homeRepo.createScheduled(
+      token,
+      scheduledRequestModel,
+    );
     response.when(
       success: (scheduledResponseModel) {
         emit(HomeState.success(scheduledResponseModel));
