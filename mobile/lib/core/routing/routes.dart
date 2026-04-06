@@ -6,4 +6,5 @@ class Routes {
   static const String resetPasswordView = '/resetPasswordView';
   static const String mainView = '/mainView';
   static const String scheduledFormView = '/scheduledFormView';
+  static const String clickableGoogleMap = '/clickableGoogleMap';
 }

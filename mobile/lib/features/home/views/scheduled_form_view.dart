@@ -1,14 +1,50 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/core/widgets/back_button_widget.dart';
 import 'package:mobile/core/widgets/generic_text_button.dart';
-import 'package:mobile/core/widgets/generic_text_form_field.dart';
 import 'package:mobile/features/home/views/widgets/date_time_widget.dart';
+import 'package:mobile/core/helpers/extensions.dart';
+import 'package:mobile/features/home/views/widgets/scheduled_bloc_listener.dart';
 
-class ScheduledFormView extends StatelessWidget {
-  const ScheduledFormView({super.key});
+import '../../../core/routing/routes.dart';
+import '../logic/scheduled_cubit.dart';
+
+class ScheduledFormView extends StatefulWidget {
+  final String? token;
+  final LatLng? startLocation;
+  final LatLng? endLocation;
+
+  const ScheduledFormView({
+    super.key,
+    required this.token,
+    this.startLocation,
+    this.endLocation,
+  });
+
+  @override
+  State<ScheduledFormView> createState() => _ScheduledFormViewState();
+}
+
+class _ScheduledFormViewState extends State<ScheduledFormView> {
+  LatLng? startLocation;
+  LatLng? endLocation;
+  int membersCount = 0;
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
+
+  @override
+  void initState() {
+    super.initState();
+    startLocation = widget.startLocation;
+    endLocation = widget.endLocation;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,41 +93,50 @@ class ScheduledFormView extends StatelessWidget {
                   children: [
                     Text('From', style: TextStyles.font16BlackRegular),
                     SizedBox(height: 4.h),
-                    GenericTextFormField(
-                      hintText: 'Start point',
-                      backgroundColor: Colors.white,
-                      enableBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ColorsManager.red,
-                          width: 1.2,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      suffixIcon: Icon(
-                        Icons.location_on_rounded,
-                        color: ColorsManager.red,
-                      ),
+                    GenericTextButton(
+                      buttonText: startLocation == null
+                          ? 'Click to pickup your start point'
+                          : 'Lat: ${startLocation!.latitude.toStringAsFixed(4)}, Long: ${startLocation!.longitude.toStringAsFixed(4)}',
+                      textStyle: TextStyles.font20WhiteBold,
+                      onPressed: () async {
+                        final result = await context.pushNamed(
+                          Routes.clickableGoogleMap,
+                        );
+                        if (result is LatLng) {
+                          setState(() {
+                            startLocation = result;
+                          });
+                        }
+                      },
                     ),
                     SizedBox(height: 16.h),
                     Text('To', style: TextStyles.font16BlackRegular),
                     SizedBox(height: 4.h),
-                    GenericTextFormField(
-                      hintText: 'End point',
-                      backgroundColor: Colors.white,
-                      enableBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ColorsManager.red,
-                          width: 1.2,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      suffixIcon: Icon(
-                        Icons.location_city_rounded,
-                        color: ColorsManager.red,
-                      ),
+                    GenericTextButton(
+                      buttonText: endLocation == null
+                          ? 'Click to pickup your end point'
+                          : 'Lat: ${endLocation!.latitude.toStringAsFixed(4)}, Long: ${endLocation!.longitude.toStringAsFixed(4)}',
+                      textStyle: TextStyles.font20WhiteBold,
+                      onPressed: () async {
+                        final result = await context.pushNamed(
+                          Routes.clickableGoogleMap,
+                        );
+                        if (result is LatLng) {
+                          setState(() {
+                            endLocation = result;
+                          });
+                        }
+                      },
                     ),
                     SizedBox(height: 16.h),
-                    DateTimeWidget(),
+                    DateTimeWidget(
+                      onDateTimeChanged: (date, time) {
+                        setState(() {
+                          selectedDate = date;
+                          selectedTime = time;
+                        });
+                      },
+                    ),
                     SizedBox(height: 38.h),
                     Align(
                       alignment: Alignment.centerRight,
@@ -105,31 +150,48 @@ class ScheduledFormView extends StatelessWidget {
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Container(
-                                width: 40.w,
-                                height: 40.h,
-                                decoration: BoxDecoration(
-                                  color: ColorsManager.red,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  color: Colors.white,
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    if (membersCount > 0) membersCount--;
+                                  });
+                                },
+                                child: Container(
+                                  width: 40.w,
+                                  height: 40.h,
+                                  decoration: BoxDecoration(
+                                    color: ColorsManager.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                               SizedBox(width: 24.w),
-                              Text('0', style: TextStyles.font24BlackBold),
+                              Text(
+                                membersCount.toString(),
+                                style: TextStyles.font24BlackBold,
+                              ),
                               SizedBox(width: 24.w),
-                              Container(
-                                width: 40.w,
-                                height: 40.h,
-                                decoration: BoxDecoration(
-                                  color: ColorsManager.red,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.keyboard_arrow_up_rounded,
-                                  color: Colors.white,
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    membersCount++;
+                                  });
+                                },
+                                child: Container(
+                                  width: 40.w,
+                                  height: 40.h,
+                                  decoration: BoxDecoration(
+                                    color: ColorsManager.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_up_rounded,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ],
@@ -146,7 +208,68 @@ class ScheduledFormView extends StatelessWidget {
                           textStyle: TextStyles.font16WhiteBold,
                           buttonHeight: 45.h,
                           buttonWidth: 198.w,
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => Container(
+                                width: 390.w,
+                                padding: EdgeInsets.symmetric(vertical: 78.h),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20.r),
+                                  ),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      'Are you sure you want to proceed with emergency request?',
+                                      style: TextStyles.font22BlackRegular,
+                                    ),
+                                    SizedBox(height: 36.h),
+                                    GenericTextButton(
+                                      buttonText: 'Confirm',
+                                      textStyle: TextStyles.font16WhiteBold,
+                                      onPressed: () {
+                                        context
+                                            .read<ScheduledCubit>()
+                                            .emitScheduledState(
+                                              token: widget.token ?? '',
+                                              pickupLatitude: widget
+                                                  .startLocation!
+                                                  .latitude,
+                                              pickupLongitude: widget
+                                                  .startLocation!
+                                                  .longitude,
+                                              destinationLatitude:
+                                                  widget.endLocation!.latitude,
+                                              destinationLongitude:
+                                                  widget.endLocation!.longitude,
+                                              membersCount: membersCount,
+                                              date: DateFormat(
+                                                'dd, MMM, yyyy',
+                                              ).format(selectedDate!),
+                                              time: selectedTime!.format(
+                                                context,
+                                              ),
+                                            );
+                                      },
+                                    ),
+                                    SizedBox(height: 20.h),
+                                    GenericTextButton(
+                                      buttonText: 'Cancel',
+                                      textStyle: TextStyles.font16RedBold,
+                                      onPressed: () {
+                                        context.pop();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
                         GenericTextButton(
                           buttonText: 'Cancel',
@@ -155,7 +278,9 @@ class ScheduledFormView extends StatelessWidget {
                           buttonWidth: 198.w,
                           backgroundColor: Colors.white,
                           isHaveBorder: true,
-                          onPressed: () {},
+                          onPressed: () {
+                            context.pop();
+                          },
                         ),
                       ],
                     ),
@@ -163,6 +288,7 @@ class ScheduledFormView extends StatelessWidget {
                 ),
               ),
             ),
+            ScheduledBlocListener(),
           ],
         ),
       ),

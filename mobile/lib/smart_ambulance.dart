@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/routing/routes.dart';
 
 import 'core/routing/app_router.dart';
+import 'features/home/views/scheduled_form_view.dart';
 
 class SmartAmbulance extends StatelessWidget {
   final AppRouter appRouter;
@@ -19,7 +20,7 @@ class SmartAmbulance extends StatelessWidget {
         title: "Smart Ambulance App",
         theme: ThemeData(scaffoldBackgroundColor: Colors.white),
         onGenerateRoute: appRouter.generateRoute,
-        initialRoute: Routes.mainView,
+        initialRoute: Routes.scheduledFormView,
       ),
     );
   }

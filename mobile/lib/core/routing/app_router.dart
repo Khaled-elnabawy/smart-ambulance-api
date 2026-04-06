@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile/core/di/dependency_injection.dart';
 import 'package:mobile/core/routing/routes.dart';
+import 'package:mobile/features/home/views/clickable_google_map_view.dart';
 import 'package:mobile/features/login/logic/login_cubit.dart';
 import 'package:mobile/features/login/views/login_view.dart';
 import 'package:mobile/layouts/main/main_view.dart';
@@ -67,11 +71,29 @@ class AppRouter {
           ),
         );
       case Routes.scheduledFormView:
-        return MaterialPageRoute(
+        final args = settings.arguments;
+        String? token;
+        LatLng? startLocation;
+        LatLng? endLocation;
+
+        if (args is String) {
+          token = args;
+        } else if (args is LatLng?) {
+          startLocation = args;
+          endLocation = args;
+        }        return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => getIt<ScheduledCubit>(),
-            child: ScheduledFormView(token: settings.arguments as String,),
+            child: ScheduledFormView(
+              token: token,
+              startLocation: startLocation,
+              endLocation: endLocation,
+            ),
           ),
+        );
+      case Routes.clickableGoogleMap:
+        return MaterialPageRoute(
+          builder: (_) => const ClickableGoogleMapView(),
         );
       default:
         return MaterialPageRoute(

@@ -34,14 +34,6 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     initialLocation = LatLng(31.04425054350228, 31.363826542206063);
     initialCameraPosition = CameraPosition(target: initialLocation, zoom: 15.5);
-    me = Marker(
-      markerId: MarkerId('me'),
-      position: initialLocation,
-      icon: await BitmapDescriptor.asset(
-        ImageConfiguration.empty,
-        'assets/images/help_point.png',
-      ),
-    );
     _getCurrentLocation();
   }
 
@@ -64,23 +56,22 @@ class _HomeViewState extends State<HomeView> {
 
   void initMarkers() async {
     Marker me = Marker(
-      markerId: MarkerId('1'),
+      markerId: MarkerId('me'),
       icon: await BitmapDescriptor.asset(
         ImageConfiguration.empty,
         'assets/images/help_point.png',
       ),
       position: LatLng(31.046162023854304, 31.365445177935857),
     );
-    Marker ambulancer = Marker(
+   /* Marker ambulancer = Marker(
       markerId: MarkerId('2'),
       icon: await BitmapDescriptor.asset(
         ImageConfiguration.empty,
         'assets/images/truck_kun.png',
       ),
       position: LatLng(31.04421054551063, 31.36439857355452),
-    );
+    );*/
     markers.add(me);
-    markers.add(ambulancer);
   }
 
   @override

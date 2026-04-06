@@ -4,7 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:mobile/core/theming/styles.dart';
 
 class DateTimeWidget extends StatefulWidget {
-  const DateTimeWidget({super.key});
+  final Function(DateTime?, TimeOfDay?) onDateTimeChanged;
+
+  const DateTimeWidget({super.key, required this.onDateTimeChanged});
 
   @override
   State<DateTimeWidget> createState() => _DateTimeWidgetState();
@@ -26,6 +28,7 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
       setState(() {
         selectedDate = picked;
       });
+      widget.onDateTimeChanged(selectedDate, selectedTime);
     }
   }
 
@@ -39,6 +42,7 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
       setState(() {
         selectedTime = picked;
       });
+      widget.onDateTimeChanged(selectedDate, selectedTime);
     }
   }
 
