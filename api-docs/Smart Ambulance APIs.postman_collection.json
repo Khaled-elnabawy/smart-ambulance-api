@@ -389,7 +389,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"request_type\": \"scheduled\",\r\n    \"pickup_latitude\": 30.0444,\r\n    \"pickup_longitude\": 31.2357,\r\n    \"scheduled_time\": \"2026-04-02 15:03:00\"\r\n}",
+                  "raw": "{\r\n    \"request_type\": \"scheduled\",\r\n    \"pickup_latitude\": 30.0444,\r\n    \"pickup_longitude\": 31.2357,\r\n    \"destination_latitude\": 30.0131,\r\n    \"destination_longitude\": 31.2089,\r\n    \"scheduled_time\": \"2026-04-06 12:28:00\",\r\n    \"members_count\": 3\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -435,7 +435,7 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Thu, 02 Apr 2026 10:12:10 GMT"
+                  "value": "Mon, 06 Apr 2026 12:14:39 GMT"
                 },
                 {
                   "key": "Content-Type",
@@ -447,7 +447,7 @@
                 },
                 {
                   "key": "X-RateLimit-Remaining",
-                  "value": "58"
+                  "value": "59"
                 },
                 {
                   "key": "Access-Control-Allow-Origin",
@@ -455,7 +455,7 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"status\": true,\n    \"message\": \"Request created successfully\",\n    \"data\": {\n        \"id\": 215,\n        \"user_id\": 7,\n        \"ambulance_id\": null,\n        \"driver_id\": null,\n        \"request_type\": \"scheduled\",\n        \"status\": \"pending\",\n        \"pickup_latitude\": \"30.04440000\",\n        \"pickup_longitude\": \"31.23570000\",\n        \"scheduled_time\": \"2026-04-02 15:03:00\",\n        \"created_at\": \"2026-04-02 10:12:10\",\n        \"updated_at\": \"2026-04-02 10:12:10\",\n        \"deleted_at\": null\n    },\n    \"status_code\": 201\n}"
+              "body": "{\n    \"status\": true,\n    \"message\": \"Request created successfully\",\n    \"data\": {\n        \"id\": 222,\n        \"user_id\": 7,\n        \"ambulance_id\": null,\n        \"driver_id\": null,\n        \"request_type\": \"scheduled\",\n        \"status\": \"pending\",\n        \"pickup_latitude\": \"30.04440000\",\n        \"pickup_longitude\": \"31.23570000\",\n        \"destination_latitude\": \"30.01310000\",\n        \"destination_longitude\": \"31.20890000\",\n        \"scheduled_time\": \"2026-04-06 12:28:00\",\n        \"members_count\": 3,\n        \"created_at\": \"2026-04-06 12:14:38\",\n        \"updated_at\": \"2026-04-06 12:14:38\",\n        \"deleted_at\": null\n    },\n    \"status_code\": 201\n}"
             }
           ]
         },
