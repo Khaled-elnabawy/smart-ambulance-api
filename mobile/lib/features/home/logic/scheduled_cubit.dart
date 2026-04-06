@@ -7,8 +7,7 @@ import '../data/repos/home_repo.dart';
 
 class ScheduledCubit extends Cubit<HomeState> {
   final HomeRepo _homeRepo;
-  final TextEditingController dateController = TextEditingController();
-  final TextEditingController timeController = TextEditingController();
+
 
   ScheduledCubit(this._homeRepo) : super(HomeState.initial());
 
@@ -19,6 +18,8 @@ class ScheduledCubit extends Cubit<HomeState> {
     required double destinationLongitude,
     required int membersCount,
     required String token,
+    required String date,
+    required String time,
   }) async {
     emit(HomeState.loading());
     final response = await _homeRepo.createScheduled(
@@ -30,7 +31,7 @@ class ScheduledCubit extends Cubit<HomeState> {
         destinationLongitude: destinationLongitude,
         membersCount: membersCount,
         requestType: 'scheduled',
-        scheduledTime: '${dateController.text} ${timeController.text}',
+        scheduledTime: '$date $time',
       ),
     );
     response.when(
