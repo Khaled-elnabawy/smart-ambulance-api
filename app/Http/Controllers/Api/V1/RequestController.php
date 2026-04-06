@@ -26,7 +26,10 @@ class RequestController extends Controller
                 'status',
                 'pickup_latitude',
                 'pickup_longitude',
+                'destination_latitude',
+                'destination_longitude',
                 'scheduled_time',
+                'members_count',
                 'driver_id',
                 'user_id',
                 'created_at'
@@ -77,7 +80,10 @@ class RequestController extends Controller
                     'status' => 'pending',
                     'pickup_latitude' => $validated['pickup_latitude'],
                     'pickup_longitude' => $validated['pickup_longitude'],
+                    'destination_latitude' => $validated['destination_latitude'] ?? null,
+                    'destination_longitude' => $validated['destination_longitude'] ?? null,
                     'scheduled_time' => $validated['scheduled_time'] ?? null,
+                    'members_count' => $validated['members_count'] ?? 1,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
@@ -137,6 +143,10 @@ class RequestController extends Controller
                     'r.request_type',
                     'r.pickup_latitude',
                     'r.pickup_longitude',
+                    'r.destination_latitude',
+                    'r.destination_longitude',
+                    'r.scheduled_time',
+                    'r.members_count',
                     'd.id as driver_id',
                     'd.name as driver_name',
                     'd.phone as driver_phone',
@@ -161,6 +171,10 @@ class RequestController extends Controller
                 'request_type' => $request->request_type,
                 'pickup_latitude' => $request->pickup_latitude,
                 'pickup_longitude' => $request->pickup_longitude,
+                'destination_latitude' => $request->destination_latitude,
+                'destination_longitude' => $request->destination_longitude,
+                'scheduled_time' => $request->scheduled_time,
+                'members_count' => $request->members_count,
             ];
 
             // Include driver details if driver is assigned

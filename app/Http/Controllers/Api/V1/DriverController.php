@@ -26,11 +26,24 @@ class DriverController extends Controller
             ], Response::HTTP_FORBIDDEN);
         }
 
-        // Allow location update only if driver is on an active trip
+        // Allow location update only if driver is on an active emergency trip
         if ($driver->status !== 'busy') {
             return response()->json([
                 'status' => false,
                 'message' => 'Driver is not on an active trip'
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        // Check that the active request is emergency (tracking not needed for scheduled)
+        $activeRequest = DB::table('requests')
+            ->where('driver_id', $driver->id)
+            ->whereIn('status', ['accepted', 'arrived'])
+            ->first();
+
+        if (!$activeRequest || $activeRequest->request_type !== 'emergency') {
+            return response()->json([
+                'status' => false,
+                'message' => 'Location tracking is only available for emergency requests'
             ], Response::HTTP_FORBIDDEN);
         }
 
