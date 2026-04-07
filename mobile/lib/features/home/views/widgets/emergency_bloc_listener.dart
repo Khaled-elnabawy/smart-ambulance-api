@@ -26,7 +26,6 @@ class EmergencyBlocListener extends StatelessWidget {
             );
           },
           success: (emergencyResponseModel) {
-            context.pop();
             // navigate to home
             context.pop();
           },

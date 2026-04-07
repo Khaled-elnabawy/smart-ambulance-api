@@ -36,8 +36,8 @@ class _ScheduledFormViewState extends State<ScheduledFormView> {
   LatLng? startLocation;
   LatLng? endLocation;
   int membersCount = 0;
-  DateTime? selectedDate;
-  TimeOfDay? selectedTime;
+  String? selectedDate;
+  String? selectedTime;
 
   @override
   void initState() {
@@ -209,65 +209,36 @@ class _ScheduledFormViewState extends State<ScheduledFormView> {
                           buttonHeight: 45.h,
                           buttonWidth: 198.w,
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => Container(
-                                width: 390.w,
-                                padding: EdgeInsets.symmetric(vertical: 78.h),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(20.r),
+                            if (startLocation == null ||
+                                endLocation == null ||
+                                selectedDate == null ||
+                                selectedTime == null ||
+                                selectedTime == null ||
+                                selectedDate == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Please fill all the information first',
                                   ),
                                 ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'Are you sure you want to proceed with emergency request?',
-                                      style: TextStyles.font22BlackRegular,
-                                    ),
-                                    SizedBox(height: 36.h),
-                                    GenericTextButton(
-                                      buttonText: 'Confirm',
-                                      textStyle: TextStyles.font16WhiteBold,
-                                      onPressed: () {
-                                        context
-                                            .read<ScheduledCubit>()
-                                            .emitScheduledState(
-                                              token: widget.token ?? '',
-                                              pickupLatitude: widget
-                                                  .startLocation!
-                                                  .latitude,
-                                              pickupLongitude: widget
-                                                  .startLocation!
-                                                  .longitude,
-                                              destinationLatitude:
-                                                  widget.endLocation!.latitude,
-                                              destinationLongitude:
-                                                  widget.endLocation!.longitude,
-                                              membersCount: membersCount,
-                                              date: DateFormat(
-                                                'dd, MMM, yyyy',
-                                              ).format(selectedDate!),
-                                              time: selectedTime!.format(
-                                                context,
-                                              ),
-                                            );
-                                      },
-                                    ),
-                                    SizedBox(height: 20.h),
-                                    GenericTextButton(
-                                      buttonText: 'Cancel',
-                                      textStyle: TextStyles.font16RedBold,
-                                      onPressed: () {
-                                        context.pop();
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              );
+                              return;
+                            }
+                            log(widget.token.toString());
+                            log(startLocation.toString());
+                            log(endLocation.toString());
+                            log(selectedDate.toString());
+                            log(selectedTime.toString());
+                            log(membersCount.toString());
+                            context.read<ScheduledCubit>().emitScheduledState(
+                              token: widget.token ?? '',
+                              pickupLatitude: startLocation!.latitude,
+                              pickupLongitude: startLocation!.longitude,
+                              destinationLatitude: endLocation!.latitude,
+                              destinationLongitude: endLocation!.longitude,
+                              membersCount: membersCount,
+                              date: selectedDate!,
+                              time: selectedTime!,
                             );
                           },
                         ),

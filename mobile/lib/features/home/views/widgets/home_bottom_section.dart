@@ -46,50 +46,14 @@ class HomeBottomSection extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => Container(
-                        width: 390.w,
-                        padding: EdgeInsets.symmetric(vertical: 78.h),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Are you sure you want to proceed with emergency request?',
-                              style: TextStyles.font22BlackRegular,
-                            ),
-                            SizedBox(height: 36.h),
-                            GenericTextButton(
-                              buttonText: 'Confirm',
-                              textStyle: TextStyles.font16WhiteBold,
-                              onPressed: () {
-                                context
-                                    .read<EmergencyCubit>()
-                                    .emitEmergencyState(
-                                      token,
-                                      EmergencyRequestModel(
-                                        requestType: 'emergency',
-                                        pickupLatitude: latitude,
-                                        pickupLongitude: longitude,
-                                      ),
-                                    );
-                              },
-                            ),
-                            SizedBox(height: 20.h),
-                            GenericTextButton(
-                              buttonText: 'Cancel',
-                              textStyle: TextStyles.font16RedBold,
-                              onPressed: () {
-                                context.pop();
-                              },
-                            ),
-                          ],
-                        ),
+                    context
+                        .read<EmergencyCubit>()
+                        .emitEmergencyState(
+                      token,
+                      EmergencyRequestModel(
+                        requestType: 'emergency',
+                        pickupLatitude: latitude,
+                        pickupLongitude: longitude,
                       ),
                     );
                   },

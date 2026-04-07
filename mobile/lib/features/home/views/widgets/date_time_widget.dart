@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:mobile/core/theming/styles.dart';
 
 class DateTimeWidget extends StatefulWidget {
-  final Function(DateTime?, TimeOfDay?) onDateTimeChanged;
+  final Function(String?, String?) onDateTimeChanged;
 
   const DateTimeWidget({super.key, required this.onDateTimeChanged});
 
@@ -15,6 +15,8 @@ class DateTimeWidget extends StatefulWidget {
 class _DateTimeWidgetState extends State<DateTimeWidget> {
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
+  String? timeText;
+  String? dateText;
 
   Future<void> pickDate() async {
     DateTime? picked = await showDatePicker(
@@ -27,8 +29,11 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
     if (picked != null) {
       setState(() {
         selectedDate = picked;
+        dateText = selectedDate == null
+            ? "Select Date"
+            : DateFormat('yyyy-MM-dd').format(selectedDate!);
       });
-      widget.onDateTimeChanged(selectedDate, selectedTime);
+      widget.onDateTimeChanged(timeText, dateText);
     }
   }
 
@@ -41,33 +46,28 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
     if (picked != null) {
       setState(() {
         selectedTime = picked;
+        timeText = selectedTime == null
+            ? "Select Time"
+            : '${selectedTime!.hour.toString().padLeft(2, '0')}:${selectedTime!.minute.toString().padLeft(2, '0')}:00';
       });
-      widget.onDateTimeChanged(selectedDate, selectedTime);
+      widget.onDateTimeChanged(timeText, dateText);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    String dateText = selectedDate == null
-        ? "Select Date"
-        : DateFormat('dd, MMM, yyyy').format(selectedDate!);
-
-    String timeText = selectedTime == null
-        ? "Select Time"
-        : selectedTime!.format(context);
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         buildField(
           title: "Date",
-          value: dateText,
+          value: dateText!,
           icon: Icons.calendar_today,
           onTap: pickDate,
         ),
         buildField(
           title: "Time",
-          value: timeText,
+          value: timeText!,
           icon: Icons.access_time,
           onTap: pickTime,
         ),

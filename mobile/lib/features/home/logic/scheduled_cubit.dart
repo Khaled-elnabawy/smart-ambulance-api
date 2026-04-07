@@ -31,7 +31,7 @@ class ScheduledCubit extends Cubit<HomeState> {
         destinationLongitude: destinationLongitude,
         membersCount: membersCount,
         requestType: 'scheduled',
-        scheduledTime: '$date $time',
+        scheduledTime: '$time $date',
       ),
     );
     response.when(

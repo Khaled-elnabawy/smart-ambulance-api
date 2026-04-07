@@ -26,11 +26,11 @@ class _HomeViewState extends State<HomeView> {
   Set<Polyline> polylines = {};
   GoogleMapController? _mapController;
 
-  late double currentLatitude;
-  late double currentLongitude;
+  double currentLatitude = 0.0;
+  double currentLongitude = 0.0;
 
   @override
-  Future<void> initState() async {
+  void initState()  {
     super.initState();
     initialLocation = LatLng(31.04425054350228, 31.363826542206063);
     initialCameraPosition = CameraPosition(target: initialLocation, zoom: 15.5);
