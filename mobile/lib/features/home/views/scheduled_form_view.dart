@@ -13,6 +13,7 @@ import 'package:mobile/features/home/views/widgets/date_time_widget.dart';
 import 'package:mobile/core/helpers/extensions.dart';
 import 'package:mobile/features/home/views/widgets/scheduled_bloc_listener.dart';
 
+import '../../../core/helpers/spacing.dart';
 import '../../../core/routing/routes.dart';
 import '../logic/scheduled_cubit.dart';
 
@@ -52,7 +53,7 @@ class _ScheduledFormViewState extends State<ScheduledFormView> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 16.h),
+            verticalSpacing(16),
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -92,7 +93,7 @@ class _ScheduledFormViewState extends State<ScheduledFormView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('From', style: TextStyles.font16BlackRegular),
-                    SizedBox(height: 4.h),
+                    verticalSpacing(4),
                     GenericTextButton(
                       buttonText: startLocation == null
                           ? 'Click to pickup your start point'
@@ -109,9 +110,9 @@ class _ScheduledFormViewState extends State<ScheduledFormView> {
                         }
                       },
                     ),
-                    SizedBox(height: 16.h),
+                    verticalSpacing(16),
                     Text('To', style: TextStyles.font16BlackRegular),
-                    SizedBox(height: 4.h),
+                    verticalSpacing(4),
                     GenericTextButton(
                       buttonText: endLocation == null
                           ? 'Click to pickup your end point'
@@ -128,7 +129,7 @@ class _ScheduledFormViewState extends State<ScheduledFormView> {
                         }
                       },
                     ),
-                    SizedBox(height: 16.h),
+                    verticalSpacing(16),
                     DateTimeWidget(
                       onDateTimeChanged: (date, time) {
                         setState(() {
@@ -137,7 +138,7 @@ class _ScheduledFormViewState extends State<ScheduledFormView> {
                         });
                       },
                     ),
-                    SizedBox(height: 38.h),
+                    verticalSpacing(38),
                     Align(
                       alignment: Alignment.centerRight,
                       child: Column(
@@ -146,7 +147,7 @@ class _ScheduledFormViewState extends State<ScheduledFormView> {
                             'Number of members',
                             style: TextStyles.font16BlackRegular,
                           ),
-                          SizedBox(height: 16.h),
+                          verticalSpacing(16),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -169,12 +170,12 @@ class _ScheduledFormViewState extends State<ScheduledFormView> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 24.w),
+                              verticalSpacing(24),
                               Text(
                                 membersCount.toString(),
                                 style: TextStyles.font24BlackBold,
                               ),
-                              SizedBox(width: 24.w),
+                              verticalSpacing(24),
                               GestureDetector(
                                 onTap: () {
                                   setState(() {

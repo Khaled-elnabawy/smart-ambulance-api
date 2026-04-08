@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile/core/helpers/spacing.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
 
 class HomeTopSection extends StatelessWidget {
-  const HomeTopSection({
-    super.key,
-  });
+  const HomeTopSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +23,9 @@ class HomeTopSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 60.h),
+            verticalSpacing(60),
             Text('Hello Amr', style: TextStyles.font24WhiteBold),
-            SizedBox(height: 4.h),
+            verticalSpacing(4),
             Text('Are you okay?', style: TextStyles.font20WhiteBold),
           ],
         ),

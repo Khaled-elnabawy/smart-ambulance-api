@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/widgets/generic_text_button.dart';
 import '../../../../core/helpers/extensions.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
@@ -38,9 +39,9 @@ class HomeBottomSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20.h),
+            horizontalSpacing(20),
             Text('What do you want to do?', style: TextStyles.font24BlackBold),
-            SizedBox(height: 20),
+            verticalSpacing(16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -73,7 +74,7 @@ class HomeBottomSection extends StatelessWidget {
                           height: 120.h,
                           fit: BoxFit.cover,
                         ),
-                        SizedBox(height: 4.h),
+                        verticalSpacing(4),
                         Text('SOS', style: TextStyles.font32WhiteBold),
                       ],
                     ),
@@ -99,7 +100,7 @@ class HomeBottomSection extends StatelessWidget {
                           height: 120.h,
                           fit: BoxFit.cover,
                         ),
-                        SizedBox(height: 4.h),
+                        verticalSpacing(4),
                         Text('Scheduled', style: TextStyles.font32RedBold),
                       ],
                     ),

@@ -6,7 +6,7 @@ import 'package:mobile/layouts/main/widgets/custom_bottom_nav_bar.dart';
 import '../../core/di/dependency_injection.dart';
 import '../../features/home/logic/emergency_cubit.dart';
 import '../../features/home/views/home_view.dart';
-import '../../features/notifications/views/notifications_view.dart';
+import '../../features/requests/views/requests_view.dart';
 import '../../features/profile/views/profile_view.dart';
 import 'navigation/navigation_keys.dart';
 

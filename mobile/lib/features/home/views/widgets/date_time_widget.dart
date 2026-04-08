@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile/core/theming/styles.dart';
 
+import '../../../../core/helpers/spacing.dart';
+
 class DateTimeWidget extends StatefulWidget {
   final Function(String?, String?) onDateTimeChanged;
 
@@ -61,13 +63,13 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
       children: [
         buildField(
           title: "Date",
-          value: dateText!,
+          value: dateText??"Select Date",
           icon: Icons.calendar_today,
           onTap: pickDate,
         ),
         buildField(
           title: "Time",
-          value: timeText!,
+          value: timeText??"Select Time",
           icon: Icons.access_time,
           onTap: pickTime,
         ),
@@ -85,7 +87,7 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: TextStyles.font16BlackRegular),
-        SizedBox(height: 8.h),
+        verticalSpacing(8),
         GestureDetector(
           onTap: onTap,
           child: Container(
@@ -105,7 +107,7 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
                         : Colors.black,
                   ),
                 ),
-                SizedBox(width: 30.w),
+                horizontalSpacing(30),
                 Icon(icon, color: Colors.red),
               ],
             ),

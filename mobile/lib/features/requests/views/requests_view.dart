@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/back_button_widget.dart';
 
 class NotificationsView extends StatelessWidget {
   const NotificationsView({super.key});
@@ -6,8 +7,12 @@ class NotificationsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('THIS IS NOTIFICATIONS VIEW !!!!!!!!!!'),
+      body: SafeArea(
+        child: Column(
+          children: [
+            BackButtonWidget(),
+          ],
+        ),
       ),
     );
   }
