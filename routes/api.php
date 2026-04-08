@@ -32,6 +32,7 @@ Route::prefix('v1')->group(function () {
     // Protected Routes
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
+        Route::get('/profile', [ProfileController::class, 'getProfile']);
         Route::put('/profile/update', [ProfileController::class, 'updateProfile']);
         Route::get('/user', function (Request $request) {
             return response()->json([
