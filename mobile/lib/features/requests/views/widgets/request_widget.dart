@@ -1,0 +1,118 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/helpers/spacing.dart';
+import '../../../../core/theming/styles.dart';
+import '../../../../core/widgets/generic_text_button.dart';
+
+class RequestWidget extends StatelessWidget {
+  final bool isSOS;
+  final bool isPending;
+  final bool isInProgress;
+
+  const RequestWidget({
+    super.key,
+    this.isSOS = true,
+    this.isPending = true,
+    this.isInProgress = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 370.w,
+      height: 172.h,
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.25),
+            offset: Offset(0, 6),
+            spreadRadius: 0,
+            blurRadius: 12,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 264.w,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Image.asset(
+                      isSOS
+                          ? 'assets/images/sos_request_icon_image.png'
+                          : 'assets/images/scheduled_request_icon_image.png',
+                      width: 38.w,
+                      height: 32.h,
+                    ),
+                    horizontalSpacing(4),
+                    Text(
+                      isSOS ? 'SOS' : 'Scheduled',
+                      style: isSOS
+                          ? TextStyles.font16RedBold
+                          : TextStyles.font16BlackBold,
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 4.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isPending
+                        ? Color(0xffFBDE80)
+                        : isInProgress
+                        ? Color(0xffF7DADA)
+                        : Color(0xff319F43).withValues(alpha: .8),
+                    borderRadius: BorderRadius.circular(20.r),
+                  ),
+                  child: Text(
+                    isPending
+                        ? 'Pending'
+                        : isInProgress
+                        ? 'In Progress'
+                        : 'Completed',
+                    style: isPending || isInProgress
+                        ? TextStyles.font16BlackRegular
+                        : TextStyles.font16BlackRegular.copyWith(
+                            color: Colors.white,
+                          ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          verticalSpacing(16),
+          Text(
+            '8/4/2026         1:15 AM',
+            style: TextStyles.font16LightGrayWithOpacityMedium.copyWith(
+              height: 1.5,
+            ),
+          ),
+          verticalSpacing(16),
+          Visibility(
+            visible: isPending,
+            child: GenericTextButton(
+              buttonText: 'Cancel',
+              textStyle: TextStyles.font16WhiteBold,
+              buttonWidth: double.maxFinite,
+              buttonHeight: 42.h,
+              borderRadius: 16.r,
+              onPressed: () {},
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -18,7 +18,13 @@ class TextStyles {
     fontSize: 16.sp,
     color: Colors.white,
     fontWeight: FontWeightHelper.bold,
-  );static TextStyle font16WhiteSemiBold = TextStyle(
+  );
+  static TextStyle font16BlackBold = TextStyle(
+    fontSize: 16.sp,
+    color: Colors.black,
+    fontWeight: FontWeightHelper.bold,
+  );
+  static TextStyle font16WhiteSemiBold = TextStyle(
     fontSize: 16.sp,
     color: Colors.white,
     fontWeight: FontWeightHelper.semiBold,
@@ -44,6 +50,11 @@ class TextStyles {
     fontSize: 16.sp,
     color: ColorsManager.lightGrey.withValues(alpha: 0.6),
     fontWeight: FontWeightHelper.regular,
+  );
+  static TextStyle font16LightGrayWithOpacityMedium = TextStyle(
+    fontSize: 16.sp,
+    color: ColorsManager.lightGrey.withValues(alpha: 0.6),
+    fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font16LightGrayRegular = TextStyle(
     fontSize: 16.sp,

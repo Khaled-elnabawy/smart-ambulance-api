@@ -4,7 +4,9 @@ import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
 
 class ToggleWidget extends StatefulWidget {
-  const ToggleWidget({super.key});
+  final Function(bool isSOS) onChange;
+
+  const ToggleWidget({super.key, required this.onChange});
 
   @override
   State<ToggleWidget> createState() => _ToggleWidgetState();
@@ -48,7 +50,10 @@ class _ToggleWidgetState extends State<ToggleWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: () => setState(() => isSOS = true),
+                onTap: () {
+                  setState(() => isSOS = true);
+                  widget.onChange(true);
+                },
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 20.w,
@@ -63,7 +68,10 @@ class _ToggleWidgetState extends State<ToggleWidget> {
                 ),
               ),
               GestureDetector(
-                onTap: () => setState(() => isSOS = false),
+                onTap: () {
+                  setState(() => isSOS = false);
+                  widget.onChange(false);
+                },
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 20.w,
