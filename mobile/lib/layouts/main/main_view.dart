@@ -63,7 +63,7 @@ class MainView extends StatelessWidget {
           child: HomeView(token: loginResponse.userData?.token ?? ''),
         );
       case 1:
-        return const NotificationsView();
+        return const RequestsView();
       case 2:
         return const ProfileView();
       default:
