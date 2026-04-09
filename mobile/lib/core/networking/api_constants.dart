@@ -7,6 +7,8 @@ class ApiConstants {
   static const String verifyCode = "v1/verify-reset-code";
   static const String resetPassword = "v1/reset-password";
   static const String logout = "v1/logout";
+  static const String createEmergency = "v1/requests";
+  static const String createScheduled = "v1/requests";
 }
 
 class ApiErrors {

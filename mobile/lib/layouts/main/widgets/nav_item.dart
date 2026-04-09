@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/core/theming/styles.dart';
 
+import '../../../core/helpers/spacing.dart';
+
 class NavItem extends StatelessWidget {
   final int index;
   final bool isSelected;
@@ -27,7 +29,7 @@ class NavItem extends StatelessWidget {
       'assets/svgs/notifications_selected.svg',
       'assets/svgs/profile_selected.svg',
     ];
-    final List<String> titles = ['Home', 'Notifications', 'Profile'];
+    final List<String> titles = ['Home', 'Requests', 'Profile'];
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -54,7 +56,7 @@ class NavItem extends StatelessWidget {
               child: isSelected
                   ? Row(
                       children: [
-                        SizedBox(width: 8.w),
+                        horizontalSpacing(8),
                         Text(
                           titles[index],
                           style: TextStyles.font13WhiteMedium,

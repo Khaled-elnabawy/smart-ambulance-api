@@ -28,7 +28,7 @@ class LoginBlocListener extends StatelessWidget {
           },
           success: (loginResponse) {
             context.pop();
-            context.pushNamed(Routes.mainView);
+            context.pushNamed(Routes.mainView,arguments: loginResponse);
             // navigate to home
           },
           failure: (errMessage) {

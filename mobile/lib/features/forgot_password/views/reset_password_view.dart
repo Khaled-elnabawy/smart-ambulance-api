@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/features/forgot_password/logic/forgot_password_cubit.dart';
-import 'package:mobile/features/forgot_password/views/widgets/back_icon_widget.dart';
+import 'package:mobile/core/widgets/back_button_widget.dart';
 import 'package:mobile/features/forgot_password/views/widgets/icon_with_background.dart';
 import 'package:mobile/features/forgot_password/views/widgets/reset_password_bloc_listener.dart';
 import '../../../core/helpers/spacing.dart';
@@ -39,7 +39,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             child: Column(
               children: [
                 verticalSpacing(12),
-                Align(alignment: Alignment.centerLeft, child: BackIconWidget()),
+                Align(alignment: Alignment.centerLeft, child: BackButtonWidget()),
                 verticalSpacing(45),
                 IconWithBackground(
                   icon: Transform.flip(

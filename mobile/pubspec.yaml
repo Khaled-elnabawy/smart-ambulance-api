@@ -58,6 +58,11 @@ dependencies:
   flutter_svg: ^2.2.3
   # adaptive and responsive ui
   flutter_screenutil: ^5.9.3
+  # for google maps flutter
+  google_maps_flutter: ^2.16.0
+  # for getting a location
+  location: ^8.0.1
+
 
 dev_dependencies:
   flutter_test:

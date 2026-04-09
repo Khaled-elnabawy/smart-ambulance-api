@@ -1,0 +1,269 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:mobile/core/theming/colors.dart';
+import 'package:mobile/core/theming/styles.dart';
+import 'package:mobile/core/widgets/back_button_widget.dart';
+import 'package:mobile/core/widgets/generic_text_button.dart';
+import 'package:mobile/features/home/views/widgets/date_time_widget.dart';
+import 'package:mobile/core/helpers/extensions.dart';
+import 'package:mobile/features/home/views/widgets/scheduled_bloc_listener.dart';
+
+import '../../../core/helpers/spacing.dart';
+import '../../../core/routing/routes.dart';
+import '../logic/scheduled_cubit.dart';
+
+class ScheduledFormView extends StatefulWidget {
+  final String? token;
+  final LatLng? startLocation;
+  final LatLng? endLocation;
+
+  const ScheduledFormView({
+    super.key,
+    required this.token,
+    this.startLocation,
+    this.endLocation,
+  });
+
+  @override
+  State<ScheduledFormView> createState() => _ScheduledFormViewState();
+}
+
+class _ScheduledFormViewState extends State<ScheduledFormView> {
+  LatLng? startLocation;
+  LatLng? endLocation;
+  int membersCount = 0;
+  String? selectedDate;
+  String? selectedTime;
+
+  @override
+  void initState() {
+    super.initState();
+    startLocation = widget.startLocation;
+    endLocation = widget.endLocation;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            verticalSpacing(16),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 20.0.w),
+                child: BackButtonWidget(),
+              ),
+            ),
+            Spacer(),
+            Image.asset(
+              'assets/images/scheduled.png',
+              width: 178.w,
+              height: 178.h,
+            ),
+            Container(
+              height: 628.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50.r),
+                  topRight: Radius.circular(50.r),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.3),
+                    offset: Offset(0, 4),
+                    spreadRadius: 0,
+                    blurRadius: 16,
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.0.w,
+                  vertical: 32.h,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('From', style: TextStyles.font16BlackRegular),
+                    verticalSpacing(4),
+                    GenericTextButton(
+                      buttonText: startLocation == null
+                          ? 'Click to pickup your start point'
+                          : 'Lat: ${startLocation!.latitude.toStringAsFixed(4)}, Long: ${startLocation!.longitude.toStringAsFixed(4)}',
+                      textStyle: TextStyles.font20WhiteBold,
+                      onPressed: () async {
+                        final result = await context.pushNamed(
+                          Routes.clickableGoogleMap,
+                        );
+                        if (result is LatLng) {
+                          setState(() {
+                            startLocation = result;
+                          });
+                        }
+                      },
+                    ),
+                    verticalSpacing(16),
+                    Text('To', style: TextStyles.font16BlackRegular),
+                    verticalSpacing(4),
+                    GenericTextButton(
+                      buttonText: endLocation == null
+                          ? 'Click to pickup your end point'
+                          : 'Lat: ${endLocation!.latitude.toStringAsFixed(4)}, Long: ${endLocation!.longitude.toStringAsFixed(4)}',
+                      textStyle: TextStyles.font20WhiteBold,
+                      onPressed: () async {
+                        final result = await context.pushNamed(
+                          Routes.clickableGoogleMap,
+                        );
+                        if (result is LatLng) {
+                          setState(() {
+                            endLocation = result;
+                          });
+                        }
+                      },
+                    ),
+                    verticalSpacing(16),
+                    DateTimeWidget(
+                      onDateTimeChanged: (date, time) {
+                        setState(() {
+                          selectedDate = date;
+                          selectedTime = time;
+                        });
+                      },
+                    ),
+                    verticalSpacing(38),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Column(
+                        children: [
+                          Text(
+                            'Number of members',
+                            style: TextStyles.font16BlackRegular,
+                          ),
+                          verticalSpacing(16),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    if (membersCount > 0) membersCount--;
+                                  });
+                                },
+                                child: Container(
+                                  width: 40.w,
+                                  height: 40.h,
+                                  decoration: BoxDecoration(
+                                    color: ColorsManager.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              verticalSpacing(24),
+                              Text(
+                                membersCount.toString(),
+                                style: TextStyles.font24BlackBold,
+                              ),
+                              verticalSpacing(24),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    membersCount++;
+                                  });
+                                },
+                                child: Container(
+                                  width: 40.w,
+                                  height: 40.h,
+                                  decoration: BoxDecoration(
+                                    color: ColorsManager.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_up_rounded,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GenericTextButton(
+                          buttonText: 'Confirm',
+                          textStyle: TextStyles.font16WhiteBold,
+                          buttonHeight: 45.h,
+                          buttonWidth: 198.w,
+                          onPressed: () {
+                            if (startLocation == null ||
+                                endLocation == null ||
+                                selectedDate == null ||
+                                selectedTime == null ||
+                                selectedTime == null ||
+                                selectedDate == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Please fill all the information first',
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+                            log(widget.token.toString());
+                            log(startLocation.toString());
+                            log(endLocation.toString());
+                            log(selectedDate.toString());
+                            log(selectedTime.toString());
+                            log(membersCount.toString());
+                            context.read<ScheduledCubit>().emitScheduledState(
+                              token: widget.token ?? '',
+                              pickupLatitude: startLocation!.latitude,
+                              pickupLongitude: startLocation!.longitude,
+                              destinationLatitude: endLocation!.latitude,
+                              destinationLongitude: endLocation!.longitude,
+                              membersCount: membersCount,
+                              date: selectedDate!,
+                              time: selectedTime!,
+                            );
+                          },
+                        ),
+                        GenericTextButton(
+                          buttonText: 'Cancel',
+                          textStyle: TextStyles.font16RedBold,
+                          buttonHeight: 45.h,
+                          buttonWidth: 198.w,
+                          backgroundColor: Colors.white,
+                          isHaveBorder: true,
+                          onPressed: () {
+                            context.pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            ScheduledBlocListener(),
+          ],
+        ),
+      ),
+    );
+  }
+}

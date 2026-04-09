@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/core/widgets/generic_text_form_field.dart';
-import 'package:mobile/features/forgot_password/views/widgets/back_icon_widget.dart';
+import 'package:mobile/core/widgets/back_button_widget.dart';
 import 'package:mobile/features/forgot_password/views/widgets/icon_with_background.dart';
 import 'package:mobile/features/forgot_password/views/widgets/verify_code_bloc_listener.dart';
 import '../../../core/helpers/spacing.dart';
@@ -28,7 +28,7 @@ class EnterCodeView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 verticalSpacing(12),
-                Align(alignment: Alignment.centerLeft, child: BackIconWidget()),
+                Align(alignment: Alignment.centerLeft, child: BackButtonWidget()),
                 verticalSpacing(45),
                 IconWithBackground(
                   icon: Icon(
@@ -74,6 +74,7 @@ class EnterCodeView extends StatelessWidget {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a valid code';
                       }
+                      return null;
                     },
                   ),
                 ),
