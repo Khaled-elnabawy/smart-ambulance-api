@@ -7,6 +7,7 @@ import '../../logic/requests_cubits/scheduled_requests_cubit.dart';
 
 class ScheduledRequestWidget extends StatelessWidget {
   final String token;
+
   const ScheduledRequestWidget({super.key, required this.token});
 
   @override
@@ -18,17 +19,11 @@ class ScheduledRequestWidget extends StatelessWidget {
           loading: () => const SizedBox(),
           success: (data) {
             final requests = data.requests ?? [];
-            return Padding(
-              padding: EdgeInsets.only(top: 24.h, left: 30.w, right: 30.w),
-              child: ListView.builder(
-                itemCount: data.requests.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: 16.0.h),
-                    child: RequestWidget(request: requests[index], token: token,),
-                  );
-                },
-              ),
+            return ListView.builder(
+              itemCount: data.requests.length,
+              itemBuilder: (context, index) {
+                return RequestWidget(request: requests[index], token: token);
+              },
             );
           },
           failure: (_) => const SizedBox(),

@@ -19,6 +19,7 @@ class RequestWidget extends StatelessWidget {
     return Container(
       width: 370.w,
       height: 172.h,
+      margin: EdgeInsets.only(bottom:16.h,left: 30.w, right: 30.w),
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -80,7 +81,8 @@ class RequestWidget extends StatelessWidget {
                         : request.status == 'in_progress'
                         ? 'In Progress'
                         : 'Completed',
-                    style: request.status == 'pending' ||
+                    style:
+                    request.status == 'pending' ||
                         request.status == 'in_progress'
                         ? TextStyles.font16BlackRegular
                         : TextStyles.font16BlackRegular.copyWith(
@@ -93,7 +95,11 @@ class RequestWidget extends StatelessWidget {
           ),
           verticalSpacing(16),
           Text(
-            '8/4/2026         1:15 AM',
+            '${request.createdAt
+                ?.split(' ')
+                .first}        ${request.createdAt
+                ?.split(' ')
+                .last}',
             style: TextStyles.font16LightGrayWithOpacityMedium.copyWith(
               height: 1.5,
             ),
@@ -110,14 +116,18 @@ class RequestWidget extends StatelessWidget {
                 borderRadius: 16.r,
                 onPressed: () {
                   context.read<CancelCubit>().emitCancelState(
-                      token: token, id: request.id!);
+                    token: token,
+                    id: request.id!,
+                  );
                 },
               ),
             ),
           ),
           CancelBlocListener(),
-        ],
-      ),
+        ]
+        ,
+      )
+      ,
     );
   }
 }

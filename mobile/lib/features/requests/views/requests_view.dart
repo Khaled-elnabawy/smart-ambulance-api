@@ -43,8 +43,7 @@ class _RequestsViewState extends State<RequestsView> {
       body: SafeArea(
         child: Column(
           children: [
-            verticalSpacing(54),
-            verticalSpacing(32),
+            verticalSpacing(82),
             Text('Requests', style: TextStyles.font30BlackSemiBold),
             verticalSpacing(24),
             ToggleWidget(
@@ -54,6 +53,7 @@ class _RequestsViewState extends State<RequestsView> {
                 });
               },
             ),
+            verticalSpacing(20),
             Expanded(
               child: isSOS
                   ? SosRequestWidget(token: widget.token ?? '')
