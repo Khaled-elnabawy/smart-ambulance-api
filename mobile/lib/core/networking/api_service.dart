@@ -15,6 +15,8 @@ import '../../features/login/data/models/login_request_body.dart';
 import '../../features/login/data/models/login_response.dart';
 import '../../features/register/data/models/register_request_body.dart';
 import '../../features/register/data/models/register_response.dart';
+import '../../features/requests/data/models/requests_request_model.dart';
+import '../../features/requests/data/models/requests_response_model.dart';
 import 'api_constants.dart';
 
 part 'api_service.g.dart';
@@ -56,5 +58,11 @@ abstract class ApiService {
   Future<ScheduledResponseModel> createScheduled(
     @Header('Authorization') String token,
     @Body() ScheduledRequestModel scheduledRequestModel,
+  );
+
+  @GET(ApiConstants.getRequests)
+  Future<RequestsResponseModel> getRequests(
+    @Header('Authorization') String token,
+    @Body() RequestsRequestModel requestsRequestModel,
   );
 }
