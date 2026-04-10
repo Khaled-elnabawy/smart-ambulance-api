@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/features/login/data/models/login_response.dart';
+import 'package:mobile/features/requests/logic/requests_cubit.dart';
 import 'package:mobile/layouts/main/cubit/bottom_nav_cubit.dart';
 import 'package:mobile/layouts/main/widgets/custom_bottom_nav_bar.dart';
 import '../../core/di/dependency_injection.dart';
@@ -23,7 +24,7 @@ class MainView extends StatelessWidget {
           body: Stack(
             children: List.generate(
               NavigationKeys.navigatorKeys.length,
-              (index) => _buildNavigator(context, index, currentIndex),
+                  (index) => _buildNavigator(context, index, currentIndex),
             ),
           ),
           bottomNavigationBar: CustomBottomNavBar(
@@ -31,7 +32,7 @@ class MainView extends StatelessWidget {
             onTap: (index) {
               if (index == currentIndex) {
                 NavigationKeys.navigatorKeys[index].currentState!.popUntil(
-                  (route) => route.isFirst,
+                      (route) => route.isFirst,
                 );
               } else {
                 context.read<BottomNavCubit>().changeIndex(index);
@@ -63,7 +64,10 @@ class MainView extends StatelessWidget {
           child: HomeView(token: loginResponse.userData?.token ?? ''),
         );
       case 1:
-        return const RequestsView();
+        return BlocProvider(
+          create: (context) => getIt<RequestsCubit>(),
+          child: RequestsView(),
+        );
       case 2:
         return const ProfileView();
       default:
