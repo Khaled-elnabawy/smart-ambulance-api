@@ -96,13 +96,17 @@ class RequestWidget extends StatelessWidget {
           verticalSpacing(16),
           Visibility(
             visible: request.status == 'pending',
-            child: GenericTextButton(
-              buttonText: 'Cancel',
-              textStyle: TextStyles.font16WhiteBold,
-              buttonWidth: double.maxFinite,
-              buttonHeight: 42.h,
-              borderRadius: 16.r,
-              onPressed: () {},
+            child: SizedBox(
+              width: 80.w,
+              child: GenericTextButton(
+                buttonText: 'Cancel',
+                textStyle: TextStyles.font16WhiteBold,
+                buttonHeight: 42.h,
+                borderRadius: 16.r,
+                onPressed: () {
+
+                },
+              ),
             ),
           ),
         ],
