@@ -4,10 +4,10 @@ part 'reset_password_response.g.dart';
 
 @JsonSerializable()
 class ResetPasswordResponse {
-  String? message;
-  bool? status;
+  final String? message;
+  final bool? status;
   @JsonKey(name: 'status_code')
-  int? code;
+  final int? code;
 
   ResetPasswordResponse({this.message, this.status, this.code});
 

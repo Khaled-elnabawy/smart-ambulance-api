@@ -9,10 +9,10 @@ part of 'emergency_response_model.dart';
 EmergencyResponseModel _$EmergencyResponseModelFromJson(
   Map<String, dynamic> json,
 ) => EmergencyResponseModel(
-  json['message'] as String?,
-  json['status'] as bool?,
-  (json['status_code'] as num?)?.toInt(),
-  json['data'] == null
+  message: json['message'] as String?,
+  status: json['status'] as bool?,
+  code: (json['status_code'] as num?)?.toInt(),
+  data: json['data'] == null
       ? null
       : EmergencyData.fromJson(json['data'] as Map<String, dynamic>),
 );
@@ -28,17 +28,17 @@ Map<String, dynamic> _$EmergencyResponseModelToJson(
 
 EmergencyData _$EmergencyDataFromJson(Map<String, dynamic> json) =>
     EmergencyData(
-      (json['id'] as num?)?.toInt(),
-      (json['user_id'] as num?)?.toInt(),
-      (json['ambulance_id'] as num?)?.toInt(),
-      (json['driver_id'] as num?)?.toInt(),
-      json['request_type'] as String?,
-      json['status'] as String?,
-      json['pickup_latitude'] as String?,
-      json['pickup_longitude'] as String?,
-      json['created_at'] as String?,
-      json['updated_at'] as String?,
-      json['deleted_at'] as String?,
+      id: (json['id'] as num?)?.toInt(),
+      userId: (json['user_id'] as num?)?.toInt(),
+      ambulanceId: (json['ambulance_id'] as num?)?.toInt(),
+      driverId: (json['driver_id'] as num?)?.toInt(),
+      requestType: json['request_type'] as String?,
+      status: json['status'] as String?,
+      pickup_Latitude: json['pickup_latitude'] as String?,
+      pickupLongitude: json['pickup_longitude'] as String?,
+      createdAt: json['created_at'] as String?,
+      updatedAt: json['updated_at'] as String?,
+      deletedAt: json['deleted_at'] as String?,
     );
 
 Map<String, dynamic> _$EmergencyDataToJson(EmergencyData instance) =>

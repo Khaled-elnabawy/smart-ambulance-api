@@ -9,10 +9,10 @@ part of 'scheduled_response_model.dart';
 ScheduledResponseModel _$ScheduledResponseModelFromJson(
   Map<String, dynamic> json,
 ) => ScheduledResponseModel(
-  json['message'] as String?,
-  json['status'] as bool?,
-  (json['status_code'] as num?)?.toInt(),
-  json['data'] == null
+  message: json['message'] as String?,
+  status: json['status'] as bool?,
+  code: (json['status_code'] as num?)?.toInt(),
+  data: json['data'] == null
       ? null
       : ScheduledData.fromJson(json['data'] as Map<String, dynamic>),
 );
@@ -28,18 +28,18 @@ Map<String, dynamic> _$ScheduledResponseModelToJson(
 
 ScheduledData _$ScheduledDataFromJson(Map<String, dynamic> json) =>
     ScheduledData(
-      (json['id'] as num?)?.toInt(),
-      (json['user_id'] as num?)?.toInt(),
-      (json['ambulance_id'] as num?)?.toInt(),
-      (json['driver_id'] as num?)?.toInt(),
-      json['request_type'] as String?,
-      json['status'] as String?,
-      json['pickup_latitude'] as String?,
-      json['pickup_longitude'] as String?,
-      json['scheduled_time'] as String?,
-      json['created_at'] as String?,
-      json['updated_at'] as String?,
-      json['deleted_at'] as String?,
+      id: (json['id'] as num?)?.toInt(),
+      userId: (json['user_id'] as num?)?.toInt(),
+      ambulanceId: (json['ambulance_id'] as num?)?.toInt(),
+      driverId: (json['driver_id'] as num?)?.toInt(),
+      requestType: json['request_type'] as String?,
+      status: json['status'] as String?,
+      pickup_Latitude: json['pickup_latitude'] as String?,
+      pickupLongitude: json['pickup_longitude'] as String?,
+      scheduledTime: json['scheduled_time'] as String?,
+      createdAt: json['created_at'] as String?,
+      updatedAt: json['updated_at'] as String?,
+      deletedAt: json['deleted_at'] as String?,
     );
 
 Map<String, dynamic> _$ScheduledDataToJson(ScheduledData instance) =>

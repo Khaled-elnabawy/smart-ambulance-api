@@ -35,7 +35,7 @@ class GenericTextButton extends StatelessWidget {
       style: ButtonStyle(
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 20),
+            borderRadius: BorderRadius.circular(borderRadius ?? 20.r),
             side: isHaveBorder == true
                 ? BorderSide(color: ColorsManager.red, width: 1.2)
                 : BorderSide.none,

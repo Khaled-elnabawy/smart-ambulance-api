@@ -4,12 +4,12 @@ part 'login_response.g.dart';
 
 @JsonSerializable()
 class LoginResponse {
-  String? message;
-  bool? status;
+  final String? message;
+  final bool? status;
   @JsonKey(name: 'status_code')
-  int? code;
+  final int? code;
   @JsonKey(name: 'data')
-  UserData? userData;
+  final UserData? userData;
 
   LoginResponse({this.message, this.status, this.code, this.userData});
 
@@ -19,13 +19,13 @@ class LoginResponse {
 
 @JsonSerializable()
 class UserData {
-  String? token;
+  final String? token;
   @JsonKey(name: 'user_type')
-  String? role;
+  final String? role;
   @JsonKey(name: 'user')
-  UserInfo? userInfo;
+  final UserInfo? userInfo;
 
-  UserData({this.token, this.userInfo});
+  UserData({this.token, this.userInfo, this.role});
 
   factory UserData.fromJson(Map<String, dynamic> json) =>
       _$UserDataFromJson(json);
@@ -33,18 +33,18 @@ class UserData {
 
 @JsonSerializable()
 class UserInfo {
-  int? id;
-  String? name;
-  String? phone;
-  String? email;
+  final int? id;
+  final String? name;
+  final String? phone;
+  final String? email;
   @JsonKey(name: 'national_id')
-  String? nationalId;
+  final String? nationalId;
   @JsonKey(name: 'created_at')
-  String? createdAt;
+  final String? createdAt;
   @JsonKey(name: 'updated_at')
-  String? updatedAt;
+  final String? updatedAt;
   @JsonKey(name: 'deleted_at')
-  String? deletedAt;
+  final String? deletedAt;
 
   UserInfo({
     this.id,
@@ -54,6 +54,7 @@ class UserInfo {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
+    this.nationalId,
   });
 
   factory UserInfo.fromJson(Map<String, dynamic> json) =>

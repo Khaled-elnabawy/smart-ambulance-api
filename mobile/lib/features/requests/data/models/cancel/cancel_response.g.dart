@@ -1,0 +1,21 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'cancel_response.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+CancelResponse _$CancelResponseFromJson(Map<String, dynamic> json) =>
+    CancelResponse(
+      status: json['status'] as bool?,
+      message: json['message'] as String?,
+      statusCode: (json['status_code'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$CancelResponseToJson(CancelResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'status_code': instance.statusCode,
+    };

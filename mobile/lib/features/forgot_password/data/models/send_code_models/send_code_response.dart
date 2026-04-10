@@ -4,11 +4,11 @@ part 'send_code_response.g.dart';
 
 @JsonSerializable()
 class SendCodeResponse {
-  String? message;
-  Data? data;
-  bool? status;
+  final String? message;
+  final Data? data;
+  final bool? status;
   @JsonKey(name: 'status_code')
-  int? code;
+  final int? code;
 
   SendCodeResponse({this.message, this.data, this.status, this.code});
 
@@ -19,7 +19,7 @@ class SendCodeResponse {
 @JsonSerializable()
 class Data {
   @JsonKey(name: 'reset_token')
-  String? resetToken;
+  final String? resetToken;
 
   Data({this.resetToken});
 

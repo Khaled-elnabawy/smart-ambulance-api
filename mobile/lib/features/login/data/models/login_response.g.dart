@@ -29,7 +29,8 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
   userInfo: json['user'] == null
       ? null
       : UserInfo.fromJson(json['user'] as Map<String, dynamic>),
-)..role = json['user_type'] as String?;
+  role: json['user_type'] as String?,
+);
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
   'token': instance.token,
@@ -45,7 +46,8 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
   createdAt: json['created_at'] as String?,
   updatedAt: json['updated_at'] as String?,
   deletedAt: json['deleted_at'] as String?,
-)..nationalId = json['national_id'] as String?;
+  nationalId: json['national_id'] as String?,
+);
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
   'id': instance.id,
