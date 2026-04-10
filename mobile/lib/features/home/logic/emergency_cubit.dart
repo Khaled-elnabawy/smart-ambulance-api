@@ -11,10 +11,10 @@ class EmergencyCubit extends Cubit<HomeState> {
 
   EmergencyCubit(this._homeRepo) : super(HomeState.initial());
 
-  void emitEmergencyState(
-    String token,
-    EmergencyRequestModel emergencyRequestModel,
-  ) async {
+  void emitEmergencyState({
+    required String token,
+    required EmergencyRequestModel emergencyRequestModel,
+  }) async {
     emit(HomeState.loading());
     final response = await _homeRepo.createEmergency(
       token,

@@ -47,11 +47,9 @@ class HomeBottomSection extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    context
-                        .read<EmergencyCubit>()
-                        .emitEmergencyState(
-                      token,
-                      EmergencyRequestModel(
+                    context.read<EmergencyCubit>().emitEmergencyState(
+                      token: token,
+                      emergencyRequestModel: EmergencyRequestModel(
                         requestType: 'emergency',
                         pickupLatitude: latitude,
                         pickupLongitude: longitude,
@@ -82,7 +80,10 @@ class HomeBottomSection extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    context.pushNamed(Routes.scheduledFormView,arguments: token);
+                    context.pushNamed(
+                      Routes.scheduledFormView,
+                      arguments: token,
+                    );
                   },
                   child: Container(
                     width: 192.w,
