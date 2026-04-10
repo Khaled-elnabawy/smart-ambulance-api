@@ -5,8 +5,23 @@ import 'package:mobile/features/requests/views/widgets/request_widget.dart';
 import '../../logic/requests_cubits/requests_state.dart';
 import '../../logic/requests_cubits/scheduled_requests_cubit.dart';
 
-class ScheduledRequestWidget extends StatelessWidget {
-  const ScheduledRequestWidget({super.key});
+class ScheduledRequestWidget extends StatefulWidget {
+  final String token;
+
+  const ScheduledRequestWidget({super.key, required this.token});
+
+  @override
+  State<ScheduledRequestWidget> createState() => _ScheduledRequestWidgetState();
+}
+
+class _ScheduledRequestWidgetState extends State<ScheduledRequestWidget> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ScheduledRequestsCubit>().emitScheduledState(
+      token: widget.token ?? '',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +39,10 @@ class ScheduledRequestWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.0.h),
-                    child: RequestWidget(request: requests[index]),
+                    child: RequestWidget(
+                      request: requests[index],
+                      token: widget.token,
+                    ),
                   );
                 },
               ),

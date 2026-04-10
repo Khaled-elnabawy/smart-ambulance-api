@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/features/requests/data/models/requests/requests_response_model.dart';
+import 'package:mobile/features/requests/logic/cancel_cubit/cancel_cubit.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/styles.dart';
 import '../../../../core/widgets/generic_text_button.dart';
 
 class RequestWidget extends StatelessWidget {
   final Request request;
+  final String token;
 
-  const RequestWidget({super.key, required this.request});
+  const RequestWidget({super.key, required this.request, required this.token});
 
   @override
   Widget build(BuildContext context) {
@@ -76,11 +79,12 @@ class RequestWidget extends StatelessWidget {
                         : request.status == 'in_progress'
                         ? 'In Progress'
                         : 'Completed',
-                    style: request.status == 'pending' || request.status == 'in_progress'
+                    style: request.status == 'pending' ||
+                        request.status == 'in_progress'
                         ? TextStyles.font16BlackRegular
                         : TextStyles.font16BlackRegular.copyWith(
-                            color: Colors.white,
-                          ),
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
@@ -104,7 +108,8 @@ class RequestWidget extends StatelessWidget {
                 buttonHeight: 42.h,
                 borderRadius: 16.r,
                 onPressed: () {
-
+                  context.read<CancelCubit>().emitCancelState(
+                      token: token, id: request.id!);
                 },
               ),
             ),

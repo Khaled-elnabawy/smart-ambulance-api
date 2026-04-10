@@ -27,17 +27,6 @@ class _RequestsViewState extends State<RequestsView> {
   bool isSOS = true;
 
   @override
-  void initState() {
-    super.initState();
-    context.read<EmergencyRequestsCubit>().emitEmergencyState(
-      token: widget.token ?? '',
-    );
-    context.read<ScheduledRequestsCubit>().emitScheduledState(
-      token: widget.token ?? '',
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -62,7 +51,9 @@ class _RequestsViewState extends State<RequestsView> {
               },
             ),
             Expanded(
-              child: isSOS ? SosRequestWidget() : ScheduledRequestWidget(),
+              child: isSOS
+                  ? SosRequestWidget(token: widget.token ?? '')
+                  : ScheduledRequestWidget(token: widget.token ?? ''),
             ),
             EmergencyRequestsBlocListener(),
             ScheduledRequestsBlocListener(),
