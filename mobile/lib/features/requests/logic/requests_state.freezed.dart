@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'emergency_state.dart';
+part of 'requests_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'emergency_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$EmergencyState<T> {
+mixin _$RequestsState<T> {
 
 
 
@@ -20,7 +20,7 @@ mixin _$EmergencyState<T> {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmergencyState<T>);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RequestsState<T>);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'EmergencyState<$T>()';
+  return 'RequestsState<$T>()';
 }
 
 
 }
 
 /// @nodoc
-class $EmergencyStateCopyWith<T,$Res>  {
-$EmergencyStateCopyWith(EmergencyState<T> _, $Res Function(EmergencyState<T>) __);
+class $RequestsStateCopyWith<T,$Res>  {
+$RequestsStateCopyWith(RequestsState<T> _, $Res Function(RequestsState<T>) __);
 }
 
 
-/// Adds pattern-matching-related methods to [EmergencyState].
-extension EmergencyStatePatterns<T> on EmergencyState<T> {
+/// Adds pattern-matching-related methods to [RequestsState].
+extension RequestsStatePatterns<T> on RequestsState<T> {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -192,7 +192,7 @@ return failure(_that.errMessage);case _:
 /// @nodoc
 
 
-class _Initial<T> implements EmergencyState<T> {
+class _Initial<T> implements RequestsState<T> {
   const _Initial();
   
 
@@ -212,7 +212,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'EmergencyState<$T>.initial()';
+  return 'RequestsState<$T>.initial()';
 }
 
 
@@ -224,7 +224,7 @@ String toString() {
 /// @nodoc
 
 
-class Loading<T> implements EmergencyState<T> {
+class Loading<T> implements RequestsState<T> {
   const Loading();
   
 
@@ -244,7 +244,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'EmergencyState<$T>.loading()';
+  return 'RequestsState<$T>.loading()';
 }
 
 
@@ -256,13 +256,13 @@ String toString() {
 /// @nodoc
 
 
-class Success<T> implements EmergencyState<T> {
+class Success<T> implements RequestsState<T> {
   const Success(this.data);
   
 
  final  T data;
 
-/// Create a copy of EmergencyState
+/// Create a copy of RequestsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -281,14 +281,14 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'EmergencyState<$T>.success(data: $data)';
+  return 'RequestsState<$T>.success(data: $data)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SuccessCopyWith<T,$Res> implements $EmergencyStateCopyWith<T, $Res> {
+abstract mixin class $SuccessCopyWith<T,$Res> implements $RequestsStateCopyWith<T, $Res> {
   factory $SuccessCopyWith(Success<T> value, $Res Function(Success<T>) _then) = _$SuccessCopyWithImpl;
 @useResult
 $Res call({
@@ -307,7 +307,7 @@ class _$SuccessCopyWithImpl<T,$Res>
   final Success<T> _self;
   final $Res Function(Success<T>) _then;
 
-/// Create a copy of EmergencyState
+/// Create a copy of RequestsState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
   return _then(Success<T>(
@@ -322,13 +322,13 @@ as T,
 /// @nodoc
 
 
-class Failure<T> implements EmergencyState<T> {
+class Failure<T> implements RequestsState<T> {
   const Failure({required this.errMessage});
   
 
  final  String errMessage;
 
-/// Create a copy of EmergencyState
+/// Create a copy of RequestsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -347,14 +347,14 @@ int get hashCode => Object.hash(runtimeType,errMessage);
 
 @override
 String toString() {
-  return 'EmergencyState<$T>.failure(errMessage: $errMessage)';
+  return 'RequestsState<$T>.failure(errMessage: $errMessage)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $FailureCopyWith<T,$Res> implements $EmergencyStateCopyWith<T, $Res> {
+abstract mixin class $FailureCopyWith<T,$Res> implements $RequestsStateCopyWith<T, $Res> {
   factory $FailureCopyWith(Failure<T> value, $Res Function(Failure<T>) _then) = _$FailureCopyWithImpl;
 @useResult
 $Res call({
@@ -373,7 +373,7 @@ class _$FailureCopyWithImpl<T,$Res>
   final Failure<T> _self;
   final $Res Function(Failure<T>) _then;
 
-/// Create a copy of EmergencyState
+/// Create a copy of RequestsState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? errMessage = null,}) {
   return _then(Failure<T>(
