@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/features/requests/logic/requests_state.dart';
 import '../../../core/networking/api_result.dart';
-import '../data/models/requests_request_model.dart';
+import '../data/models/requests/requests_request_model.dart';
 import '../data/repo/requests_repo.dart';
 
 class ScheduledRequestsCubit extends Cubit<RequestsState> {

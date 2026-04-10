@@ -10,6 +10,7 @@ class ApiConstants {
   static const String createEmergency = "v1/requests";
   static const String createScheduled = "v1/requests";
   static const String getRequests = "v1/my-requests";
+  static const String cancelRequest = "v1/requests/cancel";
 }
 
 class ApiErrors {
