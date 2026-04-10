@@ -11,8 +11,8 @@ import '../../../core/di/dependency_injection.dart';
 import '../../../core/theming/styles.dart';
 import '../../../core/widgets/back_button_widget.dart';
 import '../data/repo/requests_repo.dart';
-import '../logic/emergency_requests_cubit.dart';
-import '../logic/scheduled_requests_cubit.dart';
+import '../logic/requests_cubits/emergency_requests_cubit.dart';
+import '../logic/requests_cubits/scheduled_requests_cubit.dart';
 
 class RequestsView extends StatefulWidget {
   final String? token;

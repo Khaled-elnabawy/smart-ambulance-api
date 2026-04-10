@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile/features/requests/logic/emergency_requests_cubit.dart';
-import 'package:mobile/features/requests/logic/requests_state.dart';
+import 'package:mobile/features/requests/logic/requests_cubits/emergency_requests_cubit.dart';
 import 'package:mobile/features/requests/views/widgets/request_widget.dart';
+import '../../logic/requests_cubits/requests_state.dart';
 
 class SosRequestWidget extends StatelessWidget {
   const SosRequestWidget({super.key});

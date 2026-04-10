@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/features/requests/views/widgets/request_widget.dart';
-
-import '../../logic/requests_state.dart';
-import '../../logic/scheduled_requests_cubit.dart';
+import '../../logic/requests_cubits/requests_state.dart';
+import '../../logic/requests_cubits/scheduled_requests_cubit.dart';
 
 class ScheduledRequestWidget extends StatelessWidget {
   const ScheduledRequestWidget({super.key});

@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
-import '../../logic/emergency_requests_cubit.dart';
-import '../../logic/requests_state.dart';
-import '../../logic/scheduled_requests_cubit.dart';
+import '../../logic/requests_cubits/emergency_requests_cubit.dart';
+import '../../logic/requests_cubits/requests_state.dart';
+import '../../logic/requests_cubits/scheduled_requests_cubit.dart';
 
 class ScheduledRequestsBlocListener extends StatelessWidget {
   const ScheduledRequestsBlocListener({super.key});
