@@ -18,6 +18,11 @@ class _RequestsViewState extends State<RequestsView> {
   bool isSOS = true;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -41,7 +46,9 @@ class _RequestsViewState extends State<RequestsView> {
                 });
               },
             ),
-            Expanded(child: isSOS ? SosRequestWidget() : ScheduledRequestWidget()),
+            Expanded(
+              child: isSOS ? SosRequestWidget() : ScheduledRequestWidget(),
+            ),
           ],
         ),
       ),

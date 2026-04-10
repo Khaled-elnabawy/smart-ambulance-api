@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile/features/requests/data/models/requests_response_model.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/styles.dart';
 import '../../../../core/widgets/generic_text_button.dart';
 
 class RequestWidget extends StatelessWidget {
-  final bool isSOS;
-  final bool isPending;
-  final bool isInProgress;
+  final Request request;
 
-  const RequestWidget({
-    super.key,
-    this.isSOS = true,
-    this.isPending = true,
-    this.isInProgress = false,
-  });
+  const RequestWidget({super.key, required this.request});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +42,7 @@ class RequestWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Image.asset(
-                      isSOS
+                      request.requestType == 'emergency'
                           ? 'assets/images/sos_request_icon_image.png'
                           : 'assets/images/scheduled_request_icon_image.png',
                       width: 38.w,
@@ -56,8 +50,8 @@ class RequestWidget extends StatelessWidget {
                     ),
                     horizontalSpacing(4),
                     Text(
-                      isSOS ? 'SOS' : 'Scheduled',
-                      style: isSOS
+                      request.requestType == 'emergency' ? 'SOS' : 'Scheduled',
+                      style: request.requestType == 'emergency'
                           ? TextStyles.font16RedBold
                           : TextStyles.font16BlackBold,
                     ),
@@ -69,20 +63,20 @@ class RequestWidget extends StatelessWidget {
                     vertical: 4.h,
                   ),
                   decoration: BoxDecoration(
-                    color: isPending
+                    color: request.status == 'pending'
                         ? Color(0xffFBDE80)
-                        : isInProgress
+                        : request.status == 'in_progress'
                         ? Color(0xffF7DADA)
                         : Color(0xff319F43).withValues(alpha: .8),
                     borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Text(
-                    isPending
+                    request.status == 'pending'
                         ? 'Pending'
-                        : isInProgress
+                        : request.status == 'in_progress'
                         ? 'In Progress'
                         : 'Completed',
-                    style: isPending || isInProgress
+                    style: request.status == 'pending' || request.status == 'in_progress'
                         ? TextStyles.font16BlackRegular
                         : TextStyles.font16BlackRegular.copyWith(
                             color: Colors.white,
@@ -101,7 +95,7 @@ class RequestWidget extends StatelessWidget {
           ),
           verticalSpacing(16),
           Visibility(
-            visible: isPending,
+            visible: request.status == 'pending',
             child: GenericTextButton(
               buttonText: 'Cancel',
               textStyle: TextStyles.font16WhiteBold,
