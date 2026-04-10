@@ -7,6 +7,7 @@ import 'package:mobile/layouts/main/widgets/custom_bottom_nav_bar.dart';
 import '../../core/di/dependency_injection.dart';
 import '../../features/home/logic/emergency_cubit.dart';
 import '../../features/home/views/home_view.dart';
+import '../../features/requests/logic/cancel_cubit/cancel_cubit.dart';
 import '../../features/requests/logic/requests_cubits/scheduled_requests_cubit.dart';
 import '../../features/requests/views/requests_view.dart';
 import '../../features/profile/views/profile_view.dart';
@@ -69,6 +70,7 @@ class MainView extends StatelessWidget {
           providers: [
             BlocProvider(create: (context) => getIt<EmergencyRequestsCubit>()),
             BlocProvider(create: (context) => getIt<ScheduledRequestsCubit>()),
+            BlocProvider(create: (context) => getIt<CancelCubit>()),
           ],
           child: RequestsView(token: loginResponse.userData?.token ?? ''),
         );
