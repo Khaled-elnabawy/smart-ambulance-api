@@ -11,6 +11,8 @@ import '../../features/login/logic/login_cubit.dart';
 import '../../features/register/data/repos/register_repo.dart';
 import '../../features/register/logic/register_cubit.dart';
 import '../../features/requests/data/repo/requests_repo.dart';
+import '../../features/requests/logic/emergency_requests_cubit.dart';
+import '../../features/requests/logic/scheduled_requests_cubit.dart';
 import '../networking/api_service.dart';
 import '../networking/dio_factory.dart';
 import '../services/directions/directions_api_service.dart';
@@ -67,5 +69,6 @@ Future<void> setupGetIt() async {
 
   // requests
   getIt.registerLazySingleton<RequestsRepo>(() => RequestsRepo(getIt()));
-  getIt.registerFactory<EmergencyCubit>(() => EmergencyCubit(getIt()));
+  getIt.registerFactory<EmergencyRequestsCubit>(() => EmergencyRequestsCubit(getIt()));
+  getIt.registerFactory<ScheduledRequestsCubit>(() => ScheduledRequestsCubit(getIt()));
 }

@@ -9,7 +9,7 @@ part of 'requests_response_model.dart';
 RequestsResponseModel _$RequestsResponseModelFromJson(
   Map<String, dynamic> json,
 ) => RequestsResponseModel(
-  status: json['status'] as String?,
+  status: json['status'] as bool?,
   statusCode: (json['status_code'] as num?)?.toInt(),
   requests: (json['data'] as List<dynamic>?)
       ?.map((e) => Request.fromJson(e as Map<String, dynamic>))

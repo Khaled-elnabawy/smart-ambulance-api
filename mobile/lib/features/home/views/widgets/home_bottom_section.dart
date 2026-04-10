@@ -39,7 +39,7 @@ class HomeBottomSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            horizontalSpacing(20),
+            verticalSpacing(20),
             Text('What do you want to do?', style: TextStyles.font24BlackBold),
             verticalSpacing(16),
             Row(

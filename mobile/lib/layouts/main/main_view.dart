@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/features/login/data/models/login_response.dart';
-import 'package:mobile/features/requests/data/repo/requests_repo.dart';
-import 'package:mobile/features/requests/logic/requests_cubit.dart';
+import 'package:mobile/features/requests/logic/emergency_requests_cubit.dart';
 import 'package:mobile/layouts/main/cubit/bottom_nav_cubit.dart';
 import 'package:mobile/layouts/main/widgets/custom_bottom_nav_bar.dart';
 import '../../core/di/dependency_injection.dart';
 import '../../features/home/logic/emergency_cubit.dart';
 import '../../features/home/views/home_view.dart';
+import '../../features/requests/logic/scheduled_requests_cubit.dart';
 import '../../features/requests/views/requests_view.dart';
 import '../../features/profile/views/profile_view.dart';
 import 'navigation/navigation_keys.dart';
@@ -67,15 +67,10 @@ class MainView extends StatelessWidget {
       case 1:
         return MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (context) => RequestsCubit(getIt.get<RequestsRepo>())
-                ..emitEmergencyState(token: loginResponse.userData?.token ?? '')
-                ..emitScheduledState(
-                  token: loginResponse.userData?.token ?? '',
-                ),
-            ),
+            BlocProvider(create: (context) => getIt<EmergencyRequestsCubit>()),
+            BlocProvider(create: (context) => getIt<ScheduledRequestsCubit>()),
           ],
-          child: RequestsView(),
+          child: RequestsView(token: loginResponse.userData?.token ?? ''),
         );
       case 2:
         return const ProfileView();

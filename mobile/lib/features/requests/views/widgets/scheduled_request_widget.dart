@@ -1,74 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/features/requests/views/widgets/request_widget.dart';
-import '../../../../core/helpers/extensions.dart';
-import '../../../../core/theming/colors.dart';
-import '../../../../core/theming/styles.dart';
-import '../../logic/requests_cubit.dart';
+
 import '../../logic/requests_state.dart';
+import '../../logic/scheduled_requests_cubit.dart';
 
 class ScheduledRequestWidget extends StatelessWidget {
   const ScheduledRequestWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RequestsCubit, RequestsState>(
-      listener: (context, state) {
-        state.whenOrNull(
-          loading: () {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (_) => const Center(
-                child: CircularProgressIndicator(color: ColorsManager.red),
-              ),
-            );
-          },
-          success: (_) {
-            context.pop();
-          },
-          failure: (errMessage) {
-            context.pop();
-            setupErrorState(context, errMessage);
-          },
-        );
-      },
-
+    return BlocBuilder<ScheduledRequestsCubit, RequestsState>(
       builder: (context, state) {
         return state.when(
           initial: () => const SizedBox(),
           loading: () => const SizedBox(),
           success: (data) {
             final requests = data.requests ?? [];
-            return ListView.builder(
-              itemCount: requests.length,
-              itemBuilder: (context, index) {
-                return RequestWidget(request: requests[index]);
-              },
+            return Padding(
+              padding: EdgeInsets.only(top: 24.h, left: 30.w, right: 30.w),
+              child: ListView.builder(
+                itemCount: data.requests.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 16.0.h),
+                    child: RequestWidget(request: requests[index]),
+                  );
+                },
+              ),
             );
           },
           failure: (_) => const SizedBox(),
         );
       },
-    );
-  }
-
-  void setupErrorState(BuildContext context, String errMessage) {
-    context.pop();
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        icon: Icon(Icons.error, color: Colors.red, size: 32),
-        content: Text(errMessage, style: TextStyles.font22BlackRegular),
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.pop();
-            },
-            child: Text('OK', style: TextStyles.font16RedBold),
-          ),
-        ],
-      ),
     );
   }
 }

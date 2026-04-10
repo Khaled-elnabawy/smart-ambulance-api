@@ -4,7 +4,7 @@ part 'requests_response_model.g.dart';
 
 @JsonSerializable()
 class RequestsResponseModel {
-  final String? status;
+  final bool? status;
   @JsonKey(name: 'status_code')
   final int? statusCode;
   @JsonKey(name: 'data')
