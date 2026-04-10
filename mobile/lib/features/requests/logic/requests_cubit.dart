@@ -11,8 +11,16 @@ class RequestsCubit extends Cubit<RequestsState> {
   void emitEmergencyState({required String token}) async {
     emit(RequestsState.loading());
     final response = await _requestsRepo.getRequests(
-        token: token,
-        requestsRequestModel: RequestsRequestModel(type: 'emergency'));
+      token: token,
+      requestsRequestModel: RequestsRequestModel(type: 'emergency'),
+    );
   }
 
+  void emitScheduledState({required String token}) async {
+    emit(RequestsState.loading());
+    final response = await _requestsRepo.getRequests(
+      token: token,
+      requestsRequestModel: RequestsRequestModel(type: 'scheduled'),
+    );
+  }
 }
