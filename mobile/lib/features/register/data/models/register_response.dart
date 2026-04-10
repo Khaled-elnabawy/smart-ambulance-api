@@ -4,12 +4,12 @@ part 'register_response.g.dart';
 
 @JsonSerializable()
 class RegisterResponse {
-  String? message;
+  final String? message;
   @JsonKey(name: 'data')
-  UserData? userData;
-  bool? status;
+  final UserData? userData;
+  final bool? status;
   @JsonKey(name: 'status_code')
-  int? code;
+  final int? code;
 
   RegisterResponse({this.message, this.userData, this.status, this.code});
 
@@ -19,9 +19,9 @@ class RegisterResponse {
 
 @JsonSerializable()
 class UserData {
-  String? token;
+  final String? token;
   @JsonKey(name: 'username')
-  UserInfo? userInfo;
+  final UserInfo? userInfo;
 
   UserData({this.token, this.userInfo});
 
@@ -31,22 +31,23 @@ class UserData {
 
 @JsonSerializable()
 class UserInfo {
-  int? id;
-  String? name;
-  String? phone;
-  String? email;
+  final int? id;
+  final String? name;
+  final String? phone;
+  final String? email;
   @JsonKey(name: 'national_id')
-  String? nationalId;
+  final String? nationalId;
   @JsonKey(name: 'created_at')
-  String? createdAt;
+  final String? createdAt;
   @JsonKey(name: 'updated_at')
-  String? updatedAt;
+  final String? updatedAt;
 
   UserInfo({
     this.id,
     this.name,
     this.phone,
     this.email,
+    this.nationalId,
     this.createdAt,
     this.updatedAt,
   });

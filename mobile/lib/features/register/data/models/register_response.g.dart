@@ -41,9 +41,10 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
   name: json['name'] as String?,
   phone: json['phone'] as String?,
   email: json['email'] as String?,
+  nationalId: json['national_id'] as String?,
   createdAt: json['created_at'] as String?,
   updatedAt: json['updated_at'] as String?,
-)..nationalId = json['national_id'] as String?;
+);
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
   'id': instance.id,

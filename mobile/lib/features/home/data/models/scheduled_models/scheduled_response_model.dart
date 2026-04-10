@@ -10,7 +10,7 @@ class ScheduledResponseModel {
   final int? code;
   final ScheduledData? data;
 
-  ScheduledResponseModel(this.message, this.status, this.code, this.data);
+  ScheduledResponseModel({this.message, this.status, this.code, this.data});
 
   factory ScheduledResponseModel.fromJson(Map<String, dynamic> json) =>
       _$ScheduledResponseModelFromJson(json);
@@ -41,7 +41,7 @@ class ScheduledData {
   @JsonKey(name: 'deleted_at')
   final String? deletedAt;
 
-  ScheduledData(
+  ScheduledData({
     this.id,
     this.userId,
     this.ambulanceId,
@@ -54,7 +54,7 @@ class ScheduledData {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
-  );
+  });
 
   factory ScheduledData.fromJson(Map<String, dynamic> json) =>
       _$ScheduledDataFromJson(json);

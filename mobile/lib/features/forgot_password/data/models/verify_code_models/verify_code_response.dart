@@ -4,11 +4,11 @@ part 'verify_code_response.g.dart';
 
 @JsonSerializable()
 class VerifyCodeResponse {
-  String? message;
-  Data? data;
-  bool? status;
+  final String? message;
+  final Data? data;
+  final bool? status;
   @JsonKey(name: 'status_code')
-  int? code;
+  final int? code;
 
   VerifyCodeResponse({this.message, this.data, this.status, this.code});
 
@@ -19,7 +19,7 @@ class VerifyCodeResponse {
 @JsonSerializable()
 class Data {
   @JsonKey(name: 'reset_token')
-  String? resetToken;
+  final String? resetToken;
 
   Data({this.resetToken});
 

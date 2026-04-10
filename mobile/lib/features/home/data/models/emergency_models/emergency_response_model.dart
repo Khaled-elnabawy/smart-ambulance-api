@@ -10,7 +10,7 @@ class EmergencyResponseModel {
   final int? code;
   final EmergencyData? data;
 
-  EmergencyResponseModel(this.message, this.status, this.code, this.data);
+  EmergencyResponseModel({this.message, this.status, this.code, this.data});
 
   factory EmergencyResponseModel.fromJson(Map<String, dynamic> json) =>
       _$EmergencyResponseModelFromJson(json);
@@ -39,7 +39,7 @@ class EmergencyData {
   @JsonKey(name: 'deleted_at')
   final String? deletedAt;
 
-  EmergencyData(
+  EmergencyData({
     this.id,
     this.userId,
     this.ambulanceId,
@@ -51,7 +51,7 @@ class EmergencyData {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
-  );
+  });
 
   factory EmergencyData.fromJson(Map<String, dynamic> json) =>
       _$EmergencyDataFromJson(json);
