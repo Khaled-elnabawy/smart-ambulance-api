@@ -8,8 +8,8 @@ import '../../../../core/theming/styles.dart';
 import '../../logic/cancel_cubit/cancel_state.dart';
 
 
-class LoginBlocListener extends StatelessWidget {
-  const LoginBlocListener({super.key});
+class CancelBlocListener extends StatelessWidget {
+  const CancelBlocListener({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -27,19 +27,23 @@ class _RequestsViewState extends State<RequestsView> {
   bool isSOS = true;
 
   @override
+  void initState() {
+    super.initState();
+    context.read<EmergencyRequestsCubit>().emitEmergencyState(
+      token: widget.token ?? '',
+    );
+    context.read<ScheduledRequestsCubit>().emitScheduledState(
+      token: widget.token ?? '',
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            verticalSpacing(12),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: BackButtonWidget(),
-              ),
-            ),
+            verticalSpacing(54),
             verticalSpacing(32),
             Text('Requests', style: TextStyles.font30BlackSemiBold),
             verticalSpacing(24),

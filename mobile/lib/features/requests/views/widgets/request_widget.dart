@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/features/requests/data/models/requests/requests_response_model.dart';
 import 'package:mobile/features/requests/logic/cancel_cubit/cancel_cubit.dart';
+import 'package:mobile/features/requests/views/widgets/cancel_bloc_listener.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/styles.dart';
 import '../../../../core/widgets/generic_text_button.dart';
@@ -114,6 +115,7 @@ class RequestWidget extends StatelessWidget {
               ),
             ),
           ),
+          CancelBlocListener(),
         ],
       ),
     );
