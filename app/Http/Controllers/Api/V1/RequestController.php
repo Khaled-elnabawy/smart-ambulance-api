@@ -577,9 +577,10 @@ class RequestController extends Controller
 
     /**
      * User Cancel Request
-     * POST /api/v1/requests/{id}/cancel
+     * POST /api/v1/requests/cancel
+     * Body: { "id": <request_id> }
      */
-    public function cancel($id)
+    public function cancel()
     {
         $user = auth()->user();
 
@@ -589,6 +590,16 @@ class RequestController extends Controller
                 'status' => false,
                 'message' => 'Only users can cancel requests',
             ], Response::HTTP_FORBIDDEN);
+        }
+
+        // Get request ID from body
+        $id = request()->input('id');
+
+        if (!$id) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Request ID is required',
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         try {
