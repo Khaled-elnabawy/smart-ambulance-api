@@ -36,6 +36,11 @@ class TextStyles {
     fontWeight: FontWeightHelper.semiBold,
     height: 0,
   );
+  static TextStyle font18BlackMedium = TextStyle(
+    fontSize: 18.sp,
+    color: Colors.black,
+    fontWeight: FontWeightHelper.medium,
+  );
   static TextStyle font32RedBold = TextStyle(
     fontSize: 32.sp,
     color: ColorsManager.red,
@@ -119,6 +124,16 @@ class TextStyles {
   static TextStyle font13WhiteMedium = TextStyle(
     fontSize: 13.sp,
     color: Colors.white,
+    fontWeight: FontWeightHelper.medium,
+  );
+  static TextStyle font13BlackMedium = TextStyle(
+    fontSize: 13.sp,
+    color: Colors.black,
+    fontWeight: FontWeightHelper.medium,
+  );
+  static TextStyle font12RedMedium = TextStyle(
+    fontSize: 12.sp,
+    color: ColorsManager.red,
     fontWeight: FontWeightHelper.medium,
   );
 }
