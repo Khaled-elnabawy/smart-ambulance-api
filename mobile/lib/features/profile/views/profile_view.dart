@@ -90,15 +90,15 @@ class ProfileView extends StatelessWidget {
                         ),
                         verticalSpacing(44),
                         Text('Settings', style: TextStyles.font18BlackMedium),
-                        verticalSpacing(20),
+                        verticalSpacing(24),
                         Row(
                           children: [
                             Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              size: 18,
+                              Icons.login_rounded,
+                              size: 20,
                               color: ColorsManager.red,
                             ),
-                            horizontalSpacing(4),
+                            horizontalSpacing(8),
                             Text('Logout', style: TextStyles.font16RedBold),
                           ],
                         ),

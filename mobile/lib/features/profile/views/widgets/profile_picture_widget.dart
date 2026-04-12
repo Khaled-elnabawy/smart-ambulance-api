@@ -9,12 +9,12 @@ class ProfilePictureWidget extends StatelessWidget {
     return Container(
       width: 152.w,
       height: 152.h,
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.grey[350],
         shape: BoxShape.circle,
       ),
-      child: Icon(Icons.person_rounded, size: 136, color: Colors.white),
+      child: Icon(Icons.person_rounded, size: 120, color: Colors.white),
     );
   }
 }
