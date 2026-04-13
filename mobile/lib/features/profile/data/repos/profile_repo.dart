@@ -1,9 +1,7 @@
 import 'package:mobile/core/networking/api_result.dart';
 import 'package:mobile/core/networking/api_service.dart';
 import 'package:mobile/features/profile/data/models/logout/logout_response_model.dart';
-
 import '../../../../core/networking/api_error_handling.dart';
-import '../../../login/data/models/login_response.dart';
 
 class ProfileRepo {
   final ApiService _apiService;

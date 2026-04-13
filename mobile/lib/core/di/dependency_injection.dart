@@ -3,11 +3,13 @@ import 'package:get_it/get_it.dart';
 import 'package:mobile/features/forgot_password/data/repos/forgot_password_repo.dart';
 import 'package:mobile/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:mobile/features/home/logic/scheduled_cubit.dart';
+import 'package:mobile/features/profile/logic/logout/logout_cubit.dart';
 import 'package:mobile/layouts/main/cubit/bottom_nav_cubit.dart';
 import '../../features/home/data/repos/home_repo.dart';
 import '../../features/home/logic/emergency_cubit.dart';
 import '../../features/login/data/repos/login_repo.dart';
 import '../../features/login/logic/login_cubit.dart';
+import '../../features/profile/data/repos/profile_repo.dart';
 import '../../features/register/data/repos/register_repo.dart';
 import '../../features/register/logic/register_cubit.dart';
 import '../../features/requests/data/repo/requests_repo.dart';
@@ -73,4 +75,8 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<EmergencyRequestsCubit>(() => EmergencyRequestsCubit(getIt()));
   getIt.registerFactory<ScheduledRequestsCubit>(() => ScheduledRequestsCubit(getIt()));
   getIt.registerFactory<CancelCubit>(() => CancelCubit(getIt()));
+
+  //profile
+  getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
+  getIt.registerFactory<LogoutCubit>(() => LogoutCubit(getIt()));
 }
