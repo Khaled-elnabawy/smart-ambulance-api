@@ -78,7 +78,12 @@ class MainView extends StatelessWidget {
       case 2:
         return BlocProvider(
           create: (context) => getIt<LogoutCubit>(),
-          child: ProfileView(token: loginResponse.userData?.token ?? '',),
+          child: ProfileView(
+            token: loginResponse.userData?.token ?? '',
+            userName: loginResponse.userData?.userInfo?.name ?? '',
+            email: loginResponse.userData?.userInfo?.email ?? '',
+            phoneNumber: loginResponse.userData?.userInfo?.phone ?? '',
+          ),
         );
       default:
         return HomeView(token: loginResponse.userData?.token ?? '');

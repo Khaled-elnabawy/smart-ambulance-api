@@ -13,8 +13,18 @@ import 'package:mobile/features/profile/views/widgets/profile_picture_widget.dar
 import '../logic/logout/logout_cubit.dart';
 
 class ProfileView extends StatelessWidget {
+  final String userName;
+  final String email;
+  final String phoneNumber;
   final String token;
-  const ProfileView({super.key, required this.token});
+
+  const ProfileView({
+    super.key,
+    required this.token,
+    required this.userName,
+    required this.email,
+    required this.phoneNumber,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -81,24 +91,26 @@ class ProfileView extends StatelessWidget {
                         ProfileDataWidget(
                           icon: Icons.person_rounded,
                           title: 'User Name',
-                          value: 'Amr Khalid Elsayed Saleh',
+                          value: userName,
                         ),
                         ProfileDataWidget(
                           icon: Icons.email_rounded,
                           title: 'Email',
-                          value: 'amr123@gmail.com',
+                          value: email,
                         ),
                         ProfileDataWidget(
                           icon: Icons.phone_rounded,
                           title: 'Phone Number',
-                          value: '01111100000',
+                          value: phoneNumber,
                         ),
                         verticalSpacing(44),
                         Text('Settings', style: TextStyles.font18BlackMedium),
                         verticalSpacing(24),
                         GestureDetector(
-                          onTap: (){
-                            context.read<LogoutCubit>().emitLogoutState(token: token);
+                          onTap: () {
+                            context.read<LogoutCubit>().emitLogoutState(
+                              token: token,
+                            );
                           },
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
