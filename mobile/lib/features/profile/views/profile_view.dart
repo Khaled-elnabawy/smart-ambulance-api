@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/helpers/extensions.dart';
 import 'package:mobile/core/helpers/spacing.dart';
@@ -9,8 +10,11 @@ import 'package:mobile/features/profile/views/widgets/logout_bloc_listener.dart'
 import 'package:mobile/features/profile/views/widgets/profile_data_widget.dart';
 import 'package:mobile/features/profile/views/widgets/profile_picture_widget.dart';
 
+import '../logic/logout/logout_cubit.dart';
+
 class ProfileView extends StatelessWidget {
-  const ProfileView({super.key});
+  final String token;
+  const ProfileView({super.key, required this.token});
 
   @override
   Widget build(BuildContext context) {
@@ -92,16 +96,22 @@ class ProfileView extends StatelessWidget {
                         verticalSpacing(44),
                         Text('Settings', style: TextStyles.font18BlackMedium),
                         verticalSpacing(24),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.login_rounded,
-                              size: 20,
-                              color: ColorsManager.red,
-                            ),
-                            horizontalSpacing(8),
-                            Text('Logout', style: TextStyles.font16RedBold),
-                          ],
+                        GestureDetector(
+                          onTap: (){
+                            context.read<LogoutCubit>().emitLogoutState(token: token);
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.login_rounded,
+                                size: 20,
+                                color: ColorsManager.red,
+                              ),
+                              horizontalSpacing(8),
+                              Text('Logout', style: TextStyles.font16RedBold),
+                            ],
+                          ),
                         ),
                         LogoutBlocListener(),
                       ],
