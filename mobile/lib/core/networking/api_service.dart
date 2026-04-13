@@ -70,13 +70,13 @@ abstract class ApiService {
   );
 
   @POST(ApiConstants.cancelRequest)
-  Future<CancelResponse> cancelRequests(
+  Future<CancelResponse> cancelRequest(
     @Header('Authorization') String token,
     @Body() CancelRequestBody cancelRequestBody,
   );
 
   @POST(ApiConstants.logout)
-  Future<LogoutResponseModel> logoutRequests(
+  Future<LogoutResponseModel> logout(
     @Header('Authorization') String token,
   );
 }

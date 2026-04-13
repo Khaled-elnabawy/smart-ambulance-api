@@ -266,7 +266,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<CancelResponse> cancelRequests(
+  Future<CancelResponse> cancelRequest(
     String token,
     CancelRequestBody cancelRequestBody,
   ) async {
@@ -298,7 +298,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<LogoutResponseModel> logoutRequests(String token) async {
+  Future<LogoutResponseModel> logout(String token) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
