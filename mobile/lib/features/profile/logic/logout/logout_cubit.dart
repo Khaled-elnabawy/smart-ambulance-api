@@ -13,7 +13,7 @@ class LogoutCubit extends Cubit<LogoutState> {
     final response = await logoutRepo.logout(token);
     response.when(
       success: (data) {
-        emit(LogoutState.success());
+        emit(LogoutState.success(data));
       },
       failure: (error) {
         emit(

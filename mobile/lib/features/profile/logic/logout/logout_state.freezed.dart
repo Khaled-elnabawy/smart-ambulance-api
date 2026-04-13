@@ -12,7 +12,7 @@ part of 'logout_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$LogoutState {
+mixin _$LogoutState<T> {
 
 
 
@@ -20,7 +20,7 @@ mixin _$LogoutState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LogoutState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LogoutState<T>);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'LogoutState()';
+  return 'LogoutState<$T>()';
 }
 
 
 }
 
 /// @nodoc
-class $LogoutStateCopyWith<$Res>  {
-$LogoutStateCopyWith(LogoutState _, $Res Function(LogoutState) __);
+class $LogoutStateCopyWith<T,$Res>  {
+$LogoutStateCopyWith(LogoutState<T> _, $Res Function(LogoutState<T>) __);
 }
 
 
 /// Adds pattern-matching-related methods to [LogoutState].
-extension LogoutStatePatterns on LogoutState {
+extension LogoutStatePatterns<T> on LogoutState<T> {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -55,13 +55,13 @@ extension LogoutStatePatterns on LogoutState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Success value)?  success,TResult Function( _Failure value)?  failure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial<T> value)?  initial,TResult Function( Loading<T> value)?  loading,TResult Function( Success<T> value)?  success,TResult Function( Failure<T> value)?  failure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case _Loading() when loading != null:
-return loading(_that);case _Success() when success != null:
-return success(_that);case _Failure() when failure != null:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Success() when success != null:
+return success(_that);case Failure() when failure != null:
 return failure(_that);case _:
   return orElse();
 
@@ -80,13 +80,13 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Success value)  success,required TResult Function( _Failure value)  failure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial<T> value)  initial,required TResult Function( Loading<T> value)  loading,required TResult Function( Success<T> value)  success,required TResult Function( Failure<T> value)  failure,}){
 final _that = this;
 switch (_that) {
 case _Initial():
-return initial(_that);case _Loading():
-return loading(_that);case _Success():
-return success(_that);case _Failure():
+return initial(_that);case Loading():
+return loading(_that);case Success():
+return success(_that);case Failure():
 return failure(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -104,13 +104,13 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Success value)?  success,TResult? Function( _Failure value)?  failure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial<T> value)?  initial,TResult? Function( Loading<T> value)?  loading,TResult? Function( Success<T> value)?  success,TResult? Function( Failure<T> value)?  failure,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case _Loading() when loading != null:
-return loading(_that);case _Success() when success != null:
-return success(_that);case _Failure() when failure != null:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Success() when success != null:
+return success(_that);case Failure() when failure != null:
 return failure(_that);case _:
   return null;
 
@@ -128,12 +128,12 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  success,TResult Function( String errMessage)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( T data)?  success,TResult Function( String errMessage)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _Loading() when loading != null:
-return loading();case _Success() when success != null:
-return success();case _Failure() when failure != null:
+return initial();case Loading() when loading != null:
+return loading();case Success() when success != null:
+return success(_that.data);case Failure() when failure != null:
 return failure(_that.errMessage);case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return failure(_that.errMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  success,required TResult Function( String errMessage)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( T data)  success,required TResult Function( String errMessage)  failure,}) {final _that = this;
 switch (_that) {
 case _Initial():
-return initial();case _Loading():
-return loading();case _Success():
-return success();case _Failure():
+return initial();case Loading():
+return loading();case Success():
+return success(_that.data);case Failure():
 return failure(_that.errMessage);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return failure(_that.errMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  success,TResult? Function( String errMessage)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( T data)?  success,TResult? Function( String errMessage)?  failure,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _Loading() when loading != null:
-return loading();case _Success() when success != null:
-return success();case _Failure() when failure != null:
+return initial();case Loading() when loading != null:
+return loading();case Success() when success != null:
+return success(_that.data);case Failure() when failure != null:
 return failure(_that.errMessage);case _:
   return null;
 
@@ -192,7 +192,7 @@ return failure(_that.errMessage);case _:
 /// @nodoc
 
 
-class _Initial implements LogoutState {
+class _Initial<T> implements LogoutState<T> {
   const _Initial();
   
 
@@ -203,7 +203,7 @@ class _Initial implements LogoutState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial<T>);
 }
 
 
@@ -212,7 +212,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'LogoutState.initial()';
+  return 'LogoutState<$T>.initial()';
 }
 
 
@@ -224,8 +224,8 @@ String toString() {
 /// @nodoc
 
 
-class _Loading implements LogoutState {
-  const _Loading();
+class Loading<T> implements LogoutState<T> {
+  const Loading();
   
 
 
@@ -235,7 +235,7 @@ class _Loading implements LogoutState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading<T>);
 }
 
 
@@ -244,7 +244,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'LogoutState.loading()';
+  return 'LogoutState<$T>.loading()';
 }
 
 
@@ -256,40 +256,74 @@ String toString() {
 /// @nodoc
 
 
-class _Success implements LogoutState {
-  const _Success();
+class Success<T> implements LogoutState<T> {
+  const Success(this.data);
   
 
+ final  T data;
 
-
+/// Create a copy of LogoutState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SuccessCopyWith<T, Success<T>> get copyWith => _$SuccessCopyWithImpl<T, Success<T>>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success<T>&&const DeepCollectionEquality().equals(other.data, data));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
 
 @override
 String toString() {
-  return 'LogoutState.success()';
+  return 'LogoutState<$T>.success(data: $data)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $SuccessCopyWith<T,$Res> implements $LogoutStateCopyWith<T, $Res> {
+  factory $SuccessCopyWith(Success<T> value, $Res Function(Success<T>) _then) = _$SuccessCopyWithImpl;
+@useResult
+$Res call({
+ T data
+});
 
 
+
+
+}
+/// @nodoc
+class _$SuccessCopyWithImpl<T,$Res>
+    implements $SuccessCopyWith<T, $Res> {
+  _$SuccessCopyWithImpl(this._self, this._then);
+
+  final Success<T> _self;
+  final $Res Function(Success<T>) _then;
+
+/// Create a copy of LogoutState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
+  return _then(Success<T>(
+freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as T,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
 
-class _Failure implements LogoutState {
-  const _Failure({required this.errMessage});
+class Failure<T> implements LogoutState<T> {
+  const Failure({required this.errMessage});
   
 
  final  String errMessage;
@@ -298,13 +332,13 @@ class _Failure implements LogoutState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$FailureCopyWith<_Failure> get copyWith => __$FailureCopyWithImpl<_Failure>(this, _$identity);
+$FailureCopyWith<T, Failure<T>> get copyWith => _$FailureCopyWithImpl<T, Failure<T>>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Failure&&(identical(other.errMessage, errMessage) || other.errMessage == errMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Failure<T>&&(identical(other.errMessage, errMessage) || other.errMessage == errMessage));
 }
 
 
@@ -313,15 +347,15 @@ int get hashCode => Object.hash(runtimeType,errMessage);
 
 @override
 String toString() {
-  return 'LogoutState.failure(errMessage: $errMessage)';
+  return 'LogoutState<$T>.failure(errMessage: $errMessage)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$FailureCopyWith<$Res> implements $LogoutStateCopyWith<$Res> {
-  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) = __$FailureCopyWithImpl;
+abstract mixin class $FailureCopyWith<T,$Res> implements $LogoutStateCopyWith<T, $Res> {
+  factory $FailureCopyWith(Failure<T> value, $Res Function(Failure<T>) _then) = _$FailureCopyWithImpl;
 @useResult
 $Res call({
  String errMessage
@@ -332,17 +366,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$FailureCopyWithImpl<$Res>
-    implements _$FailureCopyWith<$Res> {
-  __$FailureCopyWithImpl(this._self, this._then);
+class _$FailureCopyWithImpl<T,$Res>
+    implements $FailureCopyWith<T, $Res> {
+  _$FailureCopyWithImpl(this._self, this._then);
 
-  final _Failure _self;
-  final $Res Function(_Failure) _then;
+  final Failure<T> _self;
+  final $Res Function(Failure<T>) _then;
 
 /// Create a copy of LogoutState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? errMessage = null,}) {
-  return _then(_Failure(
+  return _then(Failure<T>(
 errMessage: null == errMessage ? _self.errMessage : errMessage // ignore: cast_nullable_to_non_nullable
 as String,
   ));

@@ -5,6 +5,7 @@ import 'package:mobile/core/helpers/spacing.dart';
 import 'package:mobile/core/routing/routes.dart';
 import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/core/theming/styles.dart';
+import 'package:mobile/features/profile/views/widgets/logout_bloc_listener.dart';
 import 'package:mobile/features/profile/views/widgets/profile_data_widget.dart';
 import 'package:mobile/features/profile/views/widgets/profile_picture_widget.dart';
 
@@ -102,6 +103,7 @@ class ProfileView extends StatelessWidget {
                             Text('Logout', style: TextStyles.font16RedBold),
                           ],
                         ),
+                        LogoutBlocListener(),
                       ],
                     ),
                   ),
