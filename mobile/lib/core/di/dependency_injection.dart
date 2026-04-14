@@ -10,6 +10,7 @@ import '../../features/home/logic/emergency_cubit.dart';
 import '../../features/login/data/repos/login_repo.dart';
 import '../../features/login/logic/login_cubit.dart';
 import '../../features/profile/data/repos/profile_repo.dart';
+import '../../features/profile/logic/edit_profile/edit_profile_cubit.dart';
 import '../../features/register/data/repos/register_repo.dart';
 import '../../features/register/logic/register_cubit.dart';
 import '../../features/requests/data/repo/requests_repo.dart';
@@ -79,4 +80,5 @@ Future<void> setupGetIt() async {
   //profile
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
   getIt.registerFactory<LogoutCubit>(() => LogoutCubit(getIt()));
+  getIt.registerFactory<EditProfileCubit>(() => EditProfileCubit(getIt()));
 }
