@@ -6,6 +6,7 @@ import 'package:mobile/core/routing/routes.dart';
 import 'package:mobile/features/home/views/clickable_google_map_view.dart';
 import 'package:mobile/features/login/logic/login_cubit.dart';
 import 'package:mobile/features/login/views/login_view.dart';
+import 'package:mobile/features/profile/logic/edit_profile/edit_profile_cubit.dart';
 import 'package:mobile/layouts/main/main_view.dart';
 import 'package:mobile/features/register/views/register_view.dart';
 import '../../features/forgot_password/logic/forgot_password_cubit.dart';
@@ -97,7 +98,10 @@ class AppRouter {
         );
       case Routes.editProfileView:
         return MaterialPageRoute(
-          builder: (_) => const EditProfileView(),
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<EditProfileCubit>(),
+            child: EditProfileView(),
+          ),
         );
       default:
         return MaterialPageRoute(
