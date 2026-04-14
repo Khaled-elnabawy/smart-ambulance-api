@@ -70,7 +70,10 @@ class ProfileView extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                context.pushNamed(Routes.editProfileView);
+                                context.pushNamed(
+                                  Routes.editProfileView,
+                                  arguments: token,
+                                );
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,

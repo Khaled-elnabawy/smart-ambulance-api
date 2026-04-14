@@ -7,11 +7,13 @@ import '../../../../core/widgets/generic_text_form_field.dart';
 class TitleAndTextFieldWidget extends StatelessWidget {
   final String title;
   final String hintText;
+  final TextEditingController controller;
 
   const TitleAndTextFieldWidget({
     super.key,
     required this.title,
     required this.hintText,
+    required this.controller,
   });
 
   @override
@@ -31,7 +33,7 @@ class TitleAndTextFieldWidget extends StatelessWidget {
           backgroundColor: Colors.white,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter a valid password';
+              return 'Please enter a valid value';
             }
             return null;
           },

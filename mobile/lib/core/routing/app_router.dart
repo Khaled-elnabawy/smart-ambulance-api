@@ -100,7 +100,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => getIt<EditProfileCubit>(),
-            child: EditProfileView(),
+            child: EditProfileView(token: settings.arguments as String,),
           ),
         );
       default:
