@@ -4,13 +4,13 @@ import 'package:mobile/features/profile/logic/logout/logout_state.dart';
 import '../../data/repos/profile_repo.dart';
 
 class LogoutCubit extends Cubit<LogoutState> {
-  final ProfileRepo logoutRepo;
+  final ProfileRepo profileRepo;
 
-  LogoutCubit(this.logoutRepo) : super(LogoutState.initial());
+  LogoutCubit(this.profileRepo) : super(LogoutState.initial());
 
   void emitLogoutState({required String token}) async {
     emit(LogoutState.loading());
-    final response = await logoutRepo.logout(token);
+    final response = await profileRepo.logout(token);
     response.when(
       success: (data) {
         emit(LogoutState.success(data));
