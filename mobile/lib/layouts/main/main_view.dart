@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/features/login/data/models/login_response.dart';
+import 'package:mobile/features/profile/logic/logout/logout_cubit.dart';
 import 'package:mobile/features/requests/logic/requests_cubits/emergency_requests_cubit.dart';
 import 'package:mobile/layouts/main/cubit/bottom_nav_cubit.dart';
 import 'package:mobile/layouts/main/widgets/custom_bottom_nav_bar.dart';
@@ -75,7 +76,15 @@ class MainView extends StatelessWidget {
           child: RequestsView(token: loginResponse.userData?.token ?? ''),
         );
       case 2:
-        return const ProfileView();
+        return BlocProvider(
+          create: (context) => getIt<LogoutCubit>(),
+          child: ProfileView(
+            token: loginResponse.userData?.token ?? '',
+            userName: loginResponse.userData?.userInfo?.name ?? '',
+            email: loginResponse.userData?.userInfo?.email ?? '',
+            phoneNumber: loginResponse.userData?.userInfo?.phone ?? '',
+          ),
+        );
       default:
         return HomeView(token: loginResponse.userData?.token ?? '');
     }

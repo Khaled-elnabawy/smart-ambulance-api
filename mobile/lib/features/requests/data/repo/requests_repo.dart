@@ -32,7 +32,7 @@ class RequestsRepo {
     required CancelRequestBody cancelRequestBody,
   }) async {
     try {
-      final response = await apiService.cancelRequests(
+      final response = await apiService.cancelRequest(
         'Bearer $token',
         cancelRequestBody,
       );

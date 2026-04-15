@@ -21,11 +21,11 @@ class LoginResponse {
 class UserData {
   final String? token;
   @JsonKey(name: 'user_type')
-  final String? role;
+  final String? userType;
   @JsonKey(name: 'user')
   final UserInfo? userInfo;
 
-  UserData({this.token, this.userInfo, this.role});
+  UserData({this.token, this.userInfo, this.userType});
 
   factory UserData.fromJson(Map<String, dynamic> json) =>
       _$UserDataFromJson(json);
