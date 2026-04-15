@@ -3,6 +3,9 @@ import 'package:mobile/features/forgot_password/data/models/send_code_models/sen
 import 'package:mobile/features/home/data/models/emergency_models/emergency_request_model.dart';
 import 'package:mobile/features/home/data/models/emergency_models/emergency_response_model.dart';
 import 'package:mobile/features/home/data/models/scheduled_models/scheduled_request_model.dart';
+import 'package:mobile/features/profile/data/models/edit_profile/edit_profile_request_model.dart';
+import 'package:mobile/features/profile/data/models/edit_profile/edit_profile_response_model.dart';
+import 'package:mobile/features/profile/data/models/logout/logout_response_model.dart';
 import 'package:mobile/features/requests/data/models/cancel/cancel_response.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -69,8 +72,17 @@ abstract class ApiService {
   );
 
   @POST(ApiConstants.cancelRequest)
-  Future<CancelResponse> cancelRequests(
+  Future<CancelResponse> cancelRequest(
     @Header('Authorization') String token,
     @Body() CancelRequestBody cancelRequestBody,
+  );
+
+  @POST(ApiConstants.logout)
+  Future<LogoutResponseModel> logout(@Header('Authorization') String token);
+
+  @POST(ApiConstants.editProfile)
+  Future<EditProfileResponseModel> editProfile(
+    @Header('Authorization') String token,
+    @Body() EditProfileRequestModel editProfileRequestModel,
   );
 }

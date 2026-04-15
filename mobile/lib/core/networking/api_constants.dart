@@ -11,6 +11,7 @@ class ApiConstants {
   static const String createScheduled = "v1/requests";
   static const String getRequests = "v1/my-requests";
   static const String cancelRequest = "v1/requests/cancel";
+  static const String editProfile = "v1/profile/update";
 }
 
 class ApiErrors {

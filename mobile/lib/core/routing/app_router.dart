@@ -6,6 +6,7 @@ import 'package:mobile/core/routing/routes.dart';
 import 'package:mobile/features/home/views/clickable_google_map_view.dart';
 import 'package:mobile/features/login/logic/login_cubit.dart';
 import 'package:mobile/features/login/views/login_view.dart';
+import 'package:mobile/features/profile/logic/edit_profile/edit_profile_cubit.dart';
 import 'package:mobile/layouts/main/main_view.dart';
 import 'package:mobile/features/register/views/register_view.dart';
 import '../../features/forgot_password/logic/forgot_password_cubit.dart';
@@ -15,6 +16,7 @@ import '../../features/forgot_password/views/reset_password_view.dart';
 import '../../features/home/logic/scheduled_cubit.dart';
 import '../../features/home/views/scheduled_form_view.dart';
 import '../../features/login/data/models/login_response.dart';
+import '../../features/profile/views/edit_profile_view.dart';
 import '../../features/register/logic/register_cubit.dart';
 import '../../layouts/main/cubit/bottom_nav_cubit.dart';
 
@@ -79,7 +81,8 @@ class AppRouter {
         } else if (args is LatLng?) {
           startLocation = args;
           endLocation = args;
-        }        return MaterialPageRoute(
+        }
+        return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => getIt<ScheduledCubit>(),
             child: ScheduledFormView(
@@ -92,6 +95,13 @@ class AppRouter {
       case Routes.clickableGoogleMap:
         return MaterialPageRoute(
           builder: (_) => const ClickableGoogleMapView(),
+        );
+      case Routes.editProfileView:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<EditProfileCubit>(),
+            child: EditProfileView(token: settings.arguments as String,),
+          ),
         );
       default:
         return MaterialPageRoute(
