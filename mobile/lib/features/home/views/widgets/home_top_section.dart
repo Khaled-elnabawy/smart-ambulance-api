@@ -24,7 +24,7 @@ class HomeTopSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             verticalSpacing(60),
-            Text('Hello Amr', style: TextStyles.font24WhiteBold),
+            Text('Hello, Amr', style: TextStyles.font24WhiteBold),
             verticalSpacing(4),
             Text('Are you okay?', style: TextStyles.font20WhiteBold),
           ],

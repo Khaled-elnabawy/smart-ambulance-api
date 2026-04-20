@@ -8,6 +8,7 @@ import '../data/repos/home_repo.dart';
 class HomeView extends StatefulWidget {
   final String token;
   final bool isDriver;
+
   const HomeView({super.key, required this.token, required this.isDriver});
 
   @override
@@ -31,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
   double currentLongitude = 0.0;
 
   @override
-  void initState()  {
+  void initState() {
     super.initState();
     initialLocation = LatLng(31.04425054350228, 31.363826542206063);
     initialCameraPosition = CameraPosition(target: initialLocation, zoom: 15.5);
@@ -64,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
       ),
       position: LatLng(31.046162023854304, 31.365445177935857),
     );
-   /* Marker ambulancer = Marker(
+    /* Marker ambulancer = Marker(
       markerId: MarkerId('2'),
       icon: await BitmapDescriptor.asset(
         ImageConfiguration.empty,
@@ -102,15 +103,18 @@ class _HomeViewState extends State<HomeView> {
             left: 0,
             child: HomeTopSection(),
           ),
-          AnimatedPositioned(
-            duration: Duration(milliseconds: 400),
-            bottom: isMapExpanded ? -400 : 0,
-            right: 0,
-            left: 0,
-            child: HomeBottomSection(
-              token: widget.token,
-              latitude: currentLatitude,
-              longitude: currentLongitude,
+          Visibility(
+            visible: !widget.isDriver,
+            child: AnimatedPositioned(
+              duration: Duration(milliseconds: 400),
+              bottom: isMapExpanded ? -400 : 0,
+              right: 0,
+              left: 0,
+              child: HomeBottomSection(
+                token: widget.token,
+                latitude: currentLatitude,
+                longitude: currentLongitude,
+              ),
             ),
           ),
         ],
