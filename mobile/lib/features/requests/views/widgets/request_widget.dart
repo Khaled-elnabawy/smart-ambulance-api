@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/features/requests/data/models/requests/requests_response_model.dart';
 import 'package:mobile/features/requests/logic/cancel_cubit/cancel_cubit.dart';
 import 'package:mobile/features/requests/views/widgets/cancel_bloc_listener.dart';
@@ -11,15 +12,21 @@ import '../../../../core/widgets/generic_text_button.dart';
 class RequestWidget extends StatelessWidget {
   final Request request;
   final String token;
+  final bool isDriver;
 
-  const RequestWidget({super.key, required this.request, required this.token});
+  const RequestWidget({
+    super.key,
+    required this.request,
+    required this.token,
+    required this.isDriver,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 370.w,
       height: 172.h,
-      margin: EdgeInsets.only(bottom:16.h,left: 30.w, right: 30.w),
+      margin: EdgeInsets.only(bottom: 16.h, left: 30.w, right: 30.w),
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -62,72 +69,99 @@ class RequestWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 4.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: request.status == 'pending'
-                        ? Color(0xffFBDE80)
-                        : request.status == 'in_progress'
-                        ? Color(0xffF7DADA)
-                        : Color(0xff319F43).withValues(alpha: .8),
-                    borderRadius: BorderRadius.circular(20.r),
-                  ),
-                  child: Text(
-                    request.status == 'pending'
-                        ? 'Pending'
-                        : request.status == 'in_progress'
-                        ? 'In Progress'
-                        : 'Completed',
-                    style:
-                    request.status == 'pending' ||
-                        request.status == 'in_progress'
-                        ? TextStyles.font16BlackRegular
-                        : TextStyles.font16BlackRegular.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+                isDriver
+                    ? Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                          vertical: 4.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: request.status == 'pending'
+                              ? Color(0xffFBDE80)
+                              : request.status == 'in_progress'
+                              ? Color(0xffF7DADA)
+                              : Color(0xff319F43).withValues(alpha: .8),
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        child: Text(
+                          request.status == 'pending'
+                              ? 'Pending'
+                              : request.status == 'in_progress'
+                              ? 'In Progress'
+                              : 'Completed',
+                          style:
+                              request.status == 'pending' ||
+                                  request.status == 'in_progress'
+                              ? TextStyles.font16BlackRegular
+                              : TextStyles.font16BlackRegular.copyWith(
+                                  color: Colors.white,
+                                ),
+                        ),
+                      )
+                    : SizedBox.shrink(),
               ],
             ),
           ),
           verticalSpacing(16),
           Text(
-            '${request.createdAt
-                ?.split(' ')
-                .first}        ${request.createdAt
-                ?.split(' ')
-                .last}',
+            '${request.createdAt?.split(' ').first}        ${request.createdAt?.split(' ').last}',
             style: TextStyles.font16LightGrayWithOpacityMedium.copyWith(
               height: 1.5,
             ),
           ),
           verticalSpacing(16),
-          Visibility(
-            visible: request.status == 'pending',
-            child: SizedBox(
-              width: 80.w,
-              child: GenericTextButton(
-                buttonText: 'Cancel',
-                textStyle: TextStyles.font16WhiteBold,
-                buttonHeight: 42.h,
-                borderRadius: 16.r,
-                onPressed: () {
-                  context.read<CancelCubit>().emitCancelState(
-                    token: token,
-                    id: request.id!,
-                  );
-                },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Visibility(
+                visible: request.status == 'pending' && isDriver,
+                child: SizedBox(
+                  width: 80.w,
+                  child: GenericTextButton(
+                    buttonText: 'Confirm',
+                    textStyle: TextStyles.font16WhiteBold,
+                    buttonWidth: 120.w,
+                    buttonHeight: 42.h,
+                    borderRadius: 16.r,
+                    onPressed: () {
+                      // TODO: confirm request
+                    },
+                  ),
+                ),
               ),
-            ),
+              Visibility(
+                visible: request.status == 'pending',
+                child: SizedBox(
+                  width: 80.w,
+                  child: GenericTextButton(
+                    buttonText: 'Cancel',
+                    textStyle: TextStyles.font16WhiteBold,
+                    buttonWidth: 120.w,
+                    buttonHeight: 42.h,
+                    borderRadius: 16.r,
+                    isHaveBorder: isDriver,
+                    backgroundColor: isDriver
+                        ? Colors.white
+                        : ColorsManager.red,
+                    onPressed: () {
+                      !isDriver
+                          ? context.read<CancelCubit>().emitCancelState(
+                              token: token,
+                              id: request.id!,
+                            )
+                      // TODO: cancel request for driver
+                          : null;
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
-          CancelBlocListener(),
-        ]
-        ,
-      )
-      ,
+          isDriver? SizedBox.shrink(): CancelBlocListener(),
+          // TODO: add cancel button bloc listener for driver here
+          // TODO: add confirm button bloc listener for driver here
+        ],
+      ),
     );
   }
 }

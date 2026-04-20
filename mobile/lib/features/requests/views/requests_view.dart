@@ -57,8 +57,14 @@ class _RequestsViewState extends State<RequestsView> {
             verticalSpacing(20),
             Expanded(
               child: isSOS
-                  ? SosRequestWidget(token: widget.token ?? '')
-                  : ScheduledRequestWidget(token: widget.token ?? ''),
+                  ? SosRequestWidget(
+                      token: widget.token ?? '',
+                      isDriver: widget.isDriver,
+                    )
+                  : ScheduledRequestWidget(
+                      token: widget.token ?? '',
+                      isDriver: widget.isDriver,
+                    ),
             ),
             EmergencyRequestsBlocListener(),
             ScheduledRequestsBlocListener(),
