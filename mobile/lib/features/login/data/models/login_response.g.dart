@@ -30,11 +30,13 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       ? null
       : UserInfo.fromJson(json['user'] as Map<String, dynamic>),
   userType: json['user_type'] as String?,
+  rating: (json['rating'] as num?)?.toDouble(),
 );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
   'token': instance.token,
   'user_type': instance.userType,
+  'rating': instance.rating,
   'user': instance.userInfo,
 };
 

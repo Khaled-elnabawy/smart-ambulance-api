@@ -22,10 +22,11 @@ class UserData {
   final String? token;
   @JsonKey(name: 'user_type')
   final String? userType;
+  final double? rating;
   @JsonKey(name: 'user')
   final UserInfo? userInfo;
 
-  UserData({this.token, this.userInfo, this.userType});
+  UserData({this.token, this.userInfo, this.userType, this.rating});
 
   factory UserData.fromJson(Map<String, dynamic> json) =>
       _$UserDataFromJson(json);

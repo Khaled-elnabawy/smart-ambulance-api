@@ -96,9 +96,7 @@ class MainView extends StatelessWidget {
             isDriver: loginResponse.userData?.userType == 'driver'
                 ? true
                 : false,
-            rating: 4.5,
-            // TODO: edit rating value
-            //loginResponse.userData?.userInfo?.rating ?? '',
+            rating: loginResponse.userData?.rating ?? 5.0,
           ),
         );
       default:
