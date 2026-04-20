@@ -36,12 +36,12 @@ class ProfileView extends StatelessWidget {
         child: Align(
           alignment: Alignment.bottomCenter,
           child: SizedBox(
-            height: 628.h,
+            height: 648.h,
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: [
                 Container(
-                  height: 500.h,
+                  height: 520.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -61,6 +61,7 @@ class ProfileView extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24.0.w),
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         verticalSpacing(36),
