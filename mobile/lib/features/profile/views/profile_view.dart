@@ -17,6 +17,7 @@ class ProfileView extends StatelessWidget {
   final String email;
   final String phoneNumber;
   final String token;
+  final bool isDriver;
 
   const ProfileView({
     super.key,
@@ -24,6 +25,7 @@ class ProfileView extends StatelessWidget {
     required this.userName,
     required this.email,
     required this.phoneNumber,
+    required this.isDriver,
   });
 
   @override

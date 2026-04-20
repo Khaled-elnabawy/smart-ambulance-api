@@ -7,7 +7,8 @@ import '../data/repos/home_repo.dart';
 
 class HomeView extends StatefulWidget {
   final String token;
-  const HomeView({super.key, required this.token});
+  final bool isDriver;
+  const HomeView({super.key, required this.token, required this.isDriver});
 
   @override
   State<HomeView> createState() => _HomeViewState();

@@ -16,8 +16,9 @@ import '../logic/requests_cubits/scheduled_requests_cubit.dart';
 
 class RequestsView extends StatefulWidget {
   final String? token;
+  final bool isDriver;
 
-  const RequestsView({super.key, required this.token});
+  const RequestsView({super.key, required this.token, required this.isDriver});
 
   @override
   State<RequestsView> createState() => _RequestsViewState();

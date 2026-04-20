@@ -64,7 +64,12 @@ class MainView extends StatelessWidget {
       case 0:
         return BlocProvider(
           create: (context) => getIt<EmergencyCubit>(),
-          child: HomeView(token: loginResponse.userData?.token ?? ''),
+          child: HomeView(
+            token: loginResponse.userData?.token ?? '',
+            isDriver: loginResponse.userData?.userType == 'driver'
+                ? true
+                : false,
+          ),
         );
       case 1:
         return MultiBlocProvider(
@@ -73,7 +78,12 @@ class MainView extends StatelessWidget {
             BlocProvider(create: (context) => getIt<ScheduledRequestsCubit>()),
             BlocProvider(create: (context) => getIt<CancelCubit>()),
           ],
-          child: RequestsView(token: loginResponse.userData?.token ?? ''),
+          child: RequestsView(
+            token: loginResponse.userData?.token ?? '',
+            isDriver: loginResponse.userData?.userType == 'driver'
+                ? true
+                : false,
+          ),
         );
       case 2:
         return BlocProvider(
@@ -83,10 +93,16 @@ class MainView extends StatelessWidget {
             userName: loginResponse.userData?.userInfo?.name ?? '',
             email: loginResponse.userData?.userInfo?.email ?? '',
             phoneNumber: loginResponse.userData?.userInfo?.phone ?? '',
+            isDriver: loginResponse.userData?.userType == 'driver'
+                ? true
+                : false,
           ),
         );
       default:
-        return HomeView(token: loginResponse.userData?.token ?? '');
+        return HomeView(
+          token: loginResponse.userData?.token ?? '',
+          isDriver: loginResponse.userData?.userType == 'driver' ? true : false,
+        );
     }
   }
 }
