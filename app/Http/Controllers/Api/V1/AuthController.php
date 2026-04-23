@@ -45,6 +45,7 @@ class AuthController extends Controller
                     'user' => $user,
                     'token' => $token,
                     'user_type' => 'user',
+                    'rating' => null,
                 ],
             ], Response::HTTP_CREATED);
         } catch (ValidationException $e) {
@@ -82,6 +83,7 @@ class AuthController extends Controller
                     'user' => $user,
                     'token' => $token,
                     'user_type' => 'user',
+                    'rating' => null,
                 ],
             ], Response::HTTP_OK);
         } catch (ValidationException $e) {
@@ -112,6 +114,11 @@ class AuthController extends Controller
 
             $token = $driver->createToken('auth_token')->plainTextToken;
 
+            // Calculate driver's average rating
+            $avgRating = DB::table('ratings')
+                ->where('driver_id', $driver->id)
+                ->avg('rating');
+
             return response()->json([
                 'status' => true,
                 'message' => 'Login successful',
@@ -119,6 +126,7 @@ class AuthController extends Controller
                     'driver' => $driver,
                     'token' => $token,
                     'user_type' => 'driver',
+                    'rating' => $avgRating ? round((float) $avgRating, 2) : null,
                 ],
             ], Response::HTTP_OK);
         } catch (ValidationException $e) {

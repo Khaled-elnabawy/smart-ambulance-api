@@ -61,6 +61,7 @@ class AssignScheduledRequests extends Command
                     ->where('id', $request->id)
                     ->update([
                         'driver_id' => $availableDriver->id,
+                        'assigned_at' => now(),
                         'updated_at' => now(),
                     ]);
 

@@ -13,6 +13,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('requests:assign-scheduled')->everyMinute();
+        $schedule->command('requests:check-timeout')->everyMinute();
+        $schedule->command('drivers:calculate-performance')->daily();
     }
 
     /**

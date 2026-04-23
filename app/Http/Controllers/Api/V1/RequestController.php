@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
  use App\Models\Driver; 
  use Illuminate\Support\Facades\DB; 
  use Illuminate\Http\Response;
+ use Illuminate\Validation\ValidationException;
  use Carbon\Carbon;
 
 class RequestController extends Controller
@@ -203,9 +204,10 @@ class RequestController extends Controller
 
     /**
      * Driver Accept Request
-     * POST /api/v1/requests/{id}/accept
+     * POST /api/v1/requests/accept
+     * Body: { "id": <request_id> }
      */
-    public function accept($id)
+    public function accept()
     {
         $driver = auth()->user();
 
@@ -215,6 +217,15 @@ class RequestController extends Controller
                 'status' => false,
                 'message' => 'Only drivers can accept requests',
             ], Response::HTTP_FORBIDDEN);
+        }
+
+        $id = request()->input('id');
+
+        if (!$id) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Request ID is required',
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         try {
@@ -255,6 +266,7 @@ class RequestController extends Controller
                     ->where('status', 'pending')
                     ->update([
                         'status' => 'accepted',
+                        'accepted_at' => now(),
                         'updated_at' => now(),
                     ]);
 
@@ -310,9 +322,10 @@ class RequestController extends Controller
 
     /**
      * Driver Reject Request
-     * POST /api/v1/requests/{id}/reject
+     * POST /api/v1/requests/reject
+     * Body: { "id": <request_id> }
      */
-    public function reject($id)
+    public function reject()
     {
         $driver = auth()->user();
 
@@ -322,6 +335,15 @@ class RequestController extends Controller
                 'status' => false,
                 'message' => 'Only drivers can reject requests',
             ], Response::HTTP_FORBIDDEN);
+        }
+
+        $id = request()->input('id');
+
+        if (!$id) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Request ID is required',
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         try {
@@ -398,9 +420,10 @@ class RequestController extends Controller
 
     /**
      * Driver Arrived at Pickup Location
-     * POST /api/v1/requests/{id}/arrived
+     * POST /api/v1/requests/arrived
+     * Body: { "id": <request_id> }
      */
-    public function arrived($id)
+    public function arrived()
     {
         $driver = auth()->user();
 
@@ -409,6 +432,15 @@ class RequestController extends Controller
                 'status' => false,
                 'message' => 'Only drivers can update request status',
             ], Response::HTTP_FORBIDDEN);
+        }
+
+        $id = request()->input('id');
+
+        if (!$id) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Request ID is required',
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         try {
@@ -436,6 +468,7 @@ class RequestController extends Controller
                     ->where('id', $id)
                     ->update([
                         'status' => 'arrived',
+                        'arrived_at' => now(),
                         'updated_at' => now(),
                     ]);
 
@@ -475,9 +508,10 @@ class RequestController extends Controller
 
     /**
      * Driver Mark Request as Completed
-     * POST /api/v1/requests/{id}/completed
+     * POST /api/v1/requests/completed
+     * Body: { "id": <request_id> }
      */
-    public function completed($id)
+    public function completed()
 {
     $driver = auth()->user();
 
@@ -486,6 +520,15 @@ class RequestController extends Controller
             'status' => false,
             'message' => 'Only drivers can update request status',
         ], Response::HTTP_FORBIDDEN);
+    }
+
+    $id = request()->input('id');
+
+    if (!$id) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Request ID is required',
+        ], Response::HTTP_BAD_REQUEST);
     }
 
     try {
@@ -673,6 +716,116 @@ class RequestController extends Controller
     }
 
     /**
+     * User Rate Driver
+     * POST /api/v1/requests/rate
+     * Body: { "id": <request_id>, "rating": 1-5 }
+     */
+    public function rate()
+    {
+        $user = auth()->user();
+
+        // Only users can rate drivers
+        if ($user instanceof Driver) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Only users can rate drivers',
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        // Validate input
+        $validated = request()->validate([
+            'id' => 'required|integer',
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $id = $validated['id'];
+
+        try {
+            $result = DB::transaction(function () use ($id, $user, $validated) {
+                $request = DB::table('requests')
+                    ->where('id', $id)
+                    ->first();
+
+                if (!$request) {
+                    return ['status' => false, 'message' => 'Request not found', 'code' => Response::HTTP_NOT_FOUND];
+                }
+
+                // Verify the request belongs to this user
+                if ($request->user_id != $user->id) {
+                    return ['status' => false, 'message' => 'You are not authorized to rate this request', 'code' => Response::HTTP_FORBIDDEN];
+                }
+
+                // Verify request is completed
+                if ($request->status !== 'completed') {
+                    return ['status' => false, 'message' => 'You can only rate completed requests', 'code' => Response::HTTP_BAD_REQUEST];
+                }
+
+                // Verify a driver was assigned
+                if (!$request->driver_id) {
+                    return ['status' => false, 'message' => 'No driver assigned to this request', 'code' => Response::HTTP_BAD_REQUEST];
+                }
+
+                // Check if already rated
+                $existingRating = DB::table('ratings')
+                    ->where('request_id', $id)
+                    ->first();
+
+                if ($existingRating) {
+                    return ['status' => false, 'message' => 'You have already rated this request', 'code' => Response::HTTP_CONFLICT];
+                }
+
+                // Create rating
+                DB::table('ratings')->insert([
+                    'request_id' => $id,
+                    'user_id' => $user->id,
+                    'driver_id' => $request->driver_id,
+                    'rating' => $validated['rating'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                // Calculate new average rating for the driver
+                $avgRating = DB::table('ratings')
+                    ->where('driver_id', $request->driver_id)
+                    ->avg('rating');
+
+                return [
+                    'status' => true,
+                    'data' => [
+                        'rating' => $validated['rating'],
+                        'driver_average_rating' => round($avgRating, 2),
+                    ],
+                ];
+            });
+
+            if (!$result['status']) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $result['message'],
+                ], $result['code']);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Rating submitted successfully',
+                'data' => $result['data'],
+            ], Response::HTTP_CREATED);
+
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation failed',
+                'errors' => $e->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to submit rating',
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * HELPER: Assign nearest available driver to request using Haversine formula
      * Used automatically on request creation and after rejection
      * 
@@ -736,6 +889,7 @@ class RequestController extends Controller
             ->where('id', $requestId)
             ->update([
                 'driver_id' => $availableDriver->id,
+                'assigned_at' => now(),
                 'updated_at' => now(),
             ]);
 
