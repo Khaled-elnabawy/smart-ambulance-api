@@ -15,6 +15,8 @@ import '../../features/register/data/repos/register_repo.dart';
 import '../../features/register/logic/register_cubit.dart';
 import '../../features/requests/data/repo/requests_repo.dart';
 import '../../features/requests/logic/cancel_cubit/cancel_cubit.dart';
+import '../../features/requests/logic/confirm_cubit/confirm_cubit.dart';
+import '../../features/requests/logic/reject_cubit/reject_cubit.dart';
 import '../../features/requests/logic/requests_cubits/emergency_requests_cubit.dart';
 import '../../features/requests/logic/requests_cubits/scheduled_requests_cubit.dart';
 import '../networking/api_service.dart';
@@ -76,6 +78,8 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<EmergencyRequestsCubit>(() => EmergencyRequestsCubit(getIt()));
   getIt.registerFactory<ScheduledRequestsCubit>(() => ScheduledRequestsCubit(getIt()));
   getIt.registerFactory<CancelCubit>(() => CancelCubit(getIt()));
+  getIt.registerFactory<ConfirmCubit>(() => ConfirmCubit(getIt()));
+  getIt.registerFactory<RejectCubit>(() => RejectCubit(getIt()));
 
   //profile
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));

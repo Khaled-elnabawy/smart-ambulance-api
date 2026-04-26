@@ -4,7 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/features/requests/data/models/requests/requests_response_model.dart';
 import 'package:mobile/features/requests/logic/cancel_cubit/cancel_cubit.dart';
+import 'package:mobile/features/requests/logic/confirm_cubit/confirm_cubit.dart';
+import 'package:mobile/features/requests/logic/reject_cubit/reject_cubit.dart';
 import 'package:mobile/features/requests/views/widgets/cancel_bloc_listener.dart';
+import 'package:mobile/features/requests/views/widgets/confirm_bloc_listener.dart';
+import 'package:mobile/features/requests/views/widgets/reject_bloc_listener.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/styles.dart';
 import '../../../../core/widgets/generic_text_button.dart';
@@ -124,7 +128,10 @@ class RequestWidget extends StatelessWidget {
                     buttonHeight: 42.h,
                     borderRadius: 16.r,
                     onPressed: () {
-                      // TODO: confirm request
+                      context.read<ConfirmCubit>().emitConfirmState(
+                        token: token,
+                        id: request.id!,
+                      );
                     },
                   ),
                 ),
@@ -149,17 +156,19 @@ class RequestWidget extends StatelessWidget {
                               token: token,
                               id: request.id!,
                             )
-                      // TODO: cancel request for driver
-                          : null;
+                          : context.read<RejectCubit>().emitRejectState(
+                              token: token,
+                              id: request.id!,
+                            );
                     },
                   ),
                 ),
               ),
             ],
           ),
-          isDriver? SizedBox.shrink(): CancelBlocListener(),
-          // TODO: add cancel button bloc listener for driver here
-          // TODO: add confirm button bloc listener for driver here
+          isDriver ? const SizedBox.shrink() : const CancelBlocListener(),
+          if (isDriver) const ConfirmBlocListener(),
+          if (isDriver) const RejectBlocListener(),
         ],
       ),
     );
