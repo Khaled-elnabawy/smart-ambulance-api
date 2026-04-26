@@ -4,6 +4,8 @@ import '../../../../core/networking/api_error_handling.dart';
 import '../../../../core/networking/api_result.dart';
 import '../models/cancel/cancel_request_body.dart';
 import '../models/cancel/cancel_response.dart';
+import '../models/confirm/confirm_request_body.dart';
+import '../models/confirm/confirm_response.dart';
 import '../models/requests/requests_request_model.dart';
 import '../models/requests/requests_response_model.dart';
 
@@ -33,6 +35,36 @@ class RequestsRepo {
   }) async {
     try {
       final response = await apiService.cancelRequest(
+        'Bearer $token',
+        cancelRequestBody,
+      );
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  Future<ApiResult<ConfirmResponse>> confirmRequest({
+    required String token,
+    required ConfirmRequestBody confirmRequestBody,
+  }) async {
+    try {
+      final response = await apiService.acceptRequest(
+        'Bearer $token',
+        confirmRequestBody,
+      );
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  Future<ApiResult<CancelResponse>> rejectRequest({
+    required String token,
+    required CancelRequestBody cancelRequestBody,
+  }) async {
+    try {
+      final response = await apiService.rejectRequest(
         'Bearer $token',
         cancelRequestBody,
       );

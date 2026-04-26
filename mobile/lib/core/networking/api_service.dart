@@ -7,6 +7,8 @@ import 'package:mobile/features/profile/data/models/edit_profile/edit_profile_re
 import 'package:mobile/features/profile/data/models/edit_profile/edit_profile_response_model.dart';
 import 'package:mobile/features/profile/data/models/logout/logout_response_model.dart';
 import 'package:mobile/features/requests/data/models/cancel/cancel_response.dart';
+import 'package:mobile/features/requests/data/models/confirm/confirm_request_body.dart';
+import 'package:mobile/features/requests/data/models/confirm/confirm_response.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 import '../../features/forgot_password/data/models/reset_password_models/reset_password_request_body.dart';
@@ -73,6 +75,18 @@ abstract class ApiService {
 
   @POST(ApiConstants.cancelRequest)
   Future<CancelResponse> cancelRequest(
+    @Header('Authorization') String token,
+    @Body() CancelRequestBody cancelRequestBody,
+  );
+
+  @POST(ApiConstants.acceptRequest)
+  Future<ConfirmResponse> acceptRequest(
+    @Header('Authorization') String token,
+    @Body() ConfirmRequestBody confirmRequestBody,
+  );
+
+  @POST(ApiConstants.rejectRequest)
+  Future<CancelResponse> rejectRequest(
     @Header('Authorization') String token,
     @Body() CancelRequestBody cancelRequestBody,
   );
