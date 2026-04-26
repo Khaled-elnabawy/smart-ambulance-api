@@ -8,7 +8,6 @@ import 'package:mobile/features/profile/data/models/edit_profile/edit_profile_re
 import 'package:mobile/features/profile/data/models/logout/logout_response_model.dart';
 import 'package:mobile/features/requests/data/models/cancel/cancel_response.dart';
 import 'package:mobile/features/requests/data/models/confirm/confirm_request_body.dart';
-import 'package:mobile/features/requests/data/models/confirm/confirm_response.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 import '../../features/forgot_password/data/models/reset_password_models/reset_password_request_body.dart';
@@ -22,6 +21,7 @@ import '../../features/login/data/models/login_response.dart';
 import '../../features/register/data/models/register_request_body.dart';
 import '../../features/register/data/models/register_response.dart';
 import '../../features/requests/data/models/cancel/cancel_request_body.dart';
+import '../../features/requests/data/models/confirm/confirm_response_model.dart';
 import '../../features/requests/data/models/requests/requests_request_model.dart';
 import '../../features/requests/data/models/requests/requests_response_model.dart';
 import 'api_constants.dart';
@@ -80,7 +80,7 @@ abstract class ApiService {
   );
 
   @POST(ApiConstants.acceptRequest)
-  Future<ConfirmResponse> acceptRequest(
+  Future<ConfirmResponseModel> acceptRequest(
     @Header('Authorization') String token,
     @Body() ConfirmRequestBody confirmRequestBody,
   );

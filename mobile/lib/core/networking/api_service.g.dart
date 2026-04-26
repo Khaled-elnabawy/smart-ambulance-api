@@ -298,7 +298,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<InvalidType> acceptRequest(
+  Future<ConfirmResponseModel> acceptRequest(
     String token,
     ConfirmRequestBody confirmRequestBody,
   ) async {
@@ -308,7 +308,7 @@ class _ApiService implements ApiService {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(confirmRequestBody.toJson());
-    final _options = _setStreamType<InvalidType>(
+    final _options = _setStreamType<ConfirmResponseModel>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -319,9 +319,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late InvalidType _value;
+    late ConfirmResponseModel _value;
     try {
-      _value = InvalidType.fromJson(_result.data!);
+      _value = ConfirmResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
