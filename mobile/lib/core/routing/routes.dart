@@ -8,4 +8,5 @@ class Routes {
   static const String scheduledFormView = '/scheduledFormView';
   static const String clickableGoogleMap = '/clickableGoogleMap';
   static const String editProfileView = '/editProfileView';
+  static const String trackingView = '/trackingView';
 }

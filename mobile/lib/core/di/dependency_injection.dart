@@ -19,6 +19,10 @@ import '../../features/requests/logic/confirm_cubit/confirm_cubit.dart';
 import '../../features/requests/logic/reject_cubit/reject_cubit.dart';
 import '../../features/requests/logic/requests_cubits/emergency_requests_cubit.dart';
 import '../../features/requests/logic/requests_cubits/scheduled_requests_cubit.dart';
+import '../../features/tracking/data/repos/tracking_repo.dart';
+import '../../features/tracking/logic/driver_actions_cubit/driver_actions_cubit.dart';
+import '../../features/tracking/logic/rating_cubit/rating_cubit.dart';
+import '../../features/tracking/logic/tracking_cubit/tracking_cubit.dart';
 import '../networking/api_service.dart';
 import '../networking/dio_factory.dart';
 import '../services/directions/directions_api_service.dart';
@@ -80,6 +84,14 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<CancelCubit>(() => CancelCubit(getIt()));
   getIt.registerFactory<ConfirmCubit>(() => ConfirmCubit(getIt()));
   getIt.registerFactory<RejectCubit>(() => RejectCubit(getIt()));
+
+  // Tracking
+  getIt.registerLazySingleton<TrackingRepo>(
+    () => TrackingRepo(getIt(), getIt()),
+  );
+  getIt.registerFactory<TrackingCubit>(() => TrackingCubit(getIt()));
+  getIt.registerFactory<DriverActionsCubit>(() => DriverActionsCubit(getIt()));
+  getIt.registerFactory<RatingCubit>(() => RatingCubit(getIt()));
 
   //profile
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));

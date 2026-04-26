@@ -27,16 +27,30 @@ class RequestWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 370.w,
-      height: 172.h,
-      margin: EdgeInsets.only(bottom: 16.h, left: 30.w, right: 30.w),
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20.r),
-        boxShadow: [
-          BoxShadow(
+    return InkWell(
+      onTap: () {
+        if (request.status == 'accepted' || request.status == 'arrived' || request.status == 'in_progress') {
+          Navigator.pushNamed(
+            context,
+            Routes.trackingView,
+            arguments: {
+              'id': request.id,
+              'token': token,
+              'isDriver': isDriver,
+            },
+          );
+        }
+      },
+      child: Container(
+        width: 370.w,
+        height: 172.h,
+        margin: EdgeInsets.only(bottom: 16.h, left: 30.w, right: 30.w),
+        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20.r),
+          boxShadow: [
+            BoxShadow(
             color: Colors.black.withValues(alpha: 0.25),
             offset: Offset(0, 6),
             spreadRadius: 0,
@@ -171,6 +185,7 @@ class RequestWidget extends StatelessWidget {
           if (isDriver) const RejectBlocListener(),
         ],
       ),
+    ),
     );
   }
 }
