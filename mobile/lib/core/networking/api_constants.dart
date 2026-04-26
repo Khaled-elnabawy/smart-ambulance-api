@@ -13,6 +13,11 @@ class ApiConstants {
   static const String cancelRequest = "v1/requests/cancel";
   static const String acceptRequest = "v1/requests/accept";
   static const String rejectRequest = "v1/requests/reject";
+  static const String trackRequest = "v1/requests/{id}";
+  static const String updateLocation = "v1/driver/location";
+  static const String arrivedRequest = "v1/requests/arrived";
+  static const String completedRequest = "v1/requests/completed";
+  static const String rateDriver = "v1/requests/rate";
   static const String editProfile = "v1/profile/update";
 }
 
