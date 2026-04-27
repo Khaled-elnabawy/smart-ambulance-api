@@ -66,10 +66,13 @@ Future<void> setupGetIt() async {
   // bottom navigation cubit
   getIt.registerFactory<BottomNavCubit>(() => BottomNavCubit());
 
+  // services
+  getIt.registerLazySingleton<LocationService>(() => LocationService());
+
   // home
   getIt.registerLazySingleton<HomeRepo>(
     () => HomeRepo(
-      locationService: LocationService(),
+      locationService: getIt(),
       directionsService: getIt(),
       apiService: getIt(),
     ),

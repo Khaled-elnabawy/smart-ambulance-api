@@ -55,13 +55,14 @@ extension TrackingStatePatterns<T> on TrackingState<T> {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial<T> value)?  initial,TResult Function( Loading<T> value)?  loading,TResult Function( Success<T> value)?  success,TResult Function( Failure<T> value)?  failure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial<T> value)?  initial,TResult Function( Loading<T> value)?  loading,TResult Function( Success<T> value)?  success,TResult Function( LocationUpdated<T> value)?  locationUpdated,TResult Function( Failure<T> value)?  failure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case Loading() when loading != null:
 return loading(_that);case Success() when success != null:
-return success(_that);case Failure() when failure != null:
+return success(_that);case LocationUpdated() when locationUpdated != null:
+return locationUpdated(_that);case Failure() when failure != null:
 return failure(_that);case _:
   return orElse();
 
@@ -80,13 +81,14 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial<T> value)  initial,required TResult Function( Loading<T> value)  loading,required TResult Function( Success<T> value)  success,required TResult Function( Failure<T> value)  failure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial<T> value)  initial,required TResult Function( Loading<T> value)  loading,required TResult Function( Success<T> value)  success,required TResult Function( LocationUpdated<T> value)  locationUpdated,required TResult Function( Failure<T> value)  failure,}){
 final _that = this;
 switch (_that) {
 case _Initial():
 return initial(_that);case Loading():
 return loading(_that);case Success():
-return success(_that);case Failure():
+return success(_that);case LocationUpdated():
+return locationUpdated(_that);case Failure():
 return failure(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -104,13 +106,14 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial<T> value)?  initial,TResult? Function( Loading<T> value)?  loading,TResult? Function( Success<T> value)?  success,TResult? Function( Failure<T> value)?  failure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial<T> value)?  initial,TResult? Function( Loading<T> value)?  loading,TResult? Function( Success<T> value)?  success,TResult? Function( LocationUpdated<T> value)?  locationUpdated,TResult? Function( Failure<T> value)?  failure,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case Loading() when loading != null:
 return loading(_that);case Success() when success != null:
-return success(_that);case Failure() when failure != null:
+return success(_that);case LocationUpdated() when locationUpdated != null:
+return locationUpdated(_that);case Failure() when failure != null:
 return failure(_that);case _:
   return null;
 
@@ -128,12 +131,13 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( T data)?  success,TResult Function( String errMessage)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( T data)?  success,TResult Function( T data)?  locationUpdated,TResult Function( String errMessage)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Success() when success != null:
-return success(_that.data);case Failure() when failure != null:
+return success(_that.data);case LocationUpdated() when locationUpdated != null:
+return locationUpdated(_that.data);case Failure() when failure != null:
 return failure(_that.errMessage);case _:
   return orElse();
 
@@ -152,12 +156,13 @@ return failure(_that.errMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( T data)  success,required TResult Function( String errMessage)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( T data)  success,required TResult Function( T data)  locationUpdated,required TResult Function( String errMessage)  failure,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case Loading():
 return loading();case Success():
-return success(_that.data);case Failure():
+return success(_that.data);case LocationUpdated():
+return locationUpdated(_that.data);case Failure():
 return failure(_that.errMessage);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +180,13 @@ return failure(_that.errMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( T data)?  success,TResult? Function( String errMessage)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( T data)?  success,TResult? Function( T data)?  locationUpdated,TResult? Function( String errMessage)?  failure,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Success() when success != null:
-return success(_that.data);case Failure() when failure != null:
+return success(_that.data);case LocationUpdated() when locationUpdated != null:
+return locationUpdated(_that.data);case Failure() when failure != null:
 return failure(_that.errMessage);case _:
   return null;
 
@@ -311,6 +317,72 @@ class _$SuccessCopyWithImpl<T,$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
   return _then(Success<T>(
+freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as T,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class LocationUpdated<T> implements TrackingState<T> {
+  const LocationUpdated(this.data);
+  
+
+ final  T data;
+
+/// Create a copy of TrackingState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LocationUpdatedCopyWith<T, LocationUpdated<T>> get copyWith => _$LocationUpdatedCopyWithImpl<T, LocationUpdated<T>>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LocationUpdated<T>&&const DeepCollectionEquality().equals(other.data, data));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+
+@override
+String toString() {
+  return 'TrackingState<$T>.locationUpdated(data: $data)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LocationUpdatedCopyWith<T,$Res> implements $TrackingStateCopyWith<T, $Res> {
+  factory $LocationUpdatedCopyWith(LocationUpdated<T> value, $Res Function(LocationUpdated<T>) _then) = _$LocationUpdatedCopyWithImpl;
+@useResult
+$Res call({
+ T data
+});
+
+
+
+
+}
+/// @nodoc
+class _$LocationUpdatedCopyWithImpl<T,$Res>
+    implements $LocationUpdatedCopyWith<T, $Res> {
+  _$LocationUpdatedCopyWithImpl(this._self, this._then);
+
+  final LocationUpdated<T> _self;
+  final $Res Function(LocationUpdated<T>) _then;
+
+/// Create a copy of TrackingState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
+  return _then(LocationUpdated<T>(
 freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
 as T,
   ));

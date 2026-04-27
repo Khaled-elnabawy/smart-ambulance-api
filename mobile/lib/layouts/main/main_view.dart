@@ -72,6 +72,7 @@ class MainView extends StatelessWidget {
           child: HomeView(
             token: userData?.token ?? '',
             isDriver: isDriver,
+            userName: loginResponse.userData!.name!,
           ),
         );
       case 1:
@@ -104,6 +105,7 @@ class MainView extends StatelessWidget {
         return HomeView(
           token: userData?.token ?? '',
           isDriver: isDriver,
+          userName: loginResponse.userData!.name!,
         );
     }
   }

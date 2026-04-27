@@ -5,7 +5,14 @@ import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
 
 class HomeTopSection extends StatelessWidget {
-  const HomeTopSection({super.key});
+  final String userName;
+  final bool isDriver;
+
+  const HomeTopSection({
+    super.key,
+    required this.userName,
+    required this.isDriver,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +31,7 @@ class HomeTopSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             verticalSpacing(60),
-            Text('Hello, Amr', style: TextStyles.font24WhiteBold),
+            Text('Hello, $userName', style: TextStyles.font24WhiteBold),
             verticalSpacing(4),
             Text('Are you okay?', style: TextStyles.font20WhiteBold),
           ],

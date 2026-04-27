@@ -12,17 +12,20 @@ import '../logic/tracking_cubit/tracking_cubit.dart';
 import 'widgets/driver_controls_overlay.dart';
 import 'widgets/tracking_header_overlay.dart';
 import 'widgets/tracking_listeners.dart';
+import '../../requests/data/models/requests/requests_response_model.dart';
 
 class TrackingView extends StatefulWidget {
   final int requestId;
   final String token;
   final bool isDriver;
+  final Request? request;
 
   const TrackingView({
     super.key,
     required this.requestId,
     required this.token,
     required this.isDriver,
+    this.request,
   });
 
   @override
@@ -43,14 +46,64 @@ class _TrackingViewState extends State<TrackingView> {
 
   @override
   void initState() {
-    TrackingRepo trackingRepo = getIt<TrackingRepo>();
     super.initState();
-    !widget.isDriver
-        ? context.read<TrackingCubit>().startPolling(
-            token: widget.token,
-            id: widget.requestId,
-          )
-        : trackingRepo.getLiveLocation();
+    context.read<TrackingCubit>().initTracking(
+          token: widget.token,
+          id: widget.requestId,
+          isDriver: widget.isDriver,
+        );
+
+    if (widget.isDriver && widget.request != null) {
+      _setDriverInitialMarkers();
+    }
+  }
+
+  void _setDriverInitialMarkers() async {
+    if (widget.request?.pickupLatitude == null ||
+        widget.request?.pickupLongitude == null) return;
+
+    LatLng pickup = LatLng(
+      double.parse(widget.request!.pickupLatitude!),
+      double.parse(widget.request!.pickupLongitude!),
+    );
+
+    // Get current location once for initial marker
+    final location = await getIt<TrackingRepo>().locationService.getCurrentLocationOnce();
+    if (location.latitude == null) return;
+
+    LatLng driverLoc = LatLng(location.latitude!, location.longitude!);
+
+    await _updateMarkers(pickup, driverLoc);
+    _drawRoute(driverLoc, pickup);
+  }
+
+  Future<void> _updateMarkers(LatLng pickup, LatLng driverLoc) async {
+    Set<Marker> newMarkers = {};
+    newMarkers.add(
+      Marker(
+        markerId: const MarkerId('pickup'),
+        position: pickup,
+        icon: await BitmapDescriptor.asset(
+          const ImageConfiguration(),
+          'assets/images/help_point.png',
+        ),
+      ),
+    );
+
+    newMarkers.add(
+      Marker(
+        markerId: const MarkerId('driver'),
+        position: driverLoc,
+        icon: await BitmapDescriptor.asset(
+          const ImageConfiguration(),
+          'assets/images/truck_kun.png',
+        ),
+      ),
+    );
+
+    setState(() {
+      markers = newMarkers;
+    });
   }
 
   @override
@@ -61,10 +114,22 @@ class _TrackingViewState extends State<TrackingView> {
         token: widget.token,
         isDriver: widget.isDriver,
         onTrackingDataUpdated: (data) async {
-          setState(() {
-            _requestData = data;
-          });
-          await _updateMapWithTrackingData(data);
+          if (!widget.isDriver) {
+            setState(() {
+              _requestData = data;
+            });
+            await _updateMapWithTrackingData(data);
+          }
+        },
+        onLocalLocationUpdated: (latLng) async {
+          if (widget.isDriver && widget.request != null) {
+            LatLng pickup = LatLng(
+              double.parse(widget.request!.pickupLatitude!),
+              double.parse(widget.request!.pickupLongitude!),
+            );
+            await _updateMarkers(pickup, latLng);
+            _mapController?.animateCamera(CameraUpdate.newLatLng(latLng));
+          }
         },
         child: Stack(
           children: [
@@ -150,33 +215,17 @@ class _TrackingViewState extends State<TrackingView> {
   Future<void> _drawRoute(LatLng start, LatLng end) async {
     final trackingRepo = getIt<TrackingRepo>();
 
-    // draw a straight line if route fails
-    void drawStraightLine() {
-      setState(() {
-        polylines.add(
-          Polyline(
-            polylineId: const PolylineId('route'),
-            color: ColorsManager.red,
-            width: 4,
-            points: [start, end],
-          ),
-        );
-      });
-      _fitMapToPoints(start, end);
-    }
-
     final req = DirectionsRequestModel(
       startLat: start.latitude,
       startLng: start.longitude,
       endLat: end.latitude,
       endLng: end.longitude,
-      profile: "driving-car",
     );
 
     final res = await trackingRepo.getRoute(req);
     res.when(
       success: (data) {
-        if (data.features.isNotEmpty) {
+        if (data.features != null && data.features!.isNotEmpty) {
           final coordinates = data.features!.first.geometry?.coordinates;
           if (coordinates != null) {
             List<LatLng> points = coordinates.map((coord) {
@@ -194,15 +243,11 @@ class _TrackingViewState extends State<TrackingView> {
               );
             });
             _fitMapToPoints(start, end);
-          } else {
-            drawStraightLine();
           }
-        } else {
-          drawStraightLine();
         }
       },
       failure: (err) {
-        drawStraightLine();
+        debugPrint('Failed to get route: $err');
       },
     );
   }

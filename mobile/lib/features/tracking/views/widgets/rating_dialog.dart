@@ -43,10 +43,10 @@ class _RatingDialogState extends State<RatingDialog> {
           success: (data) {
             context.pop(); // remove loading
             context.pop(); // remove rating dialog
-            // You can show a success snackbar or another dialog here
+            context.pop(); // return to requests list
           },
           failure: (errMessage) {
-            context.pop(); // remove loading
+            context.pop();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(errMessage)),
             );
@@ -106,10 +106,10 @@ class _RatingDialogState extends State<RatingDialog> {
               onPressed: () {
                 if (_rating > 0) {
                   context.read<RatingCubit>().rateDriver(
-                        token: widget.token,
-                        id: widget.requestId,
-                        rating: _rating,
-                      );
+                    token: widget.token,
+                    id: widget.requestId,
+                    rating: _rating,
+                  );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

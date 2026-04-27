@@ -18,6 +18,7 @@ import '../../features/home/views/scheduled_form_view.dart';
 import '../../features/login/data/models/login_response.dart';
 import '../../features/profile/views/edit_profile_view.dart';
 import '../../features/register/logic/register_cubit.dart';
+import '../../features/requests/data/models/requests/requests_response_model.dart';
 import '../../features/tracking/logic/driver_actions_cubit/driver_actions_cubit.dart';
 import '../../features/tracking/logic/rating_cubit/rating_cubit.dart';
 import '../../features/tracking/logic/tracking_cubit/tracking_cubit.dart';
@@ -120,6 +121,7 @@ class AppRouter {
               requestId: args['id'] as int,
               token: args['token'] as String,
               isDriver: args['isDriver'] as bool,
+              request: args['request'] as Request?,
             ),
           ),
         );

@@ -34,7 +34,12 @@ class RequestWidget extends StatelessWidget {
         if (request.status == 'in_progress') {
           context.pushNamed(
             Routes.trackingView,
-            arguments: {'id': request.id, 'token': token, 'isDriver': isDriver},
+            arguments: {
+              'id': request.id,
+              'token': token,
+              'isDriver': isDriver,
+              'request': request,
+            },
           );
         }
       },
@@ -182,6 +187,7 @@ class RequestWidget extends StatelessWidget {
             if (isDriver) const ConfirmBlocListener(),
             if (isDriver) const RejectBlocListener(),
           ],
+        ),
       ),
     );
   }

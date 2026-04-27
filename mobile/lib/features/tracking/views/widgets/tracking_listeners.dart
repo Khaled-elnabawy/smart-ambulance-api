@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile/core/helpers/extensions.dart';
-
 import '../../../../core/theming/colors.dart';
 import '../../data/models/track_request/track_request_response.dart';
 import '../../logic/driver_actions_cubit/driver_actions_cubit.dart';
@@ -9,14 +9,13 @@ import '../../logic/driver_actions_cubit/driver_actions_state.dart' as driverSta
 import '../../logic/tracking_cubit/tracking_cubit.dart';
 import '../../logic/tracking_cubit/tracking_state.dart';
 import 'rating_dialog.dart';
-
 class TrackingListeners extends StatelessWidget {
   final Widget child;
   final int requestId;
   final String token;
   final bool isDriver;
   final Function(TrackRequestData) onTrackingDataUpdated;
-
+  final Function(LatLng)? onLocalLocationUpdated;
   const TrackingListeners({
     super.key,
     required this.child,
@@ -24,8 +23,8 @@ class TrackingListeners extends StatelessWidget {
     required this.token,
     required this.isDriver,
     required this.onTrackingDataUpdated,
+    this.onLocalLocationUpdated,
   });
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -36,9 +35,7 @@ class TrackingListeners extends StatelessWidget {
               success: (response) {
                 if (response is TrackRequestResponse && response.data != null) {
                   onTrackingDataUpdated(response.data!);
-
-                  if (!isDriver && response.data!.status == 'completed') {
-                    context.read<TrackingCubit>().stopPolling();
+                  if (!isDriver && (response.data!.status?.toLowerCase() == 'completed' || response.data!.status?.toLowerCase() == 'complete')) {
                     showDialog(
                       context: context,
                       barrierDismissible: false,
@@ -48,6 +45,11 @@ class TrackingListeners extends StatelessWidget {
                       ),
                     );
                   }
+                }
+              },
+              locationUpdated: (latLng) {
+                if (latLng is LatLng) {
+                  onLocalLocationUpdated?.call(latLng);
                 }
               },
             );
@@ -68,9 +70,9 @@ class TrackingListeners extends StatelessWidget {
               arrivedSuccess: (data) {
                 context.pop();
                 context.read<TrackingCubit>().getTrackingData(
-                      token: token,
-                      id: requestId,
-                    );
+                  token: token,
+                  id: requestId,
+                );
               },
               completedSuccess: (data) {
                 context.pop();
