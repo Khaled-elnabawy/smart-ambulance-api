@@ -8,7 +8,6 @@ import 'package:mobile/features/profile/data/models/edit_profile/edit_profile_re
 import 'package:mobile/features/profile/data/models/logout/logout_response_model.dart';
 import 'package:mobile/features/requests/data/models/cancel/cancel_response.dart';
 import 'package:mobile/features/requests/data/models/confirm/confirm_request_body.dart';
-import 'package:mobile/features/requests/data/models/confirm/confirm_response.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 import '../../features/forgot_password/data/models/reset_password_models/reset_password_request_body.dart';
@@ -25,6 +24,13 @@ import '../../features/requests/data/models/cancel/cancel_request_body.dart';
 import '../../features/requests/data/models/confirm/confirm_response_model.dart';
 import '../../features/requests/data/models/requests/requests_request_model.dart';
 import '../../features/requests/data/models/requests/requests_response_model.dart';
+import '../../features/tracking/data/models/action_request/action_request_body.dart';
+import '../../features/tracking/data/models/action_request/action_request_response.dart';
+import '../../features/tracking/data/models/rate_driver/rate_driver_body.dart';
+import '../../features/tracking/data/models/rate_driver/rate_driver_response.dart';
+import '../../features/tracking/data/models/track_request/track_request_response.dart';
+import '../../features/tracking/data/models/update_location/update_location_body.dart';
+import '../../features/tracking/data/models/update_location/update_location_response.dart';
 import 'api_constants.dart';
 
 part 'api_service.g.dart';

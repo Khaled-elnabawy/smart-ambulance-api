@@ -362,13 +362,13 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<InvalidType> trackRequest(String token, int id) async {
+  Future<TrackRequestResponse> trackRequest(String token, int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<InvalidType>(
+    final _options = _setStreamType<TrackRequestResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -379,9 +379,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late InvalidType _value;
+    late TrackRequestResponse _value;
     try {
-      _value = InvalidType.fromJson(_result.data!);
+      _value = TrackRequestResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -390,16 +390,17 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<InvalidType> updateLocation(
+  Future<UpdateLocationResponse> updateLocation(
     String token,
-    InvalidType updateLocationBody,
+    UpdateLocationBody updateLocationBody,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
-    final _data = updateLocationBody;
-    final _options = _setStreamType<InvalidType>(
+    final _data = <String, dynamic>{};
+    _data.addAll(updateLocationBody.toJson());
+    final _options = _setStreamType<UpdateLocationResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -410,9 +411,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late InvalidType _value;
+    late UpdateLocationResponse _value;
     try {
-      _value = InvalidType.fromJson(_result.data!);
+      _value = UpdateLocationResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -421,16 +422,17 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<InvalidType> arrivedRequest(
+  Future<ActionRequestResponse> arrivedRequest(
     String token,
-    InvalidType actionRequestBody,
+    ActionRequestBody actionRequestBody,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
-    final _data = actionRequestBody;
-    final _options = _setStreamType<InvalidType>(
+    final _data = <String, dynamic>{};
+    _data.addAll(actionRequestBody.toJson());
+    final _options = _setStreamType<ActionRequestResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -441,9 +443,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late InvalidType _value;
+    late ActionRequestResponse _value;
     try {
-      _value = InvalidType.fromJson(_result.data!);
+      _value = ActionRequestResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -452,16 +454,17 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<InvalidType> completeRequest(
+  Future<ActionRequestResponse> completeRequest(
     String token,
-    InvalidType actionRequestBody,
+    ActionRequestBody actionRequestBody,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
-    final _data = actionRequestBody;
-    final _options = _setStreamType<InvalidType>(
+    final _data = <String, dynamic>{};
+    _data.addAll(actionRequestBody.toJson());
+    final _options = _setStreamType<ActionRequestResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -472,9 +475,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late InvalidType _value;
+    late ActionRequestResponse _value;
     try {
-      _value = InvalidType.fromJson(_result.data!);
+      _value = ActionRequestResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -483,16 +486,17 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<InvalidType> rateDriver(
+  Future<RateDriverResponse> rateDriver(
     String token,
-    InvalidType rateDriverBody,
+    RateDriverBody rateDriverBody,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
-    final _data = rateDriverBody;
-    final _options = _setStreamType<InvalidType>(
+    final _data = <String, dynamic>{};
+    _data.addAll(rateDriverBody.toJson());
+    final _options = _setStreamType<RateDriverResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -503,9 +507,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late InvalidType _value;
+    late RateDriverResponse _value;
     try {
-      _value = InvalidType.fromJson(_result.data!);
+      _value = RateDriverResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

@@ -79,15 +79,19 @@ Future<void> setupGetIt() async {
 
   // requests
   getIt.registerLazySingleton<RequestsRepo>(() => RequestsRepo(getIt()));
-  getIt.registerFactory<EmergencyRequestsCubit>(() => EmergencyRequestsCubit(getIt()));
-  getIt.registerFactory<ScheduledRequestsCubit>(() => ScheduledRequestsCubit(getIt()));
+  getIt.registerFactory<EmergencyRequestsCubit>(
+    () => EmergencyRequestsCubit(getIt()),
+  );
+  getIt.registerFactory<ScheduledRequestsCubit>(
+    () => ScheduledRequestsCubit(getIt()),
+  );
   getIt.registerFactory<CancelCubit>(() => CancelCubit(getIt()));
   getIt.registerFactory<ConfirmCubit>(() => ConfirmCubit(getIt()));
   getIt.registerFactory<RejectCubit>(() => RejectCubit(getIt()));
 
   // Tracking
   getIt.registerLazySingleton<TrackingRepo>(
-    () => TrackingRepo(getIt(), getIt()),
+    () => TrackingRepo(getIt(), getIt(), getIt()),
   );
   getIt.registerFactory<TrackingCubit>(() => TrackingCubit(getIt()));
   getIt.registerFactory<DriverActionsCubit>(() => DriverActionsCubit(getIt()));

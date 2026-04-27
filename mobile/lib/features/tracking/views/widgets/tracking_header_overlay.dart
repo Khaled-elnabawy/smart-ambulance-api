@@ -23,7 +23,7 @@ class TrackingHeaderOverlay extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BackButtonWidget(onTap: () => context.pop()),
+          BackButtonWidget(),
           verticalSpacing(16),
           if (!isDriver)
             Container(
@@ -49,7 +49,7 @@ class TrackingHeaderOverlay extends StatelessWidget {
                   verticalSpacing(8),
                   Text(
                     "Your Ambulance Is En Route And Being\nMonitored Moment By Moment",
-                    style: TextStyles.font14LightGrayWithOpacityMedium,
+                    style: TextStyles.font16LightGrayWithOpacityMedium,
                   ),
                 ],
               ),

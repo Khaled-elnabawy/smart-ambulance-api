@@ -62,15 +62,16 @@ class MainView extends StatelessWidget {
   }
 
   Widget _getView(BuildContext context, int index) {
+    final userData = loginResponse.userData;
+    final isDriver = userData?.userType == 'driver';
+
     switch (index) {
       case 0:
         return BlocProvider(
           create: (context) => getIt<EmergencyCubit>(),
           child: HomeView(
-            token: loginResponse.userData?.token ?? '',
-            isDriver: loginResponse.userData?.userType == 'driver'
-                ? true
-                : false,
+            token: userData?.token ?? '',
+            isDriver: isDriver,
           ),
         );
       case 1:
@@ -83,30 +84,26 @@ class MainView extends StatelessWidget {
             BlocProvider(create: (context) => getIt<RejectCubit>()),
           ],
           child: RequestsView(
-            token: loginResponse.userData?.token ?? '',
-            isDriver: loginResponse.userData?.userType == 'driver'
-                ? true
-                : false,
+            token: userData?.token ?? '',
+            isDriver: isDriver,
           ),
         );
       case 2:
         return BlocProvider(
           create: (context) => getIt<LogoutCubit>(),
           child: ProfileView(
-            token: loginResponse.userData?.token ?? '',
-            userName: loginResponse.userData?.userInfo?.name ?? '',
-            email: loginResponse.userData?.userInfo?.email ?? '',
-            phoneNumber: loginResponse.userData?.userInfo?.phone ?? '',
-            isDriver: loginResponse.userData?.userType == 'driver'
-                ? true
-                : false,
-            rating: loginResponse.userData?.rating ?? 5.0,
+            token: userData?.token ?? '',
+            userName: userData?.name ?? '',
+            email: userData?.email ?? '',
+            phoneNumber: userData?.phone ?? '',
+            isDriver: isDriver,
+            rating: userData?.rating ?? 5.0,
           ),
         );
       default:
         return HomeView(
-          token: loginResponse.userData?.token ?? '',
-          isDriver: loginResponse.userData?.userType == 'driver' ? true : false,
+          token: userData?.token ?? '',
+          isDriver: isDriver,
         );
     }
   }

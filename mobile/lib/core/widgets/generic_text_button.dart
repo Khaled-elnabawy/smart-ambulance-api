@@ -50,10 +50,11 @@ class GenericTextButton extends StatelessWidget {
             vertical: verticalPadding?.h ?? 12.h,
           ),
         ),
-        fixedSize: WidgetStateProperty.all(
+        fixedSize: WidgetStateProperty.all<Size>(
           Size(buttonWidth?.w ?? double.maxFinite, buttonHeight?.h ?? 56.h),
         ),
       ),
+
       onPressed: onPressed,
       child: Text(buttonText, style: textStyle),
     );

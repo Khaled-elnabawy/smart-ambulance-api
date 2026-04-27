@@ -1,9 +1,11 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile/core/networking/api_service.dart';
 import '../../../../core/networking/api_error_handling.dart';
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/services/directions/directions_request_model.dart';
 import '../../../../core/services/directions/directions_response_model.dart';
 import '../../../../core/services/directions/directions_service.dart';
+import '../../../../core/services/location/location_service.dart';
 import '../models/action_request/action_request_body.dart';
 import '../models/action_request/action_request_response.dart';
 import '../models/rate_driver/rate_driver_body.dart';
@@ -15,8 +17,25 @@ import '../models/update_location/update_location_response.dart';
 class TrackingRepo {
   final ApiService apiService;
   final DirectionsService directionsService;
+  final LocationService locationService;
 
-  TrackingRepo(this.apiService, this.directionsService);
+  TrackingRepo(
+     this.apiService,
+     this.directionsService,
+     this.locationService,
+  );
+
+  Stream<LatLng> getLiveLocation() async* {
+    var locationEnabled = await locationService
+        .checkAndRequestLocationService();
+    var hasPermission = await locationService
+        .checkAndRequestLocationPermission();
+
+    if (!hasPermission && !locationEnabled) return;
+    await for (final locationData in locationService.getLocationStream()) {
+      yield LatLng(locationData.latitude!, locationData.longitude!);
+    }
+  }
 
   Future<ApiResult<TrackRequestResponse>> trackRequest(
     String token,
