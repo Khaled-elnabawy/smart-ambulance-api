@@ -121,6 +121,11 @@ class RequestWidget extends StatelessWidget {
             ),
             verticalSpacing(16),
             Text(
+              '7 Port Said St., Near Mansoura Stadium',
+              style: TextStyles.font16BlackBold,
+            ),
+            verticalSpacing(8),
+            Text(
               '${request.createdAt?.split(' ').first}        ${request.createdAt?.split(' ').last}',
               style: TextStyles.font16LightGrayWithOpacityMedium.copyWith(
                 height: 1.5,
@@ -128,51 +133,47 @@ class RequestWidget extends StatelessWidget {
             ),
             verticalSpacing(16),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: isDriver ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
               children: [
                 Visibility(
                   visible: request.status == 'pending' && isDriver,
-                  child: SizedBox(
-                    width: 80.w,
-                    child: GenericTextButton(
-                      buttonText: 'Confirm',
-                      textStyle: TextStyles.font16WhiteBold,
-                      buttonHeight: 54.h,
-                      borderRadius: 16.r,
-                      onPressed: () {
-                        context.read<ConfirmCubit>().emitConfirmState(
-                          token: token,
-                          id: request.id!,
-                        );
-                      },
-                    ),
+                  child: GenericTextButton(
+                    buttonText: 'Confirm',
+                    textStyle: TextStyles.font16WhiteBold,
+                    buttonWidth: 120.w,
+                    buttonHeight: 42.h,
+                    borderRadius: 16.r,
+                    onPressed: () {
+                      context.read<ConfirmCubit>().emitConfirmState(
+                        token: token,
+                        id: request.id!,
+                      );
+                    },
                   ),
                 ),
                 Visibility(
                   visible: request.status == 'pending',
-                  child: SizedBox(
-                    width: 80.w,
-                    child: GenericTextButton(
-                      buttonText: 'Cancel',
-                      textStyle: !isDriver?TextStyles.font16WhiteBold : TextStyles.font16RedBold,
-                      buttonHeight: 54.h,
-                      borderRadius: 16.r,
-                      isHaveBorder: isDriver,
-                      backgroundColor: isDriver
-                          ? Colors.white
-                          : ColorsManager.red,
-                      onPressed: () {
-                        !isDriver
-                            ? context.read<CancelCubit>().emitCancelState(
-                                token: token,
-                                id: request.id!,
-                              )
-                            : context.read<RejectCubit>().emitRejectState(
-                                token: token,
-                                id: request.id!,
-                              );
-                      },
-                    ),
+                  child: GenericTextButton(
+                    buttonText: 'Cancel',
+                    textStyle: isDriver ? TextStyles.font16RedBold : TextStyles.font16WhiteBold,
+                    buttonWidth: 120.w,
+                    buttonHeight: 42.h,
+                    borderRadius: 16.r,
+                    isHaveBorder: isDriver,
+                    backgroundColor: isDriver
+                        ? Colors.white
+                        : ColorsManager.red,
+                    onPressed: () {
+                      !isDriver
+                          ? context.read<CancelCubit>().emitCancelState(
+                              token: token,
+                              id: request.id!,
+                            )
+                          : context.read<RejectCubit>().emitRejectState(
+                              token: token,
+                              id: request.id!,
+                            );
+                    },
                   ),
                 ),
               ],
@@ -181,7 +182,6 @@ class RequestWidget extends StatelessWidget {
             if (isDriver) const ConfirmBlocListener(),
             if (isDriver) const RejectBlocListener(),
           ],
-        ),
       ),
     );
   }
