@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/helpers/spacing.dart';
+import 'package:mobile/features/requests/views/widgets/cancel_bloc_listener.dart';
+import 'package:mobile/features/requests/views/widgets/confirm_bloc_listener.dart';
 import 'package:mobile/features/requests/views/widgets/emergency_requests_bloc_listener.dart';
+import 'package:mobile/features/requests/views/widgets/reject_bloc_listener.dart';
 import 'package:mobile/features/requests/views/widgets/scheduled_bloc_listener.dart';
 import 'package:mobile/features/requests/views/widgets/scheduled_request_widget.dart';
 import 'package:mobile/features/requests/views/widgets/sos_request_widget.dart';
@@ -68,9 +71,25 @@ class _RequestsViewState extends State<RequestsView> {
             ),
             EmergencyRequestsBlocListener(),
             ScheduledRequestsBlocListener(),
+            CancelBlocListener(onSuccess: _refreshActiveList),
+            if (widget.isDriver) ...[
+              ConfirmBlocListener(onSuccess: _refreshActiveList),
+              RejectBlocListener(onSuccess: _refreshActiveList),
+            ],
           ],
         ),
       ),
     );
+  }
+  void _refreshActiveList() {
+    if (isSOS) {
+      context.read<EmergencyRequestsCubit>().emitEmergencyState(
+        token: widget.token ?? '',
+      );
+    } else {
+      context.read<ScheduledRequestsCubit>().emitScheduledState(
+        token: widget.token ?? '',
+      );
+    }
   }
 }

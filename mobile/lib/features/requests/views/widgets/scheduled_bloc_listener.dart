@@ -26,6 +26,7 @@ class ScheduledRequestsBlocListener extends StatelessWidget {
             );
           },
           success: (_) {
+            context.pop();
           },
           failure: (errMessage) {
             context.pop();

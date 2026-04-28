@@ -8,7 +8,8 @@ import '../../logic/confirm_cubit/confirm_state.dart';
 
 
 class ConfirmBlocListener extends StatelessWidget {
-  const ConfirmBlocListener({super.key});
+  final VoidCallback? onSuccess;
+  const ConfirmBlocListener({super.key, this.onSuccess});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class ConfirmBlocListener extends StatelessWidget {
           },
           success: (response) {
             setupSuccessState(context, response.message ?? '');
+            onSuccess?.call();
           },
           failure: (errMessage) {
             // show error message

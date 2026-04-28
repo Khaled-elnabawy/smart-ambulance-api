@@ -8,7 +8,8 @@ import '../../logic/reject_cubit/reject_state.dart';
 
 
 class RejectBlocListener extends StatelessWidget {
-  const RejectBlocListener({super.key});
+  final VoidCallback? onSuccess;
+  const RejectBlocListener({super.key, this.onSuccess});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class RejectBlocListener extends StatelessWidget {
           },
           success: (response) {
             setupSuccessState(context, response.message ?? '');
+            onSuccess?.call();
           },
           failure: (errMessage) {
             // show error message

@@ -8,7 +8,8 @@ import '../../../../core/theming/styles.dart';
 import '../../logic/cancel_cubit/cancel_state.dart';
 
 class CancelBlocListener extends StatelessWidget {
-  const CancelBlocListener({super.key});
+  final VoidCallback? onSuccess;
+  const CancelBlocListener({super.key, this.onSuccess});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class CancelBlocListener extends StatelessWidget {
           },
           success: (response) {
             setupSuccessState(context, response.message ?? '');
+            onSuccess?.call();
           },
           failure: (errMessage) {
             // show error message
