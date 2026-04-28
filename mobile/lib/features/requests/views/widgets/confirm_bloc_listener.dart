@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/features/requests/logic/confirm_cubit/confirm_cubit.dart';
 import '../../../../core/helpers/extensions.dart';
-<<<<<<< HEAD
-=======
-import '../../../../core/routing/routes.dart';
->>>>>>> 8abbe58 (add confim request logic)
 import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
 import '../../logic/confirm_cubit/confirm_state.dart';

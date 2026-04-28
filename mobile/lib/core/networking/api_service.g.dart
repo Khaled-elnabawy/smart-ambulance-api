@@ -516,12 +516,6 @@ class _ApiService implements ApiService {
     }
     return _value;
   }
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, response: _result);
-      rethrow;
-    }
-    return _value;
-  }
 
   @override
   Future<LogoutResponseModel> logout(String token) async {
