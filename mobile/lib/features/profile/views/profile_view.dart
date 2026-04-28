@@ -17,6 +17,8 @@ class ProfileView extends StatelessWidget {
   final String email;
   final String phoneNumber;
   final String token;
+  final double rating;
+  final bool isDriver;
 
   const ProfileView({
     super.key,
@@ -24,6 +26,7 @@ class ProfileView extends StatelessWidget {
     required this.userName,
     required this.email,
     required this.phoneNumber,
+    required this.isDriver, required this.rating,
   });
 
   @override
@@ -33,12 +36,12 @@ class ProfileView extends StatelessWidget {
         child: Align(
           alignment: Alignment.bottomCenter,
           child: SizedBox(
-            height: 628.h,
+            height: 648.h,
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: [
                 Container(
-                  height: 500.h,
+                  height: 520.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -58,6 +61,7 @@ class ProfileView extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24.0.w),
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         verticalSpacing(36),
@@ -106,6 +110,11 @@ class ProfileView extends StatelessWidget {
                           title: 'Phone Number',
                           value: phoneNumber,
                         ),
+                        isDriver ? ProfileDataWidget(
+                          icon: Icons.star_rounded,
+                          title: 'OverAll Rating',
+                          value: rating.toString(),
+                        ): SizedBox.shrink(),
                         verticalSpacing(44),
                         Text('Settings', style: TextStyles.font18BlackMedium),
                         verticalSpacing(24),

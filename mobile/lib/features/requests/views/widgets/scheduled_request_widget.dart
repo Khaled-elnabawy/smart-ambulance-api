@@ -7,8 +7,13 @@ import '../../logic/requests_cubits/scheduled_requests_cubit.dart';
 
 class ScheduledRequestWidget extends StatelessWidget {
   final String token;
+  final bool isDriver;
 
-  const ScheduledRequestWidget({super.key, required this.token});
+  const ScheduledRequestWidget({
+    super.key,
+    required this.token,
+    required this.isDriver,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class ScheduledRequestWidget extends StatelessWidget {
             return ListView.builder(
               itemCount: data.requests.length,
               itemBuilder: (context, index) {
-                return RequestWidget(request: requests[index], token: token);
+                return RequestWidget(request: requests[index], token: token, isDriver: isDriver);
               },
             );
           },

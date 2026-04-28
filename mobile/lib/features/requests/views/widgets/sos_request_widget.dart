@@ -7,7 +7,13 @@ import '../../logic/requests_cubits/requests_state.dart';
 
 class SosRequestWidget extends StatelessWidget {
   final String token;
-  const SosRequestWidget({super.key, required this.token});
+  final bool isDriver;
+
+  const SosRequestWidget({
+    super.key,
+    required this.token,
+    required this.isDriver,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,11 @@ class SosRequestWidget extends StatelessWidget {
             return ListView.builder(
               itemCount: data.requests.length,
               itemBuilder: (context, index) {
-                return RequestWidget(request: requests[index], token: token,);
+                return RequestWidget(
+                  request: requests[index],
+                  token: token,
+                  isDriver: isDriver,
+                );
               },
             );
           },

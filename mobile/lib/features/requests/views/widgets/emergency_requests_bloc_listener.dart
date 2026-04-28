@@ -24,6 +24,7 @@ class EmergencyRequestsBlocListener extends StatelessWidget {
               );
             },
             success: (_) {
+              context.pop();
             },
             failure: (errMessage) {
               context.pop();

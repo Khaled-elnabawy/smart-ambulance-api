@@ -9,6 +9,8 @@ import '../../core/di/dependency_injection.dart';
 import '../../features/home/logic/emergency_cubit.dart';
 import '../../features/home/views/home_view.dart';
 import '../../features/requests/logic/cancel_cubit/cancel_cubit.dart';
+import '../../features/requests/logic/confirm_cubit/confirm_cubit.dart';
+import '../../features/requests/logic/reject_cubit/reject_cubit.dart';
 import '../../features/requests/logic/requests_cubits/scheduled_requests_cubit.dart';
 import '../../features/requests/views/requests_view.dart';
 import '../../features/profile/views/profile_view.dart';
@@ -60,11 +62,18 @@ class MainView extends StatelessWidget {
   }
 
   Widget _getView(BuildContext context, int index) {
+    final userData = loginResponse.userData;
+    final isDriver = userData?.userType == 'driver';
+
     switch (index) {
       case 0:
         return BlocProvider(
           create: (context) => getIt<EmergencyCubit>(),
-          child: HomeView(token: loginResponse.userData?.token ?? ''),
+          child: HomeView(
+            token: userData?.token ?? '',
+            isDriver: isDriver,
+            userName: loginResponse.userData!.name!,
+          ),
         );
       case 1:
         return MultiBlocProvider(
@@ -72,21 +81,32 @@ class MainView extends StatelessWidget {
             BlocProvider(create: (context) => getIt<EmergencyRequestsCubit>()),
             BlocProvider(create: (context) => getIt<ScheduledRequestsCubit>()),
             BlocProvider(create: (context) => getIt<CancelCubit>()),
+            BlocProvider(create: (context) => getIt<ConfirmCubit>()),
+            BlocProvider(create: (context) => getIt<RejectCubit>()),
           ],
-          child: RequestsView(token: loginResponse.userData?.token ?? ''),
+          child: RequestsView(
+            token: userData?.token ?? '',
+            isDriver: isDriver,
+          ),
         );
       case 2:
         return BlocProvider(
           create: (context) => getIt<LogoutCubit>(),
           child: ProfileView(
-            token: loginResponse.userData?.token ?? '',
-            userName: loginResponse.userData?.userInfo?.name ?? '',
-            email: loginResponse.userData?.userInfo?.email ?? '',
-            phoneNumber: loginResponse.userData?.userInfo?.phone ?? '',
+            token: userData?.token ?? '',
+            userName: userData?.name ?? '',
+            email: userData?.email ?? '',
+            phoneNumber: userData?.phone ?? '',
+            isDriver: isDriver,
+            rating: userData?.rating ?? 5.0,
           ),
         );
       default:
-        return HomeView(token: loginResponse.userData?.token ?? '');
+        return HomeView(
+          token: userData?.token ?? '',
+          isDriver: isDriver,
+          userName: loginResponse.userData!.name!,
+        );
     }
   }
 }

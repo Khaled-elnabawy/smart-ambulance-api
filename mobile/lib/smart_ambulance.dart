@@ -24,7 +24,6 @@ class SmartAmbulance extends StatelessWidget {
         theme: ThemeData(scaffoldBackgroundColor: Colors.white),
         onGenerateRoute: appRouter.generateRoute,
         initialRoute: Routes.loginView,
-        //home: ProfileView(),
       ),
     );
   }

@@ -7,15 +7,15 @@ import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
 import '../../logic/cancel_cubit/cancel_state.dart';
 
-
 class CancelBlocListener extends StatelessWidget {
-  const CancelBlocListener({super.key});
+  final VoidCallback? onSuccess;
+  const CancelBlocListener({super.key, this.onSuccess});
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<CancelCubit, CancelState>(
       listenWhen: (previous, current) =>
-      current is Loading || current is Success || current is Failure,
+          current is Loading || current is Success || current is Failure,
       listener: (context, state) {
         state.whenOrNull(
           loading: () {
@@ -29,6 +29,7 @@ class CancelBlocListener extends StatelessWidget {
           },
           success: (response) {
             setupSuccessState(context, response.message ?? '');
+            onSuccess?.call();
           },
           failure: (errMessage) {
             // show error message
@@ -58,6 +59,7 @@ class CancelBlocListener extends StatelessWidget {
       ),
     );
   }
+
   void setupSuccessState(BuildContext context, String successMessage) {
     context.pop();
     showDialog(

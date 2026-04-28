@@ -170,12 +170,12 @@ class _ScheduledFormViewState extends State<ScheduledFormView> {
                                   ),
                                 ),
                               ),
-                              verticalSpacing(24),
+                              horizontalSpacing(24),
                               Text(
                                 membersCount.toString(),
                                 style: TextStyles.font24BlackBold,
                               ),
-                              verticalSpacing(24),
+                              horizontalSpacing(24),
                               GestureDetector(
                                 onTap: () {
                                   setState(() {

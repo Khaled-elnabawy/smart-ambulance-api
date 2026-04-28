@@ -25,37 +25,21 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
     };
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
+  id: (json['id'] as num?)?.toInt(),
+  name: json['name'] as String?,
+  email: json['email'] as String?,
+  phone: json['phone'] as String?,
   token: json['token'] as String?,
-  userInfo: json['user'] == null
-      ? null
-      : UserInfo.fromJson(json['user'] as Map<String, dynamic>),
-  role: json['user_type'] as String?,
+  userType: json['user_type'] as String?,
+  rating: (json['rating'] as num?)?.toDouble(),
 );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
-  'token': instance.token,
-  'user_type': instance.role,
-  'user': instance.userInfo,
-};
-
-UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
-  id: (json['id'] as num?)?.toInt(),
-  name: json['name'] as String?,
-  phone: json['phone'] as String?,
-  email: json['email'] as String?,
-  createdAt: json['created_at'] as String?,
-  updatedAt: json['updated_at'] as String?,
-  deletedAt: json['deleted_at'] as String?,
-  nationalId: json['national_id'] as String?,
-);
-
-Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  'phone': instance.phone,
   'email': instance.email,
-  'national_id': instance.nationalId,
-  'created_at': instance.createdAt,
-  'updated_at': instance.updatedAt,
-  'deleted_at': instance.deletedAt,
+  'phone': instance.phone,
+  'token': instance.token,
+  'user_type': instance.userType,
+  'rating': instance.rating,
 };

@@ -19,44 +19,25 @@ class LoginResponse {
 
 @JsonSerializable()
 class UserData {
+  final int? id;
+  final String? name;
+  final String? email;
+  final String? phone;
   final String? token;
   @JsonKey(name: 'user_type')
-  final String? role;
-  @JsonKey(name: 'user')
-  final UserInfo? userInfo;
+  final String? userType;
+  final double? rating;
 
-  UserData({this.token, this.userInfo, this.role});
+  UserData({
+    this.id,
+    this.name,
+    this.email,
+    this.phone,
+    this.token,
+    this.userType,
+    this.rating,
+  });
 
   factory UserData.fromJson(Map<String, dynamic> json) =>
       _$UserDataFromJson(json);
-}
-
-@JsonSerializable()
-class UserInfo {
-  final int? id;
-  final String? name;
-  final String? phone;
-  final String? email;
-  @JsonKey(name: 'national_id')
-  final String? nationalId;
-  @JsonKey(name: 'created_at')
-  final String? createdAt;
-  @JsonKey(name: 'updated_at')
-  final String? updatedAt;
-  @JsonKey(name: 'deleted_at')
-  final String? deletedAt;
-
-  UserInfo({
-    this.id,
-    this.name,
-    this.phone,
-    this.email,
-    this.createdAt,
-    this.updatedAt,
-    this.deletedAt,
-    this.nationalId,
-  });
-
-  factory UserInfo.fromJson(Map<String, dynamic> json) =>
-      _$UserInfoFromJson(json);
 }

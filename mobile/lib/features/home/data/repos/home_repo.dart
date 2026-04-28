@@ -36,17 +36,7 @@ class HomeRepo {
     return LatLng(locationData.latitude!, locationData.longitude!);
   }
 
-  Stream<LatLng> getLiveLocation() async* {
-    var locationEnabled = await locationService
-        .checkAndRequestLocationService();
-    var hasPermission = await locationService
-        .checkAndRequestLocationPermission();
 
-    if (!hasPermission && !locationEnabled) return;
-    await for (final locationData in locationService.getLocationStream()) {
-      yield LatLng(locationData.latitude!, locationData.longitude!);
-    }
-  }
 
   Future<ApiResult<DirectionsResponseModel>> getRoute(
     DirectionsRequestModel directionsRequestModel,
