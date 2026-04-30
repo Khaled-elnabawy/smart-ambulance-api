@@ -22,19 +22,19 @@ class ApiConstants {
 }
 
 class ApiErrors {
-  static const String badRequestError = "badRequestError";
-  static const String noContent = "noContent";
-  static const String forbiddenError = "forbiddenError";
-  static const String unauthorizedError = "unauthorizedError";
-  static const String notFoundError = "notFoundError";
-  static const String conflictError = "conflictError";
-  static const String internalServerError = "internalServerError";
-  static const String unknownError = "unknownError";
-  static const String timeoutError = "timeoutError";
-  static const String defaultError = "defaultError";
-  static const String cacheError = "cacheError";
-  static const String noInternetError = "noInternetError";
-  static const String loadingMessage = "loading_message";
-  static const String retryAgainMessage = "retry_again_message";
+  static const String badRequestError = "Bad request, please try again.";
+  static const String noContent = "No content found.";
+  static const String forbiddenError = "Forbidden access.";
+  static const String unauthorizedError = "Unauthorized access. Please login again.";
+  static const String notFoundError = "Resource not found.";
+  static const String conflictError = "Conflict occurred.";
+  static const String internalServerError = "Server error, please try again later.";
+  static const String unknownError = "An unknown error occurred.";
+  static const String timeoutError = "Connection timeout. Please check your internet or server status.";
+  static const String defaultError = "Something went wrong. Please try again.";
+  static const String cacheError = "Cache error.";
+  static const String noInternetError = "No internet connection.";
+  static const String loadingMessage = "Loading...";
+  static const String retryAgainMessage = "Please try again.";
   static const String ok = "Ok";
 }
