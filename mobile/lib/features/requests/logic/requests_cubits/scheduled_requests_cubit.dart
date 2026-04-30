@@ -17,10 +17,15 @@ class ScheduledRequestsCubit extends Cubit<RequestsState> {
       requestsRequestModel: RequestsRequestModel(type: 'scheduled'),
     );
     response.when(success: (data) {
-      emit(RequestsState.success(data));
+      if(!isClosed){
+        emit(RequestsState.success(data));
+      }
     }, failure: (error) {
-      emit(
-          RequestsState.failure(errMessage: error.apiErrorModel.message ?? ''));
+      if(!isClosed){
+        emit(
+            RequestsState.failure(
+                errMessage: error.apiErrorModel.message ?? ''));
+      }
     },);
   }
 }

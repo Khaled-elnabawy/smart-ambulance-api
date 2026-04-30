@@ -160,7 +160,7 @@ ApiErrorModel _handleError(DioException error) {
     case DioExceptionType.badResponse:
       if (error.response != null &&
           error.response?.statusCode != null &&
-          error.response?.statusMessage != null) {
+          error.response?.data is Map<String, dynamic>) {
         return ApiErrorModel.fromJson(error.response!.data);
       } else {
         return DataSource.DEFAULT.getFailure();
@@ -168,7 +168,7 @@ ApiErrorModel _handleError(DioException error) {
     case DioExceptionType.unknown:
       if (error.response != null &&
           error.response?.statusCode != null &&
-          error.response?.statusMessage != null) {
+          error.response?.data is Map<String, dynamic>) {
         return ApiErrorModel.fromJson(error.response!.data);
       } else {
         return DataSource.DEFAULT.getFailure();
