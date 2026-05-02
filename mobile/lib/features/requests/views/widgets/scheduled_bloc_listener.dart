@@ -14,6 +14,8 @@ class ScheduledRequestsBlocListener extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ScheduledRequestsCubit, RequestsState>(
+      listenWhen: (previous, current) =>
+      current is Loading || current is Success || current is Failure,
       listener: (context, state) {
         state.whenOrNull(
           loading: () {

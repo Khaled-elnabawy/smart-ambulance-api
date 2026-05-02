@@ -31,7 +31,7 @@ class RequestWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (request.status == 'in_progress') {
+        if (request.status == 'accepted') {
           context.pushNamed(
             Routes.trackingView,
             arguments: {

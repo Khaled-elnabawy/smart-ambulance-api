@@ -15,6 +15,7 @@ class EmergencyRequestsCubit extends Cubit<RequestsState> {
       token: token,
       requestsRequestModel: RequestsRequestModel(type: 'emergency'),
     );
+    if (isClosed) return;
     response.when(
       success: (data) {
         emit(RequestsState.success(data));

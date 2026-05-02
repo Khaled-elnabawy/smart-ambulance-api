@@ -48,10 +48,10 @@ class _TrackingViewState extends State<TrackingView> {
   void initState() {
     super.initState();
     context.read<TrackingCubit>().initTracking(
-          token: widget.token,
-          id: widget.requestId,
-          isDriver: widget.isDriver,
-        );
+      token: widget.token,
+      id: widget.requestId,
+      isDriver: widget.isDriver,
+    );
 
     if (widget.isDriver && widget.request != null) {
       _setDriverInitialMarkers();
@@ -60,7 +60,8 @@ class _TrackingViewState extends State<TrackingView> {
 
   void _setDriverInitialMarkers() async {
     if (widget.request?.pickupLatitude == null ||
-        widget.request?.pickupLongitude == null) return;
+        widget.request?.pickupLongitude == null)
+      return;
 
     LatLng pickup = LatLng(
       double.parse(widget.request!.pickupLatitude!),
@@ -68,12 +69,15 @@ class _TrackingViewState extends State<TrackingView> {
     );
 
     // Get current location once for initial marker
-    final location = await getIt<TrackingRepo>().locationService.getCurrentLocationOnce();
+    final location = await getIt<TrackingRepo>().locationService
+        .getCurrentLocationOnce();
+    if (!mounted) return;
     if (location.latitude == null) return;
 
     LatLng driverLoc = LatLng(location.latitude!, location.longitude!);
 
     await _updateMarkers(pickup, driverLoc);
+    if (!mounted) return;
     _drawRoute(driverLoc, pickup);
   }
 
@@ -89,6 +93,7 @@ class _TrackingViewState extends State<TrackingView> {
         ),
       ),
     );
+    if (!mounted) return;
 
     newMarkers.add(
       Marker(
@@ -100,6 +105,7 @@ class _TrackingViewState extends State<TrackingView> {
         ),
       ),
     );
+    if (!mounted) return;
 
     setState(() {
       markers = newMarkers;
@@ -208,6 +214,7 @@ class _TrackingViewState extends State<TrackingView> {
       _isRouteDrawn = true;
       _drawRoute(driverLoc, pickup);
     } else {
+      if (!mounted) return;
       _mapController?.animateCamera(CameraUpdate.newLatLng(driverLoc));
     }
   }
@@ -223,6 +230,7 @@ class _TrackingViewState extends State<TrackingView> {
     );
 
     final res = await trackingRepo.getRoute(req);
+    if (!mounted) return;
     res.when(
       success: (data) {
         if (data.features != null && data.features!.isNotEmpty) {

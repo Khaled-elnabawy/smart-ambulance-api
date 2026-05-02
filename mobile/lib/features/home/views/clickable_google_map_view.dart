@@ -33,6 +33,7 @@ class _ClickableGoogleMapViewState extends State<ClickableGoogleMapView> {
 
   void _getCurrentLocation() async {
     LatLng? pickCurrentLocation = await homeRepo.getCurrentLocation();
+    if (!mounted) return;
     if (pickCurrentLocation != null) {
       selectedLocation = pickCurrentLocation;
       currentLocation = pickCurrentLocation;

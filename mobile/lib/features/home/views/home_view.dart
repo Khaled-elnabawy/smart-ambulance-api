@@ -43,16 +43,19 @@ class _HomeViewState extends State<HomeView> {
 
   void _getCurrentLocation() async {
     LatLng? currentLocation = await homeRepo.getCurrentLocation();
+    if (!mounted) return;
     if (currentLocation != null) {
       currentLatitude = currentLocation.latitude;
       currentLongitude = currentLocation.longitude;
+      final icon = await BitmapDescriptor.asset(
+        ImageConfiguration.empty,
+        'assets/images/help_point.png',
+      );
+      if (!mounted) return;
       me = Marker(
         markerId: MarkerId('me'),
         position: currentLocation,
-        icon: await BitmapDescriptor.asset(
-          ImageConfiguration.empty,
-          'assets/images/help_point.png',
-        ),
+        icon: icon,
       );
       _mapController?.animateCamera(CameraUpdate.newLatLng(currentLocation));
     }
