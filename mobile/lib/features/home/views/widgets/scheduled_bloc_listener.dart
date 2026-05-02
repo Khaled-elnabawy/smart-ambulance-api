@@ -4,7 +4,6 @@ import 'package:mobile/features/home/logic/scheduled_cubit.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
-import '../../logic/emergency_cubit.dart';
 import '../../logic/home_state.dart';
 
 class ScheduledBlocListener extends StatelessWidget {
@@ -27,8 +26,7 @@ class ScheduledBlocListener extends StatelessWidget {
             );
           },
           success: (emergencyResponseModel) {
-            // navigate to home
-            context.pop();
+            setupSuccessState(context, 'success scheduled request');
           },
           failure: (errMessage) {
             // show error message
@@ -37,6 +35,23 @@ class ScheduledBlocListener extends StatelessWidget {
         );
       },
       child: const SizedBox.shrink(),
+    );
+  }
+  void setupSuccessState(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: Icon(Icons.check, color: Colors.green, size: 32),
+        content: Text(message, style: TextStyles.font22BlackRegular),
+        actions: [
+          TextButton(
+            onPressed: () {
+              context.pop();
+            },
+            child: Text('OK', style: TextStyles.font16RedBold),
+          ),
+        ],
+      ),
     );
   }
   void setupErrorState(BuildContext context, String errMessage) {
