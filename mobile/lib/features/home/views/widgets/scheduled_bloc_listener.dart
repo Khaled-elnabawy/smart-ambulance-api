@@ -26,6 +26,7 @@ class ScheduledBlocListener extends StatelessWidget {
             );
           },
           success: (emergencyResponseModel) {
+            context.pop();
             setupSuccessState(context, 'success scheduled request');
           },
           failure: (errMessage) {

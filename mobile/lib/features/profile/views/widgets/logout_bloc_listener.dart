@@ -28,6 +28,7 @@ class LogoutBlocListener extends StatelessWidget {
             );
           },
           success: (response) {
+            context.pop();
             setupSuccessState(context, response.message ?? '');
           },
           failure: (errMessage) {
@@ -46,7 +47,6 @@ class LogoutBlocListener extends StatelessWidget {
   }
 
   void setupSuccessState(BuildContext context, String successMessage) {
-    context.pop();
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

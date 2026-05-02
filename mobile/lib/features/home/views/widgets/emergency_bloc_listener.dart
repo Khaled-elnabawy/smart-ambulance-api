@@ -26,6 +26,7 @@ class EmergencyBlocListener extends StatelessWidget {
             );
           },
           success: (emergencyResponseModel) {
+            context.pop();
             setupSuccessState(context, 'success emergency request');
           },
           failure: (errMessage) {

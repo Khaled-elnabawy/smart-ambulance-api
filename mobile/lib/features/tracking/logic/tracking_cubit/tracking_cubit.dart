@@ -42,12 +42,15 @@ class TrackingCubit extends Cubit<TrackingState> {
 
   void _startDriverTracking(String token, int id) {
     emit(const TrackingState.loading());
+    getTrackingData(token: token, id: id);
+
 
     _locationSubscription = _trackingRepo.getLiveLocation().listen((latLng) {
       emit(TrackingState.locationUpdated(latLng));
     });
 
-    _timer = Timer.periodic(const Duration(seconds: 10), (timer) async {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) async {
+      getTrackingData(token: token, id: id);
       final currentLocation = await _trackingRepo.locationService
           .getCurrentLocationOnce();
       if (currentLocation.latitude != null &&

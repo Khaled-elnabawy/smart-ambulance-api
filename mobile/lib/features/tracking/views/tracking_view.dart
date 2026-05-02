@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -47,6 +48,20 @@ class _TrackingViewState extends State<TrackingView> {
   @override
   void initState() {
     super.initState();
+    if (widget.request != null) {
+      _requestData = TrackRequestData(
+        requestId: widget.request!.id,
+        status: widget.request!.status,
+        requestType: widget.request!.requestType,
+        pickupLatitude: widget.request!.pickupLatitude,
+        pickupLongitude: widget.request!.pickupLongitude,
+        destinationLatitude: widget.request!.destinationLatitude,
+        destinationLongitude: widget.request!.destinationLongitude,
+        scheduledTime: widget.request!.scheduledTime,
+        membersCount: widget.request!.membersCount,
+      );
+    }
+
     context.read<TrackingCubit>().initTracking(
       token: widget.token,
       id: widget.requestId,
@@ -60,8 +75,9 @@ class _TrackingViewState extends State<TrackingView> {
 
   void _setDriverInitialMarkers() async {
     if (widget.request?.pickupLatitude == null ||
-        widget.request?.pickupLongitude == null)
+        widget.request?.pickupLongitude == null) {
       return;
+    }
 
     LatLng pickup = LatLng(
       double.parse(widget.request!.pickupLatitude!),
@@ -120,11 +136,14 @@ class _TrackingViewState extends State<TrackingView> {
         token: widget.token,
         isDriver: widget.isDriver,
         onTrackingDataUpdated: (data) async {
-          if (!widget.isDriver) {
+          log('tracking data updated');
+          log(data.toString());
             setState(() {
+              log(data.toString());
               _requestData = data;
             });
-            await _updateMapWithTrackingData(data);
+            if (!widget.isDriver) {
+              await _updateMapWithTrackingData(data);
           }
         },
         onLocalLocationUpdated: (latLng) async {
@@ -158,6 +177,7 @@ class _TrackingViewState extends State<TrackingView> {
       markers: markers,
       polylines: polylines,
       initialCameraPosition: initialCameraPosition,
+      mapToolbarEnabled: false,
       zoomControlsEnabled: false,
       onMapCreated: (GoogleMapController controller) {
         _mapController = controller;

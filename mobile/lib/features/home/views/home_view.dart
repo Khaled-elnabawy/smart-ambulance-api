@@ -82,6 +82,7 @@ class _HomeViewState extends State<HomeView> {
             markers: markers,
             polylines: polylines,
             initialCameraPosition: initialCameraPosition,
+            mapToolbarEnabled: false,
             zoomControlsEnabled: false,
             onTap: (LatLng position) {
               setState(() {

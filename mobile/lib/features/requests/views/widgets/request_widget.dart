@@ -45,7 +45,7 @@ class RequestWidget extends StatelessWidget {
       },
       child: Container(
         width: 370.w,
-        height: 172.h,
+        height: 174.h,
         margin: EdgeInsets.only(bottom: 16.h, left: 30.w, right: 30.w),
         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
         decoration: BoxDecoration(
@@ -106,11 +106,15 @@ class RequestWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20.r),
                           ),
                           child: Text(
-                            request.status == 'pending'
+                            request.status == 'accepted'
+                                ? 'accepted'
+                                : request.status == 'pending'
                                 ? 'Pending'
                                 : request.status == 'in_progress'
                                 ? 'In Progress'
-                                : 'Completed',
+                                : request.status == 'completed'
+                                ? 'Completed'
+                                : 'Cancelled',
                             style:
                                 request.status == 'pending' ||
                                     request.status == 'in_progress'
@@ -126,19 +130,16 @@ class RequestWidget extends StatelessWidget {
             ),
             verticalSpacing(16),
             Text(
-              '7 Port Said St., Near Mansoura Stadium',
-              style: TextStyles.font16BlackBold,
-            ),
-            verticalSpacing(8),
-            Text(
               '${request.createdAt?.split(' ').first}        ${request.createdAt?.split(' ').last}',
               style: TextStyles.font16LightGrayWithOpacityMedium.copyWith(
                 height: 1.5,
               ),
             ),
-            verticalSpacing(16),
+            Spacer(),
             Row(
-              mainAxisAlignment: isDriver ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
+              mainAxisAlignment: isDriver
+                  ? MainAxisAlignment.spaceBetween
+                  : MainAxisAlignment.start,
               children: [
                 Visibility(
                   visible: request.status == 'pending' && isDriver,
@@ -160,7 +161,9 @@ class RequestWidget extends StatelessWidget {
                   visible: request.status == 'pending',
                   child: GenericTextButton(
                     buttonText: 'Cancel',
-                    textStyle: isDriver ? TextStyles.font16RedBold : TextStyles.font16WhiteBold,
+                    textStyle: isDriver
+                        ? TextStyles.font16RedBold
+                        : TextStyles.font16WhiteBold,
                     buttonWidth: 120.w,
                     buttonHeight: 42.h,
                     borderRadius: 16.r,
