@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../theming/colors.dart';
+import '../theming/styles.dart';
+
+// generic text form field for all any text form field
+class GenericTextFormField extends StatelessWidget {
+  final EdgeInsetsGeometry? contentPadding;
+  final InputBorder? focusBorder;
+  final InputBorder? enableBorder;
+  final TextStyle? inputTextStyle;
+  final TextStyle? hintStyle;
+  final String hintText;
+  final bool? isObscureText;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final Color? backgroundColor;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+
+  const GenericTextFormField({
+    super.key,
+    this.contentPadding,
+    this.focusBorder,
+    this.enableBorder,
+    this.inputTextStyle,
+    this.hintStyle,
+    required this.hintText,
+    this.isObscureText,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.backgroundColor,
+    this.controller,
+    this.validator,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        isDense: true,
+        contentPadding:
+            contentPadding ??
+            EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        enabledBorder:
+            enableBorder ??
+            OutlineInputBorder(
+              borderSide: BorderSide(
+                color: ColorsManager.lighterGrey,
+                width: 1.2,
+              ),
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+        focusedBorder:
+            focusBorder ??
+            OutlineInputBorder(
+              borderSide: BorderSide(color: ColorsManager.red, width: 1.2),
+              borderRadius: BorderRadius.circular(20),
+            ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red, width: 1.3),
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red, width: 1.3),
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        hintStyle: hintStyle ?? TextStyles.font16LightGrayWithOpacityRegular,
+        hintText: hintText,
+        suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
+        fillColor: backgroundColor ?? ColorsManager.lighterGrey,
+        filled: true,
+      ),
+      obscureText: isObscureText ?? false,
+      style: inputTextStyle,
+      validator: validator,
+    );
+  }
+}
