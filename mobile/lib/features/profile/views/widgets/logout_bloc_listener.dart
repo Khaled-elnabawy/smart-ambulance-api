@@ -55,7 +55,10 @@ class LogoutBlocListener extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              context.pop();
+              context.pushNamedAndRemoveUntil(
+                Routes.loginView,
+                predicate: (route) => false,
+              );
             },
             child: Text('OK', style: TextStyles.font16RedBold),
           ),
