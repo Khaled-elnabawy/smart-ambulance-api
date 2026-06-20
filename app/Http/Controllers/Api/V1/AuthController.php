@@ -28,6 +28,14 @@ class AuthController extends Controller
                 'confirm_password' => 'required|string|same:password',
             ]);
 
+            // Cross-table check: ensure email is not used by a driver
+            if (Driver::where('email', $validated['email'])->exists()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Email already used by a driver',
+                ], Response::HTTP_CONFLICT);
+            }
+
             $user = User::create([
                 'name' => $validated['name'],
                 'phone' => $validated['phone'],
@@ -57,7 +65,15 @@ class AuthController extends Controller
         }
     }
 
-    public function userLogin(Request $request)
+    /**
+     * Unified Login (User or Driver)
+     * POST /api/v1/login
+     * Body: { "email": "...", "password": "..." }
+     *
+     * Searches users table first, then drivers table.
+     * Returns user_type to identify the account type.
+     */
+    public function login(Request $request)
     {
         try {
             $validated = $request->validate([
@@ -65,70 +81,59 @@ class AuthController extends Controller
                 'password' => 'required|string',
             ]);
 
+            // Step 1: Search in users table
             $user = User::where('email', $validated['email'])->first();
 
-            if (!$user || !Hash::check($validated['password'], $user->password)) {
+            if ($user && Hash::check($validated['password'], $user->password)) {
+                $token = $user->createToken('auth_token')->plainTextToken;
+
                 return response()->json([
-                    'status' => false,
-                    'message' => 'Invalid credentials',
-                ], Response::HTTP_UNAUTHORIZED);
+                    'status' => true,
+                    'message' => 'Login successful',
+                    'data' => [
+                        'id' => $user->id,
+                        'name' => $user->name,
+                        'email' => $user->email,
+                        'phone' => $user->phone,
+                        'token' => $token,
+                        'user_type' => 'user',
+                        'rating' => null,
+                    ],
+                ], Response::HTTP_OK);
             }
 
-            $token = $user->createToken('auth_token')->plainTextToken;
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Login successful',
-                'data' => [
-                    'user' => $user,
-                    'token' => $token,
-                    'user_type' => 'user',
-                    'rating' => null,
-                ],
-            ], Response::HTTP_OK);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validation failed',
-                'errors' => $e->errors(),
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-    }
-
-    public function driverLogin(Request $request)
-    {
-        try {
-            $validated = $request->validate([
-                'email' => 'required|string|email',
-                'password' => 'required|string',
-            ]);
-
+            // Step 2: Search in drivers table
             $driver = Driver::where('email', $validated['email'])->first();
 
-            if (!$driver || !Hash::check($validated['password'], $driver->password)) {
+            if ($driver && Hash::check($validated['password'], $driver->password)) {
+                $token = $driver->createToken('auth_token')->plainTextToken;
+
+                // Calculate driver's average rating
+                $avgRating = DB::table('ratings')
+                    ->where('driver_id', $driver->id)
+                    ->avg('rating');
+
                 return response()->json([
-                    'status' => false,
-                    'message' => 'Invalid credentials',
-                ], Response::HTTP_UNAUTHORIZED);
+                    'status' => true,
+                    'message' => 'Login successful',
+                    'data' => [
+                        'id' => $driver->id,
+                        'name' => $driver->name,
+                        'email' => $driver->email,
+                        'phone' => $driver->phone,
+                        'token' => $token,
+                        'user_type' => 'driver',
+                        'rating' => $avgRating ? round((float) $avgRating, 2) : null,
+                    ],
+                ], Response::HTTP_OK);
             }
 
-            $token = $driver->createToken('auth_token')->plainTextToken;
-
-            // Calculate driver's average rating
-            $avgRating = DB::table('ratings')
-                ->where('driver_id', $driver->id)
-                ->avg('rating');
-
+            // Step 3: Not found in both tables
             return response()->json([
-                'status' => true,
-                'message' => 'Login successful',
-                'data' => [
-                    'driver' => $driver,
-                    'token' => $token,
-                    'user_type' => 'driver',
-                    'rating' => $avgRating ? round((float) $avgRating, 2) : null,
-                ],
-            ], Response::HTTP_OK);
+                'status' => false,
+                'message' => 'Invalid credentials',
+            ], Response::HTTP_UNAUTHORIZED);
+
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => false,
