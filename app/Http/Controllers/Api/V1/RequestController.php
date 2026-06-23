@@ -72,6 +72,19 @@ class RequestController extends Controller
             ], Response::HTTP_FORBIDDEN);
         }
 
+        // Check if user already has an active request
+        $activeRequest = DB::table('requests')
+            ->where('user_id', $user->id)
+            ->whereIn('status', ['pending', 'accepted', 'arrived'])
+            ->first();
+
+        if ($activeRequest) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You already have an active request. Please complete or cancel it first.',
+            ], Response::HTTP_CONFLICT);
+        }
+
         try {
             $validated = $request->validated();
 
