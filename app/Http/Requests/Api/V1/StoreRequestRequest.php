@@ -21,6 +21,7 @@ class StoreRequestRequest extends FormRequest
             'pickup_longitude' => 'required|numeric',
             'destination_latitude' => $isScheduled ? 'required|numeric' : 'nullable|numeric',
             'destination_longitude' => $isScheduled ? 'required|numeric' : 'nullable|numeric',
+            'destination_name' => $isScheduled ? 'required|string|max:255' : 'nullable|string|max:255',
             'scheduled_time' => $this->getScheduledTimeRules(),
             'members_count' => $isScheduled ? 'required|integer|min:1' : 'nullable|integer|min:1',
         ];

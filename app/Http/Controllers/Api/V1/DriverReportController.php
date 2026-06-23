@@ -51,7 +51,44 @@ class DriverReportController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return compact('driver', 'summary', 'requests', 'month');
+        // جلب التقييمات
+        $averageRating = DB::table('ratings')
+            ->where('driver_id', $driverId)
+            ->whereBetween('created_at', [$startOfMonth . ' 00:00:00', $endOfMonth . ' 23:59:59'])
+            ->avg('rating') ?? 0;
+
+        $totalRatings = DB::table('ratings')
+            ->where('driver_id', $driverId)
+            ->whereBetween('created_at', [$startOfMonth . ' 00:00:00', $endOfMonth . ' 23:59:59'])
+            ->count();
+
+        $ratings = DB::table('ratings')
+            ->where('driver_id', $driverId)
+            ->whereBetween('created_at', [$startOfMonth . ' 00:00:00', $endOfMonth . ' 23:59:59'])
+            ->get()
+            ->keyBy('request_id');
+
+        $ratingStatus = $this->getStatusByRating($averageRating);
+
+        return compact('driver', 'summary', 'requests', 'month', 'averageRating', 'totalRatings', 'ratings', 'ratingStatus');
+    }
+
+    /**
+     * Get status based on average rating
+     */
+    private function getStatusByRating($averageRating)
+    {
+        if ($averageRating >= 4.5) {
+            return 'EXCELLENT';
+        } elseif ($averageRating >= 3.5) {
+            return 'GOOD';
+        } elseif ($averageRating >= 2.5) {
+            return 'AVERAGE';
+        } elseif ($averageRating >= 1.5) {
+            return 'POOR';
+        } else {
+            return 'CRITICAL';
+        }
     }
 
     /**
@@ -69,6 +106,8 @@ class DriverReportController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
 
+        $ratingStatus = $this->getStatusByRating($data['averageRating']);
+
         return response()->json([
             'status' => true,
             'data' => [
@@ -77,6 +116,9 @@ class DriverReportController extends Controller
                 'generated_at' => now()->toDateTimeString(),
                 'driver' => $data['driver'],
                 'summary' => $data['summary'],
+                'average_rating' => round($data['averageRating'], 2),
+                'rating_status' => $ratingStatus,
+                'total_ratings' => $data['totalRatings'],
                 'requests' => $data['requests']->map(function ($r, $index) {
                     return [
                         'number'        => $index + 1,

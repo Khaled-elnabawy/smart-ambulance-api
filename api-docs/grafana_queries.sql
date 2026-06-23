@@ -13,7 +13,7 @@ SELECT
     r.total_requests,
     r.avg_response_time,
     r.avg_arrival_time,
-    r.efficiency,
+    r.efficiency AS 'Driver Performance',
     r.performance_score,
     r.ranking,
     r.status,
@@ -32,7 +32,7 @@ SELECT
     r.total_requests,
     r.avg_response_time,
     r.avg_arrival_time,
-    r.efficiency,
+    r.efficiency AS 'Driver Performance',
     r.performance_score,
     r.ranking,
     r.status
@@ -51,7 +51,7 @@ SELECT
     r.total_requests,
     r.avg_response_time,
     r.avg_arrival_time,
-    r.efficiency,
+    r.efficiency AS 'Driver Performance',
     r.performance_score,
     r.ranking,
     r.status
@@ -79,7 +79,7 @@ SELECT
     month,
     performance_score,
     total_requests,
-    efficiency
+    efficiency AS 'Driver Performance'
 FROM driver_monthly_reports
 WHERE driver_id = $driver_id
 ORDER BY month ASC;
@@ -92,7 +92,7 @@ SELECT
     AVG(performance_score) AS avg_score,
     AVG(avg_response_time) AS avg_response,
     AVG(avg_arrival_time) AS avg_arrival,
-    AVG(efficiency) AS avg_efficiency,
+    AVG(efficiency) AS 'Driver Performance',
     SUM(total_requests) AS total_fleet_requests
 FROM driver_monthly_reports
 GROUP BY month

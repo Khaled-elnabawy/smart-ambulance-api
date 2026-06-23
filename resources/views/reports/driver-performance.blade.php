@@ -167,6 +167,61 @@
             font-weight: 600;
         }
 
+        .rating-badge {
+            background: white;
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            padding: 18px 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .rating-badge .rating-value {
+            font-size: 26px;
+            font-weight: 800;
+            color: #FFD700;
+        }
+
+        .rating-badge .rating-label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        .rating-status-badge {
+            background: white;
+            border-radius: 10px;
+            padding: 18px 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 2px solid;
+        }
+
+        .rating-status-badge.excellent { border-color: #10b981; background: #ECFDF5; }
+        .rating-status-badge.good { border-color: #3b82f6; background: #EFF6FF; }
+        .rating-status-badge.average { border-color: #f59e0b; background: #FFFBEB; }
+        .rating-status-badge.poor { border-color: #ef4444; background: #FEE2E2; }
+        .rating-status-badge.critical { border-color: #dc2626; background: #FEE2E2; }
+
+        .rating-status-badge .status-value {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .rating-status-badge.excellent .status-value { color: #10b981; }
+        .rating-status-badge.good .status-value { color: #3b82f6; }
+        .rating-status-badge.average .status-value { color: #f59e0b; }
+        .rating-status-badge.poor .status-value { color: #ef4444; }
+        .rating-status-badge.critical .status-value { color: #dc2626; }
+
+        .rating-status-badge .status-label {
+            font-size: 11px;
+            color: #666;
+            font-weight: 600;
+        }
+
         /* Status & Ranking */
         .status-row {
             display: grid;
@@ -353,23 +408,19 @@
                     </div>
                     <div class="card">
                         <div class="card-value">{{ $summary->efficiency }}</div>
-                        <div class="card-label">Efficiency (min)</div>
+                        <div class="card-label">Total Average Time (min)</div>
                     </div>
                 </div>
 
-                <!-- Status & Ranking -->
-                <div class="status-row">
-                    <div class="status-card {{ $summary->status === 'HIGH' ? 'status-high' : ($summary->status === 'MEDIUM' ? 'status-medium' : 'status-low') }}">
-                        <div class="status-value">{{ $summary->status }}</div>
-                        <div class="status-label">Status</div>
+                <!-- Rating Badge -->
+                <div class="cards">
+                    <div class="rating-badge">
+                        <div class="rating-value">{{ number_format($averageRating, 2) }} ⭐</div>
+                        <div class="rating-label">Average Rating ({{ $totalRatings }} ratings)</div>
                     </div>
-                    <div class="status-card ranking-card">
-                        <div class="status-value">#{{ $summary->ranking }}</div>
-                        <div class="status-label">Ranking</div>
-                    </div>
-                    <div class="status-card ranking-card">
-                        <div class="status-value">{{ $summary->performance_score }}</div>
-                        <div class="status-label">Performance Score</div>
+                    <div class="rating-status-badge {{ strtolower($ratingStatus) }}">
+                        <div class="status-value">{{ $ratingStatus }}</div>
+                        <div class="status-label">Rating Status</div>
                     </div>
                 </div>
             </div>
@@ -395,6 +446,7 @@
                             <th>Response (min)</th>
                             <th>Arrival (min)</th>
                             <th>Total (min)</th>
+                            <th>Rating</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -409,6 +461,13 @@
                             <td>{{ $r->response_time }}</td>
                             <td>{{ $r->arrival_time }}</td>
                             <td>{{ $r->total_time }}</td>
+                            <td>
+                                @if(isset($ratings[$r->id]))
+                                    <span style="color: #FFD700; font-weight: bold;">{{ $ratings[$r->id]->rating }}/5 ⭐</span>
+                                @else
+                                    <span style="color: #ccc;">—</span>
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
