@@ -29,7 +29,7 @@ class RequestController extends Controller
                 'pickup_longitude',
                 'destination_latitude',
                 'destination_longitude',
-                'destination_name',
+                // 'destination_name',
                 'scheduled_time',
                 'members_count',
                 'driver_id',
@@ -97,7 +97,7 @@ class RequestController extends Controller
                     'pickup_longitude' => $validated['pickup_longitude'],
                     'destination_latitude' => $validated['destination_latitude'] ?? null,
                     'destination_longitude' => $validated['destination_longitude'] ?? null,
-                    'destination_name' => $validated['destination_name'] ?? null,
+                    // 'destination_name' => $validated['destination_name'] ?? null,
                     'scheduled_time' => $validated['scheduled_time'] ?? null,
                     'members_count' => $validated['members_count'] ?? 1,
                     'created_at' => now(),
@@ -161,7 +161,7 @@ class RequestController extends Controller
                     'r.pickup_longitude',
                     'r.destination_latitude',
                     'r.destination_longitude',
-                    'r.destination_name',
+                    // 'r.destination_name',
                     'r.scheduled_time',
                     'r.members_count',
                     'd.id as driver_id',
@@ -190,7 +190,7 @@ class RequestController extends Controller
                 'pickup_longitude' => $request->pickup_longitude,
                 'destination_latitude' => $request->destination_latitude,
                 'destination_longitude' => $request->destination_longitude,
-                'destination_name' => $request->destination_name,
+                // 'destination_name' => $request->destination_name,
                 'scheduled_time' => $request->scheduled_time,
                 'members_count' => $request->members_count,
             ];
@@ -273,8 +273,8 @@ class RequestController extends Controller
                     ->lockForUpdate()
                     ->first();
 
-                if (!$driverRecord || $driverRecord->status !== 'available') {
-                    return ['status' => false, 'message' => 'Driver is not available', 'code' => Response::HTTP_BAD_REQUEST];
+                if (!$driverRecord || $driverRecord->status !== 'pending') {
+                    return ['status' => false, 'message' => 'Driver is not assigned to any pending request', 'code' => Response::HTTP_BAD_REQUEST];
                 }
 
                 // Update request status to accepted
@@ -696,7 +696,11 @@ class RequestController extends Controller
                 if ($request->driver_id) {
                     DB::table('drivers')
                         ->where('id', $request->driver_id)
-                        ->update(['status' => 'available']);
+                        ->update([
+                            'status' => 'available',
+                            'home_latitude' => null,
+                            'home_longitude' => null,
+                        ]);
                 }
 
                 // Log the cancellation action
@@ -899,6 +903,7 @@ class RequestController extends Controller
             ->update([
                 'home_latitude' => DB::raw('last_latitude'),
                 'home_longitude' => DB::raw('last_longitude'),
+                'status' => 'pending',  // ← Set to pending (awaiting driver response)
             ]);
 
         // Assign the nearest driver to the request

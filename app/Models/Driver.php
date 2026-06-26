@@ -34,5 +34,6 @@ class Driver extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'last_location_update' => 'datetime',
+        'status' => 'string',  // status values: offline, available, pending, busy
     ];
 }

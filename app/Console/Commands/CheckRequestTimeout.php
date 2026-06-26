@@ -117,12 +117,13 @@ class CheckRequestTimeout extends Command
             return;
         }
 
-        // Save driver's home location
+        // Save driver's home location and set status to pending
         DB::table('drivers')
             ->where('id', $availableDriver->id)
             ->update([
                 'home_latitude' => DB::raw('last_latitude'),
                 'home_longitude' => DB::raw('last_longitude'),
+                'status' => 'pending',  // ← Set to pending (awaiting driver response)
             ]);
 
         // Assign new driver
