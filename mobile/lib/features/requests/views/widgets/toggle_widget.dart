@@ -21,7 +21,7 @@ class _ToggleWidgetState extends State<ToggleWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 208.w,
+      width: 228.w,
       height: 47.h,
       padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.h),
       alignment: Alignment.center,
@@ -32,16 +32,16 @@ class _ToggleWidgetState extends State<ToggleWidget> {
       ),
       child: Stack(
         children: [
-          AnimatedPositioned(
-            duration: Duration(milliseconds: 300),
+          AnimatedAlign(
+            duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
-            left: isSOS ? 0 : sosWidth,
+            alignment: isSOS ? Alignment.centerLeft : Alignment.centerRight,
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               width: isSOS ? sosWidth : scheduledWidth,
               height: 39.h,
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: ColorsManager.red,
                 borderRadius: BorderRadius.circular(51.r),
               ),
             ),
