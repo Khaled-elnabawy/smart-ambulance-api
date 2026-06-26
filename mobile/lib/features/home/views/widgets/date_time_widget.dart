@@ -59,19 +59,23 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        buildField(
-          title: "Date",
-          value: dateText??"Select Date",
-          icon: Icons.calendar_today,
-          onTap: pickDate,
+        Expanded(
+          child: buildField(
+            title: "Date",
+            value: dateText??"Select Date",
+            icon: Icons.calendar_today,
+            onTap: pickDate,
+          ),
         ),
-        buildField(
-          title: "Time",
-          value: timeText??"Select Time",
-          icon: Icons.access_time,
-          onTap: pickTime,
+        horizontalSpacing(16),
+        Expanded(
+          child: buildField(
+            title: "Time",
+            value: timeText??"Select Time",
+            icon: Icons.access_time,
+            onTap: pickTime,
+          ),
         ),
       ],
     );
@@ -99,15 +103,18 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  value,
-                  style: TextStyle(
-                    color: value.contains("Select")
-                        ? Colors.grey
-                        : Colors.black,
+                Expanded(
+                  child: Text(
+                    value,
+                    style: TextStyle(
+                      color: value.contains("Select")
+                          ? Colors.grey
+                          : Colors.black,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                horizontalSpacing(30),
+                horizontalSpacing(8),
                 Icon(icon, color: Colors.red),
               ],
             ),
