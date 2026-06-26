@@ -37,6 +37,7 @@ Request _$RequestFromJson(Map<String, dynamic> json) => Request(
   driverId: (json['driver_id'] as num?)?.toInt(),
   userId: (json['user_id'] as num?)?.toInt(),
   createdAt: json['created_at'] as String?,
+  rating: (json['rating'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$RequestToJson(Request instance) => <String, dynamic>{
@@ -52,4 +53,5 @@ Map<String, dynamic> _$RequestToJson(Request instance) => <String, dynamic>{
   'driver_id': instance.driverId,
   'user_id': instance.userId,
   'created_at': instance.createdAt,
+  'rating': instance.rating,
 };

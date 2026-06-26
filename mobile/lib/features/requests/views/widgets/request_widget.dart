@@ -12,8 +12,11 @@ import 'package:mobile/features/requests/views/widgets/confirm_bloc_listener.dar
 import 'package:mobile/features/requests/views/widgets/reject_bloc_listener.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
+import '../../../tracking/views/widgets/rating_dialog.dart';
 import '../../../../core/theming/styles.dart';
 import '../../../../core/widgets/generic_text_button.dart';
+import '../../../../core/di/dependency_injection.dart';
+import '../../../tracking/logic/rating_cubit/rating_cubit.dart';
 
 class RequestWidget extends StatelessWidget {
   final Request request;
@@ -31,7 +34,7 @@ class RequestWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (request.status == 'accepted') {
+        if (request.status == 'accepted'|| request.status == 'arrived') {
           context.pushNamed(
             Routes.trackingView,
             arguments: {
@@ -40,6 +43,20 @@ class RequestWidget extends StatelessWidget {
               'isDriver': isDriver,
               'request': request,
             },
+          );
+        } else if (!isDriver &&
+            (request.status?.toLowerCase() == 'completed' || request.status?.toLowerCase() == 'complete') &&
+            request.rating == null) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => BlocProvider(
+              create: (context) => getIt<RatingCubit>(),
+              child: RatingDialog(
+                requestId: request.id!,
+                token: token,
+              ),
+            ),
           );
         }
       },
@@ -102,6 +119,8 @@ class RequestWidget extends StatelessWidget {
                                 ? Color(0xffFBDE80)
                                 : request.status == 'in_progress'
                                 ? Color(0xffF7DADA)
+                                : request.status == 'cancelled'
+                                ? Colors.red
                                 : Color(0xff319F43).withValues(alpha: .8),
                             borderRadius: BorderRadius.circular(20.r),
                           ),
@@ -114,6 +133,8 @@ class RequestWidget extends StatelessWidget {
                                 ? 'In Progress'
                                 : request.status == 'completed'
                                 ? 'Completed'
+                                : request.status == 'arrived'
+                                ? 'Arrived'
                                 : 'Cancelled',
                             style:
                                 request.status == 'pending' ||
