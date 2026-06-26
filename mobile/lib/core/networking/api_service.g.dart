@@ -557,7 +557,7 @@ class _ApiService implements ApiService {
     final _data = <String, dynamic>{};
     _data.addAll(editProfileRequestModel.toJson());
     final _options = _setStreamType<EditProfileResponseModel>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+      Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
             'v1/profile/update',

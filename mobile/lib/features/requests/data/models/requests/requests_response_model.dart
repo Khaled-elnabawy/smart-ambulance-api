@@ -41,6 +41,8 @@ class Request {
   @JsonKey(name: 'created_at')
   final String? createdAt;
 
+  final int? rating;
+
   Request({
     this.id,
     this.requestType,
@@ -54,6 +56,7 @@ class Request {
     this.driverId,
     this.userId,
     this.createdAt,
+    this.rating,
   });
 
   factory Request.fromJson(Map<String, dynamic> json) =>

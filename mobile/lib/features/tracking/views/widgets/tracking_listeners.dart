@@ -36,14 +36,7 @@ class TrackingListeners extends StatelessWidget {
                 if (response is TrackRequestResponse && response.data != null) {
                   onTrackingDataUpdated(response.data!);
                   if (!isDriver && (response.data!.status?.toLowerCase() == 'completed' || response.data!.status?.toLowerCase() == 'complete')) {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (_) => RatingDialog(
-                        requestId: requestId,
-                        token: token,
-                      ),
-                    );
+                    // Rating is now handled in the requests list screen
                   }
                 }
               },

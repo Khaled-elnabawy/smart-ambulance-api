@@ -12,6 +12,7 @@ import '../../features/requests/logic/cancel_cubit/cancel_cubit.dart';
 import '../../features/requests/logic/confirm_cubit/confirm_cubit.dart';
 import '../../features/requests/logic/reject_cubit/reject_cubit.dart';
 import '../../features/requests/logic/requests_cubits/scheduled_requests_cubit.dart';
+import '../../features/tracking/logic/rating_cubit/rating_cubit.dart';
 import '../../features/requests/views/requests_view.dart';
 import '../../features/profile/views/profile_view.dart';
 import 'navigation/navigation_keys.dart';
@@ -83,6 +84,7 @@ class MainView extends StatelessWidget {
             BlocProvider(create: (context) => getIt<CancelCubit>()),
             BlocProvider(create: (context) => getIt<ConfirmCubit>()),
             BlocProvider(create: (context) => getIt<RejectCubit>()),
+            BlocProvider(create: (context) => getIt<RatingCubit>()),
           ],
           child: RequestsView(
             token: userData?.token ?? '',

@@ -24,6 +24,7 @@ class TitleAndTextFieldWidget extends StatelessWidget {
         Text(title, style: TextStyles.font16BlackMedium),
         verticalSpacing(8),
         GenericTextFormField(
+          controller: controller,
           hintText: hintText,
           hintStyle: TextStyles.font16LightGrayRegular,
           enableBorder: OutlineInputBorder(

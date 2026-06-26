@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/core/helpers/spacing.dart';
 import 'package:mobile/features/profile/logic/edit_profile/edit_profile_cubit.dart';
+import 'package:mobile/features/profile/logic/edit_profile/edit_profile_state.dart';
+import 'package:mobile/core/theming/colors.dart';
 import 'package:mobile/features/profile/views/widgets/title_and_text_field_widget.dart';
 import '../../../core/helpers/extensions.dart';
 import '../../../core/theming/styles.dart';
@@ -56,6 +58,32 @@ class EditProfileView extends StatelessWidget {
                       key: context.read<EditProfileCubit>().formKey,
                       child: Column(
                         children: [
+                          BlocListener<EditProfileCubit, EditProfileState>(
+                            listener: (context, state) {
+                              state.whenOrNull(
+                                loading: () {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) => const Center(
+                                      child: CircularProgressIndicator(color: ColorsManager.red),
+                                    ),
+                                  );
+                                },
+                                success: (data) {
+                                  context.pop(); // dismiss dialog
+                                  context.pop(data); // pop EditProfileView and pass data
+                                },
+                                failure: (errMessage) {
+                                  context.pop(); // dismiss dialog
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(errMessage)),
+                                  );
+                                },
+                              );
+                            },
+                            child: const SizedBox.shrink(),
+                          ),
                           verticalSpacing(36),
                           TitleAndTextFieldWidget(
                             title: 'User Name',
