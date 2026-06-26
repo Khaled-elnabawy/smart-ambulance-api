@@ -131,7 +131,7 @@ abstract class ApiService {
   @POST(ApiConstants.logout)
   Future<LogoutResponseModel> logout(@Header('Authorization') String token);
 
-  @POST(ApiConstants.editProfile)
+  @PUT(ApiConstants.editProfile)
   Future<EditProfileResponseModel> editProfile(
     @Header('Authorization') String token,
     @Body() EditProfileRequestModel editProfileRequestModel,

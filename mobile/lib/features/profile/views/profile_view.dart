@@ -9,10 +9,11 @@ import 'package:mobile/core/theming/styles.dart';
 import 'package:mobile/features/profile/views/widgets/logout_bloc_listener.dart';
 import 'package:mobile/features/profile/views/widgets/profile_data_widget.dart';
 import 'package:mobile/features/profile/views/widgets/profile_picture_widget.dart';
+import 'package:mobile/features/profile/data/models/edit_profile/edit_profile_response_model.dart';
 
 import '../logic/logout/logout_cubit.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatefulWidget {
   final String userName;
   final String email;
   final String phoneNumber;
@@ -26,8 +27,26 @@ class ProfileView extends StatelessWidget {
     required this.userName,
     required this.email,
     required this.phoneNumber,
-    required this.isDriver, required this.rating,
+    required this.isDriver,
+    required this.rating,
   });
+
+  @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  late String userName;
+  late String email;
+  late String phoneNumber;
+
+  @override
+  void initState() {
+    super.initState();
+    userName = widget.userName;
+    email = widget.email;
+    phoneNumber = widget.phoneNumber;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +92,18 @@ class ProfileView extends StatelessWidget {
                               style: TextStyles.font18BlackMedium,
                             ),
                             GestureDetector(
-                              onTap: () {
-                                context.pushNamed(
+                              onTap: () async {
+                                final result = await context.pushNamed(
                                   Routes.editProfileView,
-                                  arguments: token,
+                                  arguments: widget.token,
                                 );
+                                if (result != null && result is EditProfileResponseModel) {
+                                  setState(() {
+                                    userName = result.data?.userData?.name ?? userName;
+                                    email = result.data?.userData?.email ?? email;
+                                    phoneNumber = result.data?.userData?.phone ?? phoneNumber;
+                                  });
+                                }
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -110,10 +136,10 @@ class ProfileView extends StatelessWidget {
                           title: 'Phone Number',
                           value: phoneNumber,
                         ),
-                        isDriver ? ProfileDataWidget(
+                        widget.isDriver ? ProfileDataWidget(
                           icon: Icons.star_rounded,
                           title: 'OverAll Rating',
-                          value: rating.toString(),
+                          value: widget.rating.toString(),
                         ): SizedBox.shrink(),
                         verticalSpacing(44),
                         Text('Settings', style: TextStyles.font18BlackMedium),
@@ -121,7 +147,7 @@ class ProfileView extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             context.read<LogoutCubit>().emitLogoutState(
-                              token: token,
+                              token: widget.token,
                             );
                           },
                           child: Row(
